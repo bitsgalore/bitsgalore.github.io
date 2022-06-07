@@ -9,7 +9,7 @@ comment_id: 79
   <img src="{{ BASE_PATH }}/images/2022/04/cds.jpg" alt="Compact Discs still life">
 </figure>
 
-It's been a while since the last release of the [Isolyzer](https://github.com/KBNLresearch/isolyzer) tool, but after four years of near-inactivity I just published [a release candidate for Isolyzer 1.4](https://github.com/KBNLresearch/isolyzer/releases/tag/1.4.0rc1). In this post I provide some background information on how this release came about, and I briefly explain the main changes.
+It's been a while since the last release of the [Isolyzer](https://github.com/KBNLresearch/isolyzer) tool, but after four years of near-inactivity I just published [Isolyzer 1.4](https://github.com/KBNLresearch/isolyzer/releases/tag/1.4.0). In this post I provide some background information on how this release came about, and I briefly explain the main changes.
 
 <!-- more -->
 
@@ -47,29 +47,33 @@ In addition to the above changes, this release also includes several minor bug f
 
 ## Installation
 
-As the current release candidate is a pre-release, make sure to include the `--pre` option if you install it with pip. For example, for a fresh single-user install use: 
+For a fresh single-user install with pip use: 
 
 ```bash
-pip install isolyzer --pre --user
+pip install isolyzer --user
 ```
 
 To upgrade an existing version of Isolyzer, use:
 
 ```bash
-pip install isolyzer --upgrade --pre --user
+pip install isolyzer --upgrade --user
 ```
 
-Alternatively, Windows users can use the binaries that are available from [the release page](https://github.com/KBNLresearch/isolyzer/releases/tag/1.4.0rc1). As always, these binaries are completely stand-alone, and don’t require Python on your machine.
+Alternatively, Windows users can use the binaries that are available from [the release page](https://github.com/KBNLresearch/isolyzer/releases/tag/1.4.0). As always, these binaries are completely stand-alone, and don’t require Python on your machine.
 
 ## Feedback welcome
 
-As always, feedback on this pre-release is very welcome. I'm particularly interested in feedback from Windows users, as I haven't so far been able to thoroughly test this release on Windows. Please feel free to [report an issue](https://github.com/KBNLresearch/isolyzer/issues/new/choose) if anything doesn't work as expected!
+As always, feedback on this release is very welcome. Please feel free to [report an issue](https://github.com/KBNLresearch/isolyzer/issues/new/choose) if anything doesn't work as expected!
 
 ## Acknowledgements
 
 Thanks are due to Tyler Thorsted for the useful online discussions on the Apple and High Sierra issues, and for providing the necessary test files.
 
+## Revision history
+
+- 7 June 2022: changed all release candidate references to the final 1.4.0 release.
+
 ## Further resources
 
-- [Isolyzer 1.4.0rc1 release page](https://github.com/KBNLresearch/isolyzer/releases/tag/1.4.0rc1)
+- [Isolyzer 1.4.0 release page](https://github.com/KBNLresearch/isolyzer/releases/tag/1.4.0)
 - [Isolyzer on Github (with documentation)](https://github.com/KBNLresearch/isolyzer)
