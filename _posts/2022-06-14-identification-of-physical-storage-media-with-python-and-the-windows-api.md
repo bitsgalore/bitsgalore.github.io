@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Identification of physical storage media and devices with Python and the Windows API
-tags: [disk-imaging, floppy-disks, optical-media]
+tags: [disk-imaging, floppy-disks, optical-media, tapes]
 comment_id: 80
 ---
 
