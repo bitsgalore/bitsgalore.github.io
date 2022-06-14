@@ -165,7 +165,7 @@ The resulting *mediaTypeCode* values are a integer numbers that can be mapped ba
 
 ## Putting it all together
 
-I created a simple [demo script](https://github.com/KBNLresearch/detectStorageMediaType/blob/main/detectStorageMediaType.py) that ties everything discussed here together. It also contains lookup functions that translate the media type and device codes into human-readable strings. You can run it from the command prompt with one or more logical drive names a command-line arguments. For example:
+I created a simple [demo script](https://github.com/KBNLresearch/detectStorageMediaType/blob/main/detectStorageMediaType.py) that ties everything discussed here together. It also contains lookup functions that translate the media type and device codes into human-readable strings. You can run it from the command prompt with one or more logical drive names as command-line arguments. For example:
 
 ```
 python detectStorageMediaType.py A D E
