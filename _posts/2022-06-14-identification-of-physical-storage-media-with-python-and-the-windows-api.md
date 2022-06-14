@@ -159,6 +159,9 @@ for _ in range(mediaInfoCount):
         offset += 8
         mediaTypeCode = struct.unpack("<I",
                           getMediaTypes[offset:offset + 4])[0]
+
+    # Skip to position of next DEVICE_MEDIA_INFO structure
+    offset += 24
 ```
 
 The resulting *mediaTypeCode* values are a integer numbers that can be mapped back to media type strings using the *MEDIA_TYPE* and *STORAGE_MEDIA_TYPE* enumerations in [winioctlcon.py](https://github.com/mhammond/pywin32/blob/main/win32/Lib/winioctlcon.py). These strings are in turn documented [here](https://docs.microsoft.com/en-us/windows/win32/api/winioctl/ne-winioctl-media_type) and [here](https://docs.microsoft.com/en-us/windows/win32/api/winioctl/ne-winioctl-storage_media_type).
