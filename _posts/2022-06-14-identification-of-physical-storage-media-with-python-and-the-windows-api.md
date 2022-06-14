@@ -93,7 +93,7 @@ In this case, the *DeviceIoControl* call contains four arguments:
 
 The output buffer size must be equal to (or larger than) the output that is returned by the function call. The output (a string of raw bytes) is defined by the `DISK_GEOMETRY` structure, which is [documented here](https://docs.microsoft.com/en-us/windows/win32/api/winioctl/ns-winioctl-disk_geometry). It contains 5 fields. The first field is a [large integer](https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-large_integer-r1) (8 bytes); the remaining fields are all [4-byte unsigned integers](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/262627d8-3418-4627-9218-4ffe110850b2). This means the total size of the `DISK_GEOMETRY` structure is 24 bytes, so we use this as the buffer size.
 
-### Parsing DISK_GEOMETRY
+### Parse DISK_GEOMETRY
 
 The *MediaType* field is the second item of the `DISK_GEOMETRY` structure. It is an unsigned integer (4 bytes) that starts at byte offset 8 of our *diskGeometry* variable. We can use Python's [struct module](https://docs.python.org/3/library/struct.html) to interpret the raw bytes into an integer value:
 
@@ -120,7 +120,7 @@ getMediaTypes = win32file.DeviceIoControl(handle,
 
 The function arguments are largely identical to the earlier (disk geometry) call, but this time we use a 2048 byte output buffer. This is a somewhat arbitrary value. Unlike `IOCTL_DISK_GET_DRIVE_GEOMETRY`, the output size of `IOCTL_STORAGE_GET_MEDIA_TYPES_EX` is not fixed (see also the explanation that follows below), so I'm simply using a fairly large value to ensure the buffer will be large enough to fit the output under all circumstances. The output (again a string of raw bytes) is defined by the `GET_MEDIA_TYPES` structure, which is [documented here](https://docs.microsoft.com/en-us/windows/win32/api/winioctl/ns-winioctl-get_media_types).
 
-### Parsing GET_MEDIA_TYPES
+### Parse GET_MEDIA_TYPES
 
 The `GET_MEDIA_TYPES` structure is made up of the following fields:
 
@@ -137,7 +137,7 @@ mediaInfoCount = struct.unpack("<I", getMediaTypes[4:8])[0]
 
 The resulting *deviceCode* value is an integer number, which again can be mapped back to a device type string using an enumeration in [winioctlcon.py](https://github.com/mhammond/pywin32/blob/main/win32/Lib/winioctlcon.py). The value of *mediaInfoCount* tells us the number of `DEVICE_MEDIA_INFO` structures we need to parse.
 
-### Parsing DEVICE_MEDIA_INFO
+### Parse DEVICE_MEDIA_INFO
 
 The `DEVICE_MEDIA_INFO` structure itself is documented [here](https://docs.microsoft.com/en-us/windows/win32/api/winioctl/ns-winioctl-device_media_info). At first sight this may look a little intimidating, but essentially it just describes a "union" of 3 possible 32-byte structures. This means that each `DEVICE_MEDIA_INFO` instance is made up of either of those structures. For the purpose of this post, we're only interested in the *MediaType* field here, and this field can be at an identical location (the second item of the `DEVICE_MEDIA_INFO` structure) for two of the three possible variants. Only in case of a tape device, *MediaType* is the first item. Tape devices can be identified from the value of *deviceCode*. Using this information, we can use the code below to iterate over all `DEVICE_MEDIA_INFO` structures, and extract their respective media type codes: 
 
