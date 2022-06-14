@@ -93,7 +93,7 @@ In this case, the *DeviceIoControl* call contains four arguments:
 
 The output buffer size must be equal to (or larger than) the output that is returned by the function call. The output (a string of raw bytes) is defined by the `DISK_GEOMETRY` structure, which is [documented here](https://docs.microsoft.com/en-us/windows/win32/api/winioctl/ns-winioctl-disk_geometry). It contains 5 fields. The first field is a [large integer](https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-large_integer-r1) (8 bytes); the remaining fields are all [4-byte unsigned integers](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/262627d8-3418-4627-9218-4ffe110850b2). This means the total size of the `DISK_GEOMETRY` structure is 24 bytes, so we use this as the buffer size.
 
-### Media type from disk geometry
+### Parsing DISK_GEOMETRY
 
 The *MediaType* field is the second item of the `DISK_GEOMETRY` structure. It is an unsigned integer (4 bytes) that starts at byte offset 8 of our *diskGeometry* variable. We can use Python's [struct module](https://docs.python.org/3/library/struct.html) to interpret the raw bytes into an integer value:
 
