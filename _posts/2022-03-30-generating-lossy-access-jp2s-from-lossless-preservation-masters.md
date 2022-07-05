@@ -134,7 +134,7 @@ Thanks are due to Grok developer Aaron Boxer for fixing two small issues I ran i
 
 ## Revision history
 
-- 5 July 2022 -  re-ran performance test with added `-threads` option for OpenJPEG, as suggested by Aaron Boxer in the comments
+- 5 July 2022 -  re-ran performance test with added `-threads` option for OpenJPEG, as suggested by Aaron Boxer in the comments.
 
 ## Further resources
 
