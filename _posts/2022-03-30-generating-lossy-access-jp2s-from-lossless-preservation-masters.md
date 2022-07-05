@@ -54,7 +54,7 @@ Because of this, I only explored the full decode + re-compress approach here. Al
 
 ## Test environment
 
-For my tests I used an ordinary desktop PC with 4 CPU cores, an Intel i5-6500 CPU (3.20GHz) processor and 12 GB RAM. The operating system was Linux Mint 20.1 Ulyssa (which is based op Ubuntu Focal Fossa 20.04).
+For my tests I used an ordinary desktop PC with 4 CPU cores, an Intel i5-6500 CPU (3.20GHz) processor and 12 GB RAM. The operating system was Linux Mint 20.1 Ulyssa (which is based on Ubuntu Focal Fossa 20.04).
 
 ## Codecs
 
