@@ -761,6 +761,10 @@ Result:
 
 I intend to make this post a "living" document, and will add more PDF "recipes" over time. Feel free to leave a comment in case you spot any errors or omissions!
 
+## Update on Hacker News topic
+
+Someone created a [Hacker News topic on this post](https://news.ycombinator.com/item?id=33145498). The comments mention some additional tool suggestions that look useful. I might add some of these to a future revision.
+
 ## Further resources
 
 - [Moritz Mähr, "Working with batches of PDF files", The Programming Historian 9 (2020)](https://doi.org/10.46430/phen0088)
@@ -769,6 +773,7 @@ I intend to make this post a "living" document, and will add more PDF "recipes" 
 - [What's so hard about PDF text extraction? ​](https://filingdb.com/b/pdf-text-extraction)
 - [Tim Allison, "Brief Overview of the Portable Document Format (PDF) and Some Challenges for Text Extraction"](https://irsg.bcs.org/informer/wp-content/uploads/OverviewOfTextExtractionFromPDFs.pdf)
 - [Yvonne Tunnat, "PDF Validation with ExifTool – quick and not so dirty"](https://openpreservation.org/blogs/pdf-validation-with-exiftool-quick-and-not-so-dirty/)
+- [Hacker News topic on this post](https://news.ycombinator.com/item?id=33145498)
 
 ## Revision history
 
@@ -777,6 +782,7 @@ I intend to make this post a "living" document, and will add more PDF "recipes" 
 - 9 September 2021: added section on image to PDF conversion.
 - 27 January 2022: added reference to Tim Allison's article on PDF text extraction.
 - 7 February 2022: added sections on Exiftool, and added reference to Yvonne Tunnat's blog post on PDF validation with ExifTool.
+- 10 October 2022: added update on and link to Hacker News topic on this post.
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
