@@ -6,8 +6,7 @@ comment_id: 81
 ---
 
 <figure class="image">
-<iframe width="700" height="394" src="https://www.youtube-nocookie.com/embed/C47ZCosJPAw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<figcaption>Digital Dark Age Crew -  Wheel Out the Digital Dark Age Klaxon.</figcaption>
+<iframe width="750" height="422" src="https://www.youtube-nocookie.com/embed/C47ZCosJPAw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </figure>
 
 Dutch electro outfit the Digital Dark Age Crew are one of the forgotten legends that used to be a mainstay of Rotterdam's late 90s to mid-2000s underground electro scene. Their music was characterised by relentless electro beats, sparse synth lines, and lyrics that typically commented on the fragility and transience of digital media and digital information in general. In a twisted turn of events, this very theme would eventually define the Digital Dark Age Crew's own history, ultimately leading to the group's dramatic demise in 2007. After a fifteen year absence, the Digital Dark Age Crew have now made a long overdue comeback with their new track "Wheel Out the Digital Dark Age Klaxon", which was released today on the occasion of [World Digital Preservation Day 2022](https://www.dpconline.org/events/world-digital-preservation-day). Time to take a look back at the history of the Digital Dark Age Crew, and their continued relevance today!
@@ -56,7 +55,7 @@ Earlier this year, Nullbyte decided to once again put on his old space helmet, a
 It will be interesting to see whether the return of the Digital Dark Age Crew is a one-off, or perhaps the start of a new string of releases. Whatever the case, for now please enjoy ... Wheel Out the Digital Dark Age Klaxon! 
 
 <figure class="image">
-<iframe width="700" height="394" src="https://www.youtube-nocookie.com/embed/C47ZCosJPAw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="750" height="422" src="https://www.youtube-nocookie.com/embed/C47ZCosJPAw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <figcaption>Digital Dark Age Crew -  Wheel Out the Digital Dark Age Klaxon.</figcaption>
 </figure>
 
