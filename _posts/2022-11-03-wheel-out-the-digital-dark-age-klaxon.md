@@ -6,8 +6,8 @@ comment_id: 81
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2022/11/logo-ddac-blog.png" alt="Human figure holding large floppy disk, with to its left the words Digital Dark Age Crew">
-  <figcaption>Digital Dark Age Crew logo.</figcaption>
+<iframe width="700" height="394" src="https://www.youtube-nocookie.com/embed/C47ZCosJPAw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<figcaption>Digital Dark Age Crew -  Wheel Out the Digital Dark Age Klaxon.</figcaption>
 </figure>
 
 Dutch electro outfit the Digital Dark Age Crew are one of the forgotten legends that used to be a mainstay of Rotterdam's late 90s to mid-2000s underground electro scene. Their music was characterised by relentless electro beats, sparse synth lines, and lyrics that typically commented on the fragility and transience of digital media and digital information in general. In a twisted turn of events, this very theme would eventually define the Digital Dark Age Crew's own history, ultimately leading to the group's dramatic demise in 2007. After a fifteen year absence, the Digital Dark Age Crew have now made a long overdue comeback with their new track "Wheel Out the Digital Dark Age Klaxon", which was released today on the occasion of [World Digital Preservation Day 2022](https://www.dpconline.org/events/world-digital-preservation-day). Time to take a look back at the history of the Digital Dark Age Crew, and their continued relevance today!
@@ -21,6 +21,12 @@ Much is unclear about the exact origins of the Digital Dark Age Crew, and over t
 ## Releases
 
 The Digital Dark Age Crew's output was released mainly on cheap, home-burned CD-recordables. These would often spontaneously disintegrate within a year after purchase, which somehow added to the group's mystique. From 2005 onward, they also made their releases available through [Myspace](https://en.wikipedia.org/wiki/Myspace). Fourteen years later, it turned out that these were all lost as a result of Myspace's infamous [server migration incident](https://mashable.com/article/myspace-data-loss).
+
+
+<figure class="image">
+  <img src="{{ BASE_PATH }}/images/2022/11/logo-ddac-blog.png" alt="Human figure holding large floppy disk, with to its left the words Digital Dark Age Crew">
+  <figcaption>Digital Dark Age Crew logo.</figcaption>
+</figure>
 
 ## Burn a Million PDFs
 
