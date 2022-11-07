@@ -36,6 +36,7 @@ Usage:
 	<li><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
 	
     {% if forloop.last %}
+      </details>
       </ul>
     {% else %}
       {% if this_year != next_year %}
