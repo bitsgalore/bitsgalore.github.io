@@ -8,6 +8,9 @@ crossorigin="anonymous"></script>
 
 <script>
 const GH_API_URL = 'https://api.github.com/repos/bitsgalore/bitsgalore.github.io/issues/{{page.comment_id}}/comments?per_page=100';
+/* jshint globalstrict:true */
+/* global DOMPurify */
+'use strict';
 
 let request = new XMLHttpRequest();
 request.open( 'GET', GH_API_URL, true );
@@ -56,13 +59,12 @@ function createCommentEl(response) {
 
 	let commentContents = document.createElement('div');
 	commentContents.classList.add('comment-content');
-	responseBodySanitized = DOMPurify.sanitize(marked(response.body));
-	commentContents.innerHTML = responseBodySanitized;
+	commentContents.innerHTML = DOMPurify.sanitize(response.body);
 
 	// Progressive enhancement.
 	if (window.showdown) {
 		let converter = new showdown.Converter();
-		commentContents.innerHTML = converter.makeHtml(response.body);
+		commentContents.innerHTML = DOMPurify.sanitize(converter.makeHtml(response.body));
 	}
 
 	let comment = document.createElement('li');
