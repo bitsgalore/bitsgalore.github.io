@@ -1,8 +1,12 @@
 <script src="https://unpkg.com/showdown@1.9.1/dist/showdown.min.js"
 integrity="sha384-TTjj1KxpUMxMChPbgmSWLlfEep0/67X86v9lnJMkldzkQGHZNAhZRgE9owovIRyz"
 crossorigin="anonymous"></script>
-<script>
 
+<script src="https://unpkg.com/dompurify@2.4.1/dist/purify.min.js"
+integrity="sha384-arqXKBMaxueqlbHTzDnjId9y+DYmnmjBWr2t2wXFAUwg00iJKZe5ItR/bQQAaaHp"
+crossorigin="anonymous"></script>
+
+<script>
 const GH_API_URL = 'https://api.github.com/repos/bitsgalore/bitsgalore.github.io/issues/{{page.comment_id}}/comments?per_page=100';
 
 let request = new XMLHttpRequest();
@@ -52,7 +56,8 @@ function createCommentEl(response) {
 
 	let commentContents = document.createElement('div');
 	commentContents.classList.add('comment-content');
-	commentContents.innerHTML = response.body;
+	responseBodySanitized = DOMPurify.sanitize(marked(response.body));
+	commentContents.innerHTML = responseBodySanitized;
 
 	// Progressive enhancement.
 	if (window.showdown) {
