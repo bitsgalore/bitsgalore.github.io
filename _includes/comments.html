@@ -59,12 +59,13 @@ function createCommentEl(response) {
 
 	let commentContents = document.createElement('div');
 	commentContents.classList.add('comment-content');
-	commentContents.innerHTML = DOMPurify.sanitize(response.body);
+	responseCleaned = DOMPurify.sanitize(response.body)
+	commentContents.innerHTML = responseCleaned;
 
 	// Progressive enhancement.
 	if (window.showdown) {
 		let converter = new showdown.Converter();
-		commentContents.innerHTML = DOMPurify.sanitize(converter.makeHtml(response.body));
+		commentContents.innerHTML = converter.makeHtml(responseCleaned);
 	}
 
 	let comment = document.createElement('li');
