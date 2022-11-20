@@ -98,7 +98,7 @@ Just follow these steps:
 
     ![]({{ BASE_PATH }}/images/2022/11/ff-accounts.png)
 
-You can open the file in any spreadsheet software. For each account, it contains the Twitter user name, the real name, any lists of which the account is a member, associated Fediverse handles, the account's location, and its profile description.
+Once downloaded, you can open the file in any spreadsheet software. For each account, it contains the Twitter user name, the real name, any lists of which the account is a member, associated Fediverse handles, the account's location, and its profile description.
 
 Optionally, afterwards you may want to remove FediFinder from your Twitter account's connected app list using [this link](https://twitter.com/settings/connected_apps/):
 
