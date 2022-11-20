@@ -165,7 +165,7 @@ Please feel free to use the comment section to post links to alternative tools o
 [^2]: The name of this folder looks something like this:<br>
       "twitter-2022-11-07-2366bc80316...4e7b77".
 
-[^3]: Archive parser's README states that it also produces lists of followers and followings, but I couldn't find this in its output. This is not really a problem, as this is already covered by the FediFinder output.
+[^3]: The version of Archive parser I used wasn't able to produce lists of followers and followings. More recent versions (20 November 2022 an onward) do have this functionality, but the output is less detailed than FediFinder. Also, it doesn't distinguish between direct follows and follows through a list. So it's probably a good idea to use FediFinder for this.
 
 [^4]: More details can be found [here](https://help.twitter.com/en/managing-your-account/accessing-your-twitter-data), although some of the info looks slightly out of date.
 
