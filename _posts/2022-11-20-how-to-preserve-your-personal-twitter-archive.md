@@ -138,7 +138,7 @@ And that's all there is to it!
 
 ## Final thoughts
 
-As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users.
+As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users. Finally, the "related tools" section of [the archive parser readme](https://github.com/timhutton/twitter-archive-parser) lists some additional tools that may be useful.
 
 Please feel free to use the comment section to post links to alternative tools or methods, or if you spot any glaring errors in this post. 
 
