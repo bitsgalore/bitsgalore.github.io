@@ -39,7 +39,7 @@ Perhaps most importantly, if you access your Twitter archive from your web brows
 
 ![]({{ BASE_PATH }}/images/2022/11/tweet-link.png)
 
-These links will stop working once Twitter goes down. The original, unshortened links are actually stored in the underlying JSON data that are part of the archive (file "tweets.js" in the "data" folder). For example, [here's a full entry for one single Tweet](https://gist.github.com/bitsgalore/cfdff3ce67f1ffa85f67e87c778a9e75). Let's zoom in on the "urls" attribute of this Tweet:
+These links will stop working once Twitter goes down. The original, unshortened links are actually stored in the underlying JSON data that are part of the archive (file "tweets.js" in the "data" folder). For example, [here's the full data from the Tweet in that screenshot](https://gist.github.com/bitsgalore/cfdff3ce67f1ffa85f67e87c778a9e75). Let's zoom in on its "urls" attribute:
 
 
 ```json
