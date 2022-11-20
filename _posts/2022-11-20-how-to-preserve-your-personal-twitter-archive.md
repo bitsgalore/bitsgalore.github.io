@@ -104,7 +104,7 @@ Optionally, afterwards you may want to remove FediFinder from your Twitter accou
 
 ![]({{ BASE_PATH }}/images/2022/11/ff-revoke.png)
 
-## Twitter archive parser
+## Improve archive with Twitter archive parser
 
 Tim Hutton has written [twitter-archive-parser](https://github.com/timhutton/twitter-archive-parser), which is a Python tool that fixes most of the remaining issues, and some other issues as well[^5]. Most importantly, it creates both HTML and [Markdown](https://en.wikipedia.org/wiki/Markdown) versions of the archive, with all shortened t.co URLs replaced with their original versions. Optionally, it can also be instructed to download full-size versions of images[^3].
 
