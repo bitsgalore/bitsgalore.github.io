@@ -140,7 +140,7 @@ And that's all there is to it!
 
 As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users.
 
-It's also good to keep in mind that the development of archive parser (and other tools) currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529), so they will most likely become even better.  
+It's also good to keep in mind that the development of archive parser (and other tools) currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529). Just as an example, when I ran archive parser only yesterday (19th of November), it wasn't able to report Twitter followers and followings, whereas this functionality is included in the latest (20th of November) release. So I expect these tools will become even better over time (but don't wait for it, as there's a real chance that Twitter may be gone by then!).
 
 Finally, the "related tools" section of [the archive parser readme](https://github.com/timhutton/twitter-archive-parser) lists some additional tools that may be useful.
 
