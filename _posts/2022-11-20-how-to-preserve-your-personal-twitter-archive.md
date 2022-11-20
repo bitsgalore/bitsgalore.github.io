@@ -106,7 +106,7 @@ Optionally, afterwards you may want to remove FediFinder from your Twitter accou
 
 ## Twitter archive parser
 
-Tim Hutton has written [twitter-archive-parser](https://github.com/timhutton/twitter-archive-parser), which is a Python tool that fixes most of the remaining issues, and some other issues as well[^5]. Most importantly, it creates both HTML and [Markdown](https://en.wikipedia.org/wiki/Markdown) versions of the archive with all shortened t.co URLs replaced with their original versions. Optionally, it can also be instructed to download full-size versions of images[^3].
+Tim Hutton has written [twitter-archive-parser](https://github.com/timhutton/twitter-archive-parser), which is a Python tool that fixes most of the remaining issues, and some other issues as well[^5]. Most importantly, it creates both HTML and [Markdown](https://en.wikipedia.org/wiki/Markdown) versions of the archive, with all shortened t.co URLs replaced with their original versions. Optionally, it can also be instructed to download full-size versions of images[^3].
 
 To use it, follow these steps:
 
@@ -130,7 +130,7 @@ To use it, follow these steps:
 
    The script will most likely ask you to confirm the installation of one or two Python modules ("requests" and "imagesize"); if this happens, just type "y" and press the Enter key.
 
-1. Finally, the script will ask you if you want to download original-size images. Type "y" if you want this, or "n" if not. Note that downloading the images can take quite a bit of time (depending on the size of your Twitter archive, and the number of images and multimedia it contains).
+1. Finally, the script will ask if you want to download original-size images. Type "y" if you want this, or "n" if not. Note that downloading the images can take quite a bit of time (depending on the size of your Twitter archive, and the number of images and multimedia it contains).
 
    As an aside, I noticed that archive parser was unable to download some images. I don't particularly care about this myself, but if images are crucially important to you, the "media" folder contains a download log (file "download_log.txt") with full details of the download status of each image.
 
