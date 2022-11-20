@@ -76,7 +76,7 @@ Although the Twitter archive does contain files with the accounts that you follo
 ```
 Here, the user link with account ID 216697909 (<https://twitter.com/intent/user?user_id=216697909>) resolves to [the account of the Open Preservation Foundation](https://twitter.com/openpreserve). Once Twitter is gone, this user link will stop resolving, which will make it very hard to figure out which actual person or organization was associated with it. 
 
-Fortunately, some excellent solutions exist that can fix most of the above shortcomings, and they are pretty easy to use as well. Let's start with with addressing the network data issue, as this is something you can do immediately, without having to wait for your Twitter archive.
+Fortunately, some excellent solutions exist that can fix most of the above shortcomings, and they are pretty easy to use as well. Let's start with addressing the network data issue, as this is something you can do immediately, without having to wait for your Twitter archive.
 
 ## Preserve your Twitter network with FediFinder 
 
