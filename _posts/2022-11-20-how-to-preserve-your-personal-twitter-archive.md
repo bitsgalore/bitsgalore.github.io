@@ -106,7 +106,7 @@ Optionally, afterwards you may want to remove FediFinder from your Twitter accou
 
 ## Twitter archive parser
 
-Tim Hutton has written [twitter-archive-parser](https://github.com/timhutton/twitter-archive-parser), which is a Python tool that fixes most of the remaining issues. Most importantly, it creates both HTML and [Markdown](https://en.wikipedia.org/wiki/Markdown) versions of the archive with all shortened t.co URLs replaced with their original versions. Optionally, it can also be instructed to download full-size versions of images[^3].
+Tim Hutton has written [twitter-archive-parser](https://github.com/timhutton/twitter-archive-parser), which is a Python tool that fixes most of the remaining issues, and some other issues as well[^5]. Most importantly, it creates both HTML and [Markdown](https://en.wikipedia.org/wiki/Markdown) versions of the archive with all shortened t.co URLs replaced with their original versions. Optionally, it can also be instructed to download full-size versions of images[^3].
 
 To use it, follow these steps:
 
@@ -138,7 +138,11 @@ And that's all there is to it!
 
 ## Final thoughts
 
-As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users. Finally, the "related tools" section of [the archive parser readme](https://github.com/timhutton/twitter-archive-parser) lists some additional tools that may be useful.
+As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users.
+
+It's also good to keep in mind that development of archive parser (and other tools) currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529), so they will most likely become even better.  
+
+Finally, the "related tools" section of [the archive parser readme](https://github.com/timhutton/twitter-archive-parser) lists some additional tools that may be useful.
 
 Please feel free to use the comment section to post links to alternative tools or methods, or if you spot any glaring errors in this post. 
 
@@ -164,3 +168,5 @@ Please feel free to use the comment section to post links to alternative tools o
 [^3]: Archive parser's README states that it also produces lists of followers and followings, but I couldn't find this in its output. This is not really a problem, as this is already covered by the FediFinder output.
 
 [^4]: More details can be found [here](https://help.twitter.com/en/managing-your-account/accessing-your-twitter-data), although some of the info looks slightly out of date.
+
+[^5]: Among other things, it also fixes some issues with Direct Messages, which by default don't include user handles.
