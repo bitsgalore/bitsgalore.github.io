@@ -33,7 +33,7 @@ Most importantly, you need to request and download your Twitter data[^4]. The ba
 
 As several people have pointed out before, the archive data provided by Twitter have a number of shortcomings. Below a (probably incomplete) overview of the most obvious ones. 
 
-## Shortened t.co links
+### Shortened t.co links
 
 Perhaps most importantly, if you access your Twitter archive from your web browser by opening the "Your archive.html" file, any clickable hyperlinks you see are shortened t.co links that use [Twitter's link shortener service](https://web.archive.org/web/20221116161843/https://help.twitter.com/en/using-twitter/url-shortener):
 
@@ -58,11 +58,11 @@ These links will stop working once Twitter goes down. The original, unshortened 
 
 As you can see, the "urls" attribute contains both a shortened t.co link ("url"), the unshortened link ("expanded_url"), and a display link ("display_url"). So all the data are there, but the unshortened links just aren't accessible from the archive's web interface.
 
-## Full-size images
+### Full-size images
 
 The Twitter archive only contains downscaled versions of posted images. Clicking on an image to expand it takes you to the live Twitter website. Again, this is something that will stop working once Twitter is gone.
 
-## Twitter network data
+### Twitter network data
 
 Although the Twitter archive does contain files with the accounts that you follow and the accounts that follow you, these are given as numerical identifiers that will most likely be meaningless if Twitter disappears. Here's an example:
 
