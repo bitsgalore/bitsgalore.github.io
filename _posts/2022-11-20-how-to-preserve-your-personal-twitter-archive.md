@@ -140,7 +140,7 @@ And that's all there is to it!
 
 ## Final thoughts
 
-As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users.
+As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. And [here's a Ruby script by Ryan Baumann](https://gist.github.com/ryanfb/53f167feebde61ad262c4f09d879733e) that exports your Twitter Bookmarks to JSON (note that the scripts deletes the original bookmarks to get around API limits). As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users.
 
 It's also good to keep in mind that the development of archive parser (and other tools) currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529). Just as an example, when I ran archive parser only yesterday (19th of November), it wasn't able to report Twitter followers and followings, whereas this functionality is included in the latest (20th of November) release. So I expect these tools will become even better over time (but don't wait for it, as there's a real chance that Twitter may be gone by then!).
 
@@ -158,6 +158,8 @@ Please feel free to use the comment section to post links to alternative tools o
 
 - [Ed Summers on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/)
 
+- [Ruby script by Ryan Baumann that exports Twitter bookmarks to JSON](https://gist.github.com/ryanfb/53f167feebde61ad262c4f09d879733e) (this also deletes the original bookmarks to get around API limits, so use with caution!)
+
 - [Alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/)
 
 - [twitter-archive-unshorten tool](https://github.com/docnow/twitter-archive-unshorten)
@@ -166,6 +168,8 @@ Please feel free to use the comment section to post links to alternative tools o
 ## Revision history
 
 - 21 November 2022: updated info about Twitter's notification when the archive download is ready.
+
+- 21 November 2022: added references to Ryan Baumann's bookmarks export script.
 
 [^1]: The large "Export fedifinder_accounts.csv" link will give you a file that only includes Fediverse accounts. This can be useful for automating your follows on Mastodon, but if you want detailed information on *all* Twitter accounts you (also) need to use the small link!
 
