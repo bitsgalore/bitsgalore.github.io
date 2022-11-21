@@ -26,7 +26,9 @@ Most importantly, you need to request and download your Twitter data[^4]. The ba
 
 1. While logged in to Twitter, go to [your account's settings](https://twitter.com/settings/account).
 1. Click on "Download an archive of your data", and then simply follow the instructions.
-1. Twitter will send an email when the archive is ready. This may take a while. When I did this two weeks ago, I had to wait over 24 hours; I don't know if things have gotten worse since then. Once ready, you can download the archive as one large ZIP file.
+1. Twitter will issue a notification when the archive is ready:
+    ![]({{ BASE_PATH }}/images/2022/11/archive-notification.png)
+   This may take a while. When I did this two weeks ago, I had to wait over 24 hours; various people have told me that currently it take several days. Once ready, you can download the archive as one large ZIP file.
 1. Once downloaded, unzip the file to a folder.
 
 ## Shortcomings of the Twitter archive
@@ -159,6 +161,11 @@ Please feel free to use the comment section to post links to alternative tools o
 - [Alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/)
 
 - [twitter-archive-unshorten tool](https://github.com/docnow/twitter-archive-unshorten)
+
+
+## Revision history
+
+- 21 November 2022: updated info about Twitter's notification when the archive download is ready.
 
 [^1]: The large "Export fedifinder_accounts.csv" link will give you a file that only includes Fediverse accounts. This can be useful for automating your follows on Mastodon, but if you want detailed information on *all* Twitter accounts you (also) need to use the small link!
 
