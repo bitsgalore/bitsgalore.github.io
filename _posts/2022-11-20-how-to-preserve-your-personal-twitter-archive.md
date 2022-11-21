@@ -142,6 +142,8 @@ And that's all there is to it!
 
 As I already mentioned in the introduction, I'm not making any claims that the above steps are the "proper" way to do this, and various alternative approaches exist. For instance, [here's an alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/). Ed has also [written this post on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/), which are not included in the archive data. And [here's a Ruby script by Ryan Baumann](https://gist.github.com/ryanfb/53f167feebde61ad262c4f09d879733e) that exports your Twitter Bookmarks to JSON (note that the scripts deletes the original bookmarks to get around API limits). As I never use bookmarks, I'm not really interested in this myself, but this might be important to some users.
 
+After I published the first draft of this post, I found [this earlier post by Jeroen Wiert Pluimers](https://wiert.me/2022/11/12/exporting-your-twitter-content-converting-to-markdown-and-getting-the-image-alt-texts-thanks-isotopp-hbeckpdx-for-the-info-and-kcgreenn-dreamjar-for-the-comic/). This describes an overall workflow that is similar to the one described here (it also uses archiver parser), but adds the extraction of  alt-text image descriptions, exporting of bookmarks (using a Python script that is different from the one by Ryan Baumann), and archiving of t.co URL shortener links to the the [Wayback Machine](https://web.archive.org/).
+
 It's also good to keep in mind that the development of archive parser (and other tools) currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529). Just as an example, when I ran archive parser only yesterday (19th of November), it wasn't able to report Twitter followers and followings, whereas this functionality is included in the latest (20th of November) release. So I expect these tools will become even better over time (but don't wait for it, as there's a real chance that Twitter may be gone by then!).
 
 Finally, the "related tools" section of [the archive parser readme](https://github.com/timhutton/twitter-archive-parser) lists some additional tools that may be useful.
@@ -164,12 +166,15 @@ Please feel free to use the comment section to post links to alternative tools o
 
 - [twitter-archive-unshorten tool](https://github.com/docnow/twitter-archive-unshorten)
 
+- [Exporting your Twitter content, converting to Markdown and getting the image alt-texts](https://wiert.me/2022/11/12/exporting-your-twitter-content-converting-to-markdown-and-getting-the-image-alt-texts-thanks-isotopp-hbeckpdx-for-the-info-and-kcgreenn-dreamjar-for-the-comic/) - post by Jeroen Wiert Pluimers.
 
 ## Revision history
 
 - 21 November 2022: updated info about Twitter's notification when the archive download is ready.
 
 - 21 November 2022: added references to Ryan Baumann's bookmarks export script.
+
+- 21 November 2022: added references to earlier blog post by Jeroen Wiert Pluimers.
 
 [^1]: The large "Export fedifinder_accounts.csv" link will give you a file that only includes Fediverse accounts. This can be useful for automating your follows on Mastodon, but if you want detailed information on *all* Twitter accounts you (also) need to use the small link!
 
