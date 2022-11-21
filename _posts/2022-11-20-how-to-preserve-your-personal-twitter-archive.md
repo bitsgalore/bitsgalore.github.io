@@ -160,6 +160,8 @@ Please feel free to use the comment section to post links to alternative tools o
 
 - [Ed Summers on archiving Twitter bookmarks](https://inkdroid.org/2022/11/16/bookmarks/)
 
+- [Ryan Baumann - Exporting As Many of Your Twitter Bookmarks As Possible](https://ryanfb.github.io/etc/2022/11/21/exporting_as_many_of_your_twitter_bookmarks_as_possible.html)
+
 - [Ruby script by Ryan Baumann that exports Twitter bookmarks to JSON](https://gist.github.com/ryanfb/53f167feebde61ad262c4f09d879733e) (this also deletes the original bookmarks to get around API limits, so use with caution!)
 
 - [Alternative t.co unshorten approach by Ed Summers](https://inkdroid.org/2022/11/20/t-dot-co/)
