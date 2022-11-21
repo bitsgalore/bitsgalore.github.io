@@ -166,7 +166,7 @@ Please feel free to use the comment section to post links to alternative tools o
 
 - [twitter-archive-unshorten tool](https://github.com/docnow/twitter-archive-unshorten)
 
-- [Exporting your Twitter content, converting to Markdown and getting the image alt-texts](https://wiert.me/2022/11/12/exporting-your-twitter-content-converting-to-markdown-and-getting-the-image-alt-texts-thanks-isotopp-hbeckpdx-for-the-info-and-kcgreenn-dreamjar-for-the-comic/) - post by Jeroen Wiert Pluimers.
+- [Jeroen Wiert Pluimers on exporting your Twitter content, converting to Markdown and getting the image alt-texts](https://wiert.me/2022/11/12/exporting-your-twitter-content-converting-to-markdown-and-getting-the-image-alt-texts-thanks-isotopp-hbeckpdx-for-the-info-and-kcgreenn-dreamjar-for-the-comic/)
 
 ## Revision history
 
