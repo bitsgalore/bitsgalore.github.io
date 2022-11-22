@@ -144,15 +144,15 @@ As I already mentioned in the introduction, I'm not making any claims that the a
 
 After I published the first draft of this post, I found [this earlier post by Jeroen Wiert Pluimers](https://wiert.me/2022/11/12/exporting-your-twitter-content-converting-to-markdown-and-getting-the-image-alt-texts-thanks-isotopp-hbeckpdx-for-the-info-and-kcgreenn-dreamjar-for-the-comic/). This describes an overall workflow that is similar to the one described here (it also uses archiver parser), but adds the extraction of  alt-text image descriptions, exporting of bookmarks (using a Python script that is different from the one by Ryan Baumann), and archiving of t.co URL shortener links to the the [Wayback Machine](https://web.archive.org/).
 
-It's also good to keep in mind that the development of archive parser (and other tools) currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529). Just as an example, when I ran archive parser only yesterday (19th of November), it wasn't able to report Twitter followers and followings, whereas this functionality is included in the latest (20th of November) release. So I expect these tools will become even better over time (but don't wait for it, as there's a real chance that Twitter may be gone by then!).
+Mike Hucka's [Taupe tool](https://github.com/mhucka/taupe) extracts URLs from tweets, retweets, replies, quote tweets, and "likes" from a personal Twitter archive, and writes these to a comma-delimited text file. This is especially useful if you want to preserve linked resources (e.g. by sending them to a web archive).
 
-Finally, the "related tools" section of [the archive parser readme](https://github.com/timhutton/twitter-archive-parser) lists some additional tools that may be useful.
+It's also good to keep in mind that the development of tools like archive parser currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529). Just as an example, when I ran archive parser only yesterday (19th of November), it wasn't able to report Twitter followers and followings, whereas this functionality is included in the latest (20th of November) release. So I expect these tools will become even better over time (but don't wait for it, as there's a real chance that Twitter may be gone by then!).
 
 Please feel free to use the comment section to post links to alternative tools or methods, or if you spot any glaring errors in this post. 
 
 ## Additional links and resources
 
-- [Twitter archive parser](https://github.com/timhutton/twitter-archive-parser)
+- [Twitter archive parser](https://github.com/timhutton/twitter-archive-parser) ("related tools" section lists some more more tools that might be useful)
 
 - [FediFinder](https://fedifinder.glitch.me/)
 
@@ -170,6 +170,8 @@ Please feel free to use the comment section to post links to alternative tools o
 
 - [Jeroen Wiert Pluimers on exporting your Twitter content, converting to Markdown and getting the image alt-texts](https://wiert.me/2022/11/12/exporting-your-twitter-content-converting-to-markdown-and-getting-the-image-alt-texts-thanks-isotopp-hbeckpdx-for-the-info-and-kcgreenn-dreamjar-for-the-comic/)
 
+- [Taupe tool - extracts URLs from Twitter archive](https://github.com/mhucka/taupe)
+
 ## Revision history
 
 - 21 November 2022: updated info about Twitter's notification when the archive download is ready.
@@ -177,6 +179,8 @@ Please feel free to use the comment section to post links to alternative tools o
 - 21 November 2022: added references to Ryan Baumann's bookmarks export script.
 
 - 21 November 2022: added references to earlier blog post by Jeroen Wiert Pluimers.
+
+- 22 November 2022: added references to Taupe tool by Mike Hucka.
 
 [^1]: The large "Export fedifinder_accounts.csv" link will give you a file that only includes Fediverse accounts. This can be useful for automating your follows on Mastodon, but if you want detailed information on *all* Twitter accounts you (also) need to use the small link!
 
