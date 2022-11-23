@@ -146,6 +146,8 @@ After I published the first draft of this post, I found [this earlier post by Je
 
 Mike Hucka's [Taupe tool](https://github.com/mhucka/taupe) extracts URLs from tweets, retweets, replies, quote tweets, and "likes" from a personal Twitter archive, and writes these to a comma-delimited text file. This is especially useful if you want to preserve linked resources (e.g. by sending them to a web archive).
 
+Finally [this TechCrunch feature](https://techcrunch.com/2022/11/21/quit-twitter-better-with-these-free-tools-that-make-archiving-a-breeze/) mentions some more tools that might be worth perusing.
+
 It's also good to keep in mind that the development of tools like archive parser currently [moves at a pretty fast pace](https://digipres.club/web/@timhutton@mathstodon.xyz/109377490421206529). Just as an example, when I ran archive parser only yesterday (19th of November), it wasn't able to report Twitter followers and followings, whereas this functionality is included in the latest (20th of November) release. So I expect these tools will become even better over time (but don't wait for it, as there's a real chance that Twitter may be gone by then!).
 
 Please feel free to use the comment section to post links to alternative tools or methods, or if you spot any glaring errors in this post. 
@@ -172,6 +174,8 @@ Please feel free to use the comment section to post links to alternative tools o
 
 - [Taupe tool - extracts URLs from Twitter archive](https://github.com/mhucka/taupe)
 
+- [Quit Twitter better with these free tools that make archiving a breeze (TechCrunch)](https://techcrunch.com/2022/11/21/quit-twitter-better-with-these-free-tools-that-make-archiving-a-breeze/)
+
 ## Revision history
 
 - 21 November 2022: updated info about Twitter's notification when the archive download is ready.
@@ -181,6 +185,8 @@ Please feel free to use the comment section to post links to alternative tools o
 - 21 November 2022: added references to earlier blog post by Jeroen Wiert Pluimers.
 
 - 22 November 2022: added references to Taupe tool by Mike Hucka.
+
+- 23 November 2022: added references to TechCrunch feature.
 
 [^1]: The large "Export fedifinder_accounts.csv" link will give you a file that only includes Fediverse accounts. This can be useful for automating your follows on Mastodon, but if you want detailed information on *all* Twitter accounts you (also) need to use the small link!
 
