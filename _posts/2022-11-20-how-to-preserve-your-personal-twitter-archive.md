@@ -6,7 +6,7 @@ comment_id: 82
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2022/11/fail_whale_by_ka_92-d5ra7vf.jpg" alt="Whale above beach, lifted up in the sky by a swarm of red Twitter birds. An elderly couple on the foreground watches on.">
+  <img src="{{ BASE_PATH }}/images/2022/11/fail_whale_by_ka_92-d5ra7vf.jpg" alt="Painting of a whale, which is lifted above the beach by a swarm of red Twitter birds. In the foreground, an elderly couple watches the scene.">
   <figcaption><a href="https://web.archive.org/web/20130204212401/https://ka-92.deviantart.com/art/fail-whale-348157275">"Fail whale"</a> by <a href="https://web.archive.org/web/20130128112538/http://ka-92.deviantart.com/">Kuni (ka-92)</a> (license unknown), based on "Lifting a Dreamer" by <a href="http://www.yiyinglu.com/?portfolio=lifting-a-dreamer-aka-twitter-fail-whale">Yiying Lu</a>.</figcaption>
 </figure>
 
