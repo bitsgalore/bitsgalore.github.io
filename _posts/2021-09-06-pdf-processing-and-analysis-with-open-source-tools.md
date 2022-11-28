@@ -87,7 +87,7 @@ The remaining sections of this post are dedicated to specific tasks. As you will
 
 ## Validation and integrity testing
 
-PDFs that are damaged, structurally flawed or otherwise not conformant to the PDF format specification can result in a multitude of problems. A number of tools provide error checking and integrity testing functionality. This can range from limited structure checks, to full (claimed) validation against the filespec. It's important to note that none of the tools mentioned here are perfect, and some faults that are picked up by one tool may be completely ignored by another one and vice versa. So it's often a good idea to try multiple tools.
+PDFs that are damaged, structurally flawed or otherwise not conformant to the PDF format specification can result in a multitude of problems. A number of tools provide error checking and integrity testing functionality. This can range from limited structure checks, to full (claimed) validation against the filespec. It's important to note that none of the tools mentioned here are perfect, and some faults that are picked up by one tool may be completely ignored by another one and vice versa. So it's often a good idea to try multiple tools. A good example of this approach can be found in [this blog post by Micky Lindlar](https://openpreservation.org/blogs/trouble-shooting-pdf-validation-errors-a-case-of-pdf-hul-38/).
 
 ### Validate with Pdfcpu
 
@@ -773,6 +773,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - [What's so hard about PDF text extraction? ​](https://filingdb.com/b/pdf-text-extraction)
 - [Tim Allison, "Brief Overview of the Portable Document Format (PDF) and Some Challenges for Text Extraction"](https://irsg.bcs.org/informer/wp-content/uploads/OverviewOfTextExtractionFromPDFs.pdf)
 - [Yvonne Tunnat, "PDF Validation with ExifTool – quick and not so dirty"](https://openpreservation.org/blogs/pdf-validation-with-exiftool-quick-and-not-so-dirty/)
+- [Micky Lindlar, "Trouble-shooting PDF validation errors – a case of PDF-HUL-38"](https://openpreservation.org/blogs/trouble-shooting-pdf-validation-errors-a-case-of-pdf-hul-38/)
 - [Hacker News topic on this post](https://news.ycombinator.com/item?id=33145498)
 
 ## Revision history
@@ -783,6 +784,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - 27 January 2022: added reference to Tim Allison's article on PDF text extraction.
 - 7 February 2022: added sections on Exiftool, and added reference to Yvonne Tunnat's blog post on PDF validation with ExifTool.
 - 10 October 2022: added update on and link to Hacker News topic on this post.
+- 28 November 2022: added reference to Micky Lindlar's blog post on trouble-shooting PDF validation errors.
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
