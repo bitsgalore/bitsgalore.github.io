@@ -62,3 +62,7 @@ It will be interesting to see whether the return of the Digital Dark Age Crew is
 Direct link to video on YouTube, in case the embedded player doesn't work:
 
 <https://youtu.be/C47ZCosJPAw>
+
+Video and audio (FLAC) files are available for download from Zenodo:
+
+<https://zenodo.org/record/7390809>
