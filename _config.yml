@@ -31,6 +31,10 @@ author :
 #
 production_url : http://bitsgalore.org
 
+# By default Jekyll ignores dirs starting with ".", so need to bypass
+# for ".well-known" dir
+include: [".well-known"]
+
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
 JB :
