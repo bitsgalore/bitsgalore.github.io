@@ -623,7 +623,7 @@ Finally, *pdftk* can, [according to its documentation](https://www.pdflabs.com/d
 pdftk whatever_corrupted.pdf output whatever_repaired.pdf
 ```
 
-## Reduce size of PDF with hi-res graphics with Ghostscript
+## Reduce size of PDF with hi-res images with Ghostscript
 
 The following Ghostscript command (source [here](https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file/256449#256449) can be useful to reduce the size of a large PDF with high-resolution graphics (note that this will result in quality loss):
 
@@ -634,6 +634,23 @@ gs -sDEVICE=pdfwrite \
    -dNOPAUSE -dQUIET -dBATCH \
    -sOutputFile=whatever_small.pdf whatever_large.pdf
 ```
+
+## Reduce size of PDF with hi-res images with ImageMagick
+
+As an alternative to the above Ghostscript command (which achieves a size reduction mainly by downsampling the images in the PDF to as lower resolution), you can also use [ImageMagick](https://imagemagick.org/)'s [*convert* tool](https://imagemagick.org/script/convert.php). This allows you to reduce the file size by changing any combination of resolution ([`-density`](https://imagemagick.org/script/command-line-options.php#density) option), compression type ([`-compress`](https://imagemagick.org/script/command-line-options.php#compress) option) and compression quality ([`-quality`](https://imagemagick.org/script/command-line-options.php#quality) option).
+
+For example, the command below  (source [here](https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file/469255#469255)) reduces the size of a source PDF by re-encoding all images as JPEGs with 70% quality at 300 ppi resolution:
+
+```bash
+convert -density 300 \
+        -compress jpeg \
+        -quality 70 \
+         whatever_large.pdf whatever_small.pdf
+```
+
+If the `-density` value is omitted, *convert* resamples all images to 72 ppi by default. If you don't want that, make sure to set the `-density` value to the resolution of your source PDF (see the section "List embedded image information with pdfimages" on how to do that). 
+
+Even though ImageMagick's *convert* tool uses Ghostscript under the hood, it doesn't preserve any text (and probably most other features) of the source PDF, so only use this if you're only interested in the image data!
 
 ## Inspect low-level PDF structure
 
@@ -785,6 +802,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - 7 February 2022: added sections on Exiftool, and added reference to Yvonne Tunnat's blog post on PDF validation with ExifTool.
 - 10 October 2022: added update on and link to Hacker News topic on this post.
 - 28 November 2022: added reference to Micky Lindlar's blog post on trouble-shooting PDF validation errors.
+- 16 February 2023: added section on reducing PDF file size with ImageMagick's *convert* tool.
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
