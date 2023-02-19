@@ -118,7 +118,7 @@ This exercise also made me more aware of the importance of selecting a registrar
 
 ## Useful links and resources
 
-- [Internet.nl](https://internet.nl/) - online tool that tests web and email domains for use of modern Internet standards.
+- [Internet.nl](https://internet.nl/) - online tool by the Dutch Internet Standards Platform that tests web and email domains for use of modern Internet standards.
 
 - [European domain name registrars](https://european-alternatives.eu/category/domain-name-registrar) - lists some more EU-based domain registrars.
 
