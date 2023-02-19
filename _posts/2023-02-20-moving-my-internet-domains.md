@@ -112,7 +112,7 @@ I also ran separate tests on [email](https://internet.nl/test-mail/) for both my
 
 ## Conclusion
 
-The main thing I learnt about this domain move, is the importance of researching registrars' terms and conditions for domains that have been paid for several years in advance. I was surprised at how different registrars handle this in massively different ways. The somewhat nebulous situation around transfer-out fees was another surprise, and it's good to know one's rights here. In the end, my online research in both areas saved me a total of around € 150, which is quite substantial!
+The main thing I learnt about this domain move, is the importance of researching registrars' terms and conditions for domains that have been paid for several years in advance. I was surprised at how different registrars handle this in unexpectedly different ways. The somewhat nebulous situation around transfer-out fees was another surprise, and it's good to know one's rights here. In the end, I estimate my online research in both areas saved me a total of around €150, which is quite substantial!
 
 This exercise also made me more aware of the importance of selecting a registrar that keeps up with modern Internet standards, by using name servers with IPv6 web addresses, and offering signed domain names (DNSSEC). Tools like [the one by the Dutch Internet Standards Platform](https://internet.nl/) are hugely helpful for compliance testing against these standards. Overall, I'm very happy with the outcome. Both my domains are now largely compliant with modern Internet standards, while running at a lower cost compared to my previous registrar. 
 
