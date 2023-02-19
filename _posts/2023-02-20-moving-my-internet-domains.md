@@ -71,7 +71,7 @@ With these authorization codes, I could now start the incoming end of the transf
 
 ## Modern Internet standards
 
-Once I had verified that everything was working OK after the transfer, I activated [DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions) on both of my domains. I then did a couple of tests with the [online tool](https://internet.nl/) of The Dutch Internet Standards Platform[^5]. A test on the *bitsgalore.org* apex (root) domain now [resulted](https://web.archive.org/web/20230218140111/https://internet.nl/site/bitsgalore.org/1922728/) in a respectable 94% score, but repeating the test for the *www* subdomain [only yielded a score of 70%](https://web.archive.org/web/20230218140314/https://internet.nl/site/www.bitsgalore.org/1925412/). A closer look at the detailed results showed that the *www* subdomain was failing on some of the DNSSEC tests.
+Once I had verified that everything was working OK after the transfer, I activated [DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions) on both of my domains. I then did a couple of tests with the [online tool](https://internet.nl/) of The Dutch Internet Standards Platform[^5]. A test on the *bitsgalore.org* apex (root) domain now [resulted](https://web.archive.org/web/20230218140111/https://internet.nl/site/bitsgalore.org/1922728/) in a respectable 94% score, but repeating the test for the *www* subdomain [only yielded a score of 70%](https://web.archive.org/web/20230218140314/https://internet.nl/site/www.bitsgalore.org/1925412/). A closer look showed that the *www* subdomain was failing on some of the DNSSEC tests.
 
 ## Making DNSSEC work on the subdomain
 
