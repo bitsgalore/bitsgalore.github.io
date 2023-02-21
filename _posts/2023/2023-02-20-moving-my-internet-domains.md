@@ -104,7 +104,7 @@ After this change, DNSSEC worked as intended for the *www* subdomain, and the In
   <img src="{{ BASE_PATH }}/images/2023/02/internetnl-14022023.png" alt="Screenshot of website test summary info for domain www.bitsgalore.org. It shows the site got an overall score of 97%.">
 </figure>
 
-There are still a couple of minor things that could be improved. Overall I'm happy with this result though, especially when keeping in mind that the site only scored a meagre [55%](https://web.archive.org/web/20230210222235/https://internet.nl/site/www.bitsgalore.org/1921771/) just a week earlier.
+There are still a couple of minor things that could be improved (mainly related to GitHub's servers it seems). Overall I'm happy with this result though, especially when keeping in mind that the site only scored a meagre [55%](https://web.archive.org/web/20230210222235/https://internet.nl/site/www.bitsgalore.org/1921771/) just a week earlier.
 
 ## Email 
 
