@@ -63,6 +63,95 @@
 
 
    <div class="post-entry">
+   <h1><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></h1>
+   <div class="date">
+    <span>09 March 2023</span>
+   </div>
+   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
+   <figure class="image">
+  <img src="/images/2023/03/clockwork-extraction.jpg" alt="Street scene showing crowd gathered around an open carriage in which a dentist performs a tooth extraction on a patient. Next to the patient a man is banging on a large drum." />
+  <figcaption>Clockwork picture of an itinerant dentist performing an extraction in French rural scene, wood frame, metal workings, first half 19th century. <a href="https://wellcomecollection.org/works/hwpe3cxp">Science Museum, London</a>. <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0 International (CC BY 4.0)</a>.</figcaption>
+</figure>
+
+<p>This blog post provides a brief introduction to extracting unformatted text from EPUB files. The occasion for this work was a request by my Digital Humanities colleagues who are involved in the <a href="https://www.surf.nl/en/news/sane-secure-data-environment-for-social-sciences-and-humanities">SANE (Secure ANalysis Environment) project</a>. The work on this project includes a use case that will use the SANE environment to analyse text from novels in EPUB format. My colleagues were looking for some advice on how to implement the text extraction component, preferably using a Python-based solution.</p>
+
+<p>So, I started by making a shortlist of potentially suitable tools. For each tool, I wrote a minimal code snippet for processing one file. Based on this I then created some simple demo scripts that show how each tool is used within a processing workflow. Next, I applied these scripts to two data sets, and used the results to obtain a first impression of the performance of each of the tools.</p>
+
+
+   <div class="buttonArea">
+   <a href="/2023/03/09/extracting-text-from-epub-files-in-python" class="button">Read more ...</a>
+  </div>
+   
+   <ul class="tag_box inline">
+     
+     
+
+
+
+
+  
+    <li>
+      <details>
+      <summary>Apache-Tika</summary>
+      <ul>
+      
+        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2021/02/24/towards-a-preservation-workflow-for-mobile-apps">Towards a preservation workflow for mobile apps</a></li>
+      
+        <li><a href="/2015/04/29/top-50-file-formats-in-the-kb-e-depot">Top 50 file formats in the KB e-Depot</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>EPUB</summary>
+      <ul>
+      
+        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
+      
+        <li><a href="/2020/04/30/iso-iec-ts-22424-standard-on-epub3-preservation">ISO/IEC TS 22424 standard on EPUB3 preservation</a></li>
+      
+        <li><a href="/2016/04/04/valid-but-not-accessible-epub-crazy-fixed-layouts">Valid, but not accessible&#58; crazy fixed EPUB layouts</a></li>
+      
+        <li><a href="/2016/03/10/the-future-of-epub-a-first-look-at-the-epub-3-1-editors-draft">The future of EPUB? A first look at the EPUB 3.1 Editor’s draft</a></li>
+      
+        <li><a href="/2015/03/13/policy-based-assessment-of-epub-with-epubcheck">Policy-based assessment of EPUB with Epubcheck</a></li>
+      
+        <li><a href="/2013/05/23/epub-archival-preservation-update">EPUB for archival preservation&#58; an update</a></li>
+      
+        <li><a href="/2012/06/18/epub-archival-preservation">EPUB for archival preservation</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>python</summary>
+      <ul>
+      
+        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
+      
+        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+
+
+
+   </ul>
+  
+   </div>
+   <hr>
+
+   <div class="post-entry">
    <h1><a href="/2023/02/20/moving-my-internet-domains">Moving my Internet domains</a></h1>
    <div class="date">
     <span>20 February 2023</span>
@@ -342,130 +431,6 @@
    </div>
    <hr>
 
-   <div class="post-entry">
-   <h1><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></h1>
-   <div class="date">
-    <span>14 June 2022</span>
-   </div>
-   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
-   <figure class="image">
-  <img src="/images/2022/06/storage-media.jpg" alt="Still life of assorted storage media" />
-</figure>
-
-<p>This blog post covers some techniques that can be used to identify storage media and storage devices using Python and the Windows API. This can be useful for distinguishing between different types of portable storage media, such as floppy disks and USB thumb drives. It also presents a demo script that integrates these techniques.</p>
-
-
-   <div class="buttonArea">
-   <a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api" class="button">Read more ...</a>
-  </div>
-   
-   <ul class="tag_box inline">
-     
-     
-
-
-
-
-  
-    <li>
-      <details>
-      <summary>disk-imaging</summary>
-      <ul>
-      
-        <li><a href="/2023/01/23/writing-a-workflow-tool-for-imaging-portable-media">Writing yet another workflow tool for imaging portable media</a></li>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-        <li><a href="/2019/04/10/a-simple-disk-imaging-workflow-tool">A simple disk imaging workflow tool</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>floppy-disks</summary>
-      <ul>
-      
-        <li><a href="/2023/01/23/writing-a-workflow-tool-for-imaging-portable-media">Writing yet another workflow tool for imaging portable media</a></li>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-        <li><a href="/2020/02/20/offline-digital-carriers-kb-deposit-collection">Offline digital data carriers in the KB deposit collection</a></li>
-      
-        <li><a href="/2019/04/10/a-simple-disk-imaging-workflow-tool">A simple disk imaging workflow tool</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>optical-media</summary>
-      <ul>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-        <li><a href="/2022/04/20/introducing-isolyzer-1-4">Introducing Isolyzer 1.4</a></li>
-      
-        <li><a href="/2020/02/20/offline-digital-carriers-kb-deposit-collection">Offline digital data carriers in the KB deposit collection</a></li>
-      
-        <li><a href="/2019/03/22/a-simple-workflow-tool-for-imaging-optical-media-using-readom-and-ddrescue">A simple workflow tool for imaging optical media using readom and ddrescue</a></li>
-      
-        <li><a href="/2018/04/24/resurrecting-the-first-dutch-web-index-nl-menu-revisited">Resurrecting the first Dutch web index&#58; NL-menu revisited</a></li>
-      
-        <li><a href="/2017/07/12/update-on-isolyzer-udf-hfs-and-more">Update on Isolyzer&#58; UDF, HFS+ and more!</a></li>
-      
-        <li><a href="/2017/06/19/image-and-rip-optical-media-like-a-boss">Image and Rip Optical Media Like A Boss!</a></li>
-      
-        <li><a href="/2017/04/25/imaging-cd-extra-blue-book-discs">Imaging CD-Extra / Blue Book discs</a></li>
-      
-        <li><a href="/2017/01/13/detecting-broken-iso-images-introducing-isolyzer">Detecting broken ISO images&#58; introducing Isolyzer</a></li>
-      
-        <li><a href="/2017/01/04/breaking-waves-and-some-flacs">Breaking WAVEs (and some FLACs too)</a></li>
-      
-        <li><a href="/2015/11/13/preserving-optical-media-from-the-command-line">Preserving optical media from the command-line</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>python</summary>
-      <ul>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>tapes</summary>
-      <ul>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-        <li><a href="/2020/02/20/offline-digital-carriers-kb-deposit-collection">Offline digital data carriers in the KB deposit collection</a></li>
-      
-        <li><a href="/2019/09/09/recovering-90s-data-tapes-experiences-kb-web-archaeology">Recovering '90s Data Tapes - Experiences From the KB Web Archaeology project (iPres 2019 paper)</a></li>
-      
-        <li><a href="/2019/01/31/roll-the-tape-recovering-90s-data-tapes-in-bitcurator">Roll the tape - recovering '90s data tapes in BitCurator</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-
-
-
-   </ul>
-  
-   </div>
-   <hr>
-
 
 <!-- Pagination links -->
 
@@ -619,6 +584,8 @@
       <summary>Apache-Tika</summary>
       <ul>
       
+        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
+      
         <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
       
         <li><a href="/2021/02/24/towards-a-preservation-workflow-for-mobile-apps">Towards a preservation workflow for mobile apps</a></li>
@@ -757,6 +724,8 @@
       <details>
       <summary>EPUB</summary>
       <ul>
+      
+        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
       
         <li><a href="/2020/04/30/iso-iec-ts-22424-standard-on-epub3-preservation">ISO/IEC TS 22424 standard on EPUB3 preservation</a></li>
       
@@ -1291,6 +1260,8 @@
       <summary>python</summary>
       <ul>
       
+        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
+      
         <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
       
       </ul>
@@ -1594,8 +1565,27 @@
     
       <details open>
       <summary>2023</summary>
-      <h3>February</h3>
+      <h3>March</h3>
       <ul>
+    
+  
+	<li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
+	
+    
+          
+        
+          </ul>
+          <h3>February</h3>
+          <ul>
+        
+      
+    
+  
+    
+    
+    
+    
+  
     
   
 	<li><a href="/2023/02/20/moving-my-internet-domains">Moving my Internet domains</a></li>
