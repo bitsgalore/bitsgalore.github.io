@@ -7,7 +7,7 @@ comment_id: 85
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2023/03/clockwork-extraction.jpg" alt="Street scene showing crowd gathered around an open carriage in which a dentist performs a tooth extraction on a patient. Next to the patient a man is banging on a large drum.">
-  <figcaption>Clockwork picture of an itinerant dentist performing an extraction in French rural scene, wood frame, metal workings, first half 19th century. <a href="https://wellcomecollection.org/works/hwpe3cxp">Science Museum, London</a>. <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0 International (CC BY 4.0)</a>.</figcaption>
+  <figcaption>Clockwork picture of an itinerant dentist performing an extraction in French rural scene, wood frame, metal workings, first half 19th century. <a href="https://wellcomecollection.org/works/hwpe3cxp">Science Museum, London</a>. <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0 International (CC BY 4.0)</a> (cropped from original).</figcaption>
 </figure>
 
 This blog post provides a brief introduction to extracting unformatted text from EPUB files. The occasion for this work was a request by my Digital Humanities colleagues who are involved in the [SANE (Secure ANalysis Environment) project](https://www.surf.nl/en/news/sane-secure-data-environment-for-social-sciences-and-humanities). The work on this project includes a use case that will use the SANE environment to analyse text from novels in EPUB format. My colleagues were looking for some advice on how to implement the text extraction component, preferably using a Python-based solution.
