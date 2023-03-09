@@ -27,7 +27,7 @@ I evaluated the following tools:
 
 3. [**EbookLib**](https://github.com/aerkalov/ebooklib). This is a Python library for reading and writing E-books in various formats, including EPUB (both EPUB 2 en EPUB 3). EbookLib is also the E-book library that is used by Textract.
 
-The following table below the versions of the above tools that I used in my tests:
+The following table shows the versions of these tools that I used in my tests:
 
 |Software|Version|
 |:--|:--|
