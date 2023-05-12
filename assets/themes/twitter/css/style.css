@@ -228,7 +228,8 @@ blockquote p {
     line-height: 120%;
     font-weight: bold;
     text-align:left;
-    padding-bottom:20px;
+    padding-top:10px;
+    padding-bottom:10px;
 }
 
 .content h2{
@@ -237,8 +238,8 @@ blockquote p {
     line-height: 120%;
     font-weight: bold;
     text-align:left;
-    padding-top: 20px;
-    padding-bottom:20px;
+    padding-top:10px;
+    padding-bottom:10px;
 }
 
 .content h3{
@@ -247,9 +248,20 @@ blockquote p {
     line-height: 120%;
     font-weight: bold;
     text-align:left;
-    padding-top: 20px;
-    padding-bottom:20px;
+    padding-top:10px;
+    padding-bottom:10px;
 }
+
+.content h4{
+    font-family: 'Lato';
+    font-size:24px;
+    line-height: 120%;
+    font-weight: bold;
+    text-align:left;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
 .img-center{
   display: block;
   margin-left: auto;
