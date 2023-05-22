@@ -22,7 +22,7 @@ The dataset is quite small, but contains many complex and otherwise challenging 
  
 ## Policy
 
-The policy is similar to the one used in [my 2014 blog post]({{ BASE_PATH }}//2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus), and it is defined by the following objectives:
+The policy is similar to the one used in [my 2014 blog post]({{ BASE_PATH }}/2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus), and it is defined by the following objectives:
 
 1. No encryption / password protection
 2. All fonts are embedded

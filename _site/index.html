@@ -63,6 +63,1040 @@
 
 
    <div class="post-entry">
+   <h1><a href="/2023/05/30/pdf-risks">PDF Risks</a></h1>
+   <div class="date">
+    <span>30 May 2023</span>
+   </div>
+   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
+   <!--
+
+## General questions
+
+Scope of this research: cannot be exhaustive, so perhaps provide generalized advice. E.g. which groups of features in VeraPDF's output are important, which extraction features should be enabled, and which one are safe to switch off.
+
+Also, I couldn't find a complete description of every feature reported by VeraPDF and its meaning, which meant I often had to check back with the ISO32000 standards. Perhaps room for improvement?
+
+Also, check results again Thorsten's spreadsheet:
+
+<https://docs.google.com/spreadsheets/d/1eW7R8yACBciNimr16Z2ptC7fs1FlmZMnzdtG_DHBuD4/edit#gid=0>
+
+Notes:
+
+- 3D Content: JHOVE does actually detect this (spreadsheet says no)
+- Font Embedding: can't find this in JHOVE output?
+- Annotations: detected by JHOVE, but not all (e.g. Movie annots) 
+
+
+## What to test for
+
+From [2017 analysis](https://www.bitsgalore.org/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression): 
+
+- Encryption / password protection x
+- Embedding status of fonts x
+- Presence of embedded files x
+- Presence of file attachments x
+- Presence of multimedia content (audio, video, 3-D objects) x
+- Anything that results in processing errors (PDF validity proxy) x
+
+Additionally also (below aspects couldn't be tested with VeraPDF in 2017, perhaps this has changed):
+
+- Presence of JavaScript actions x
+- Presence of  Launch actions x
+- Presence of stream objects that refer to an external file ?
+- Presence of SpiderInfo dictionary (Web capture content!) ?
+- Presence of Reference XObjects (refers to either external or embedded file) ?
+- Presence of  Movie actions, Sound actions, Rendition actions, GoTo3DView actions (not enirely clear if these can occur
+     w/o respective annotations; seem tied to Link annotations which can be used for many things.) x
+- Presence of F (file specification) item in stream dictionary ?
+
+-->
+
+<h2 id="bit-preservation-to-functional-preservation">Bit preservation to functional preservation</h2>
+
+<p>In 2019 the KB published its current <a href="https://www.kb.nl/en/file-download/download/public/845">preservation policy</a> for its digital collections. The policy expresses a number of preservation-related goals for the upcoming years. One of these is a (gradual) move from pure <a href="https://blogs.loc.gov/thesignal/2011/09/b-is-for-bit-preservation/">bit preservation</a> towards full functional preservation. To this end, the KB has defined three “knowledge levels”, which are linked to file formats<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">1</a></sup>:</p>
+
+<ol>
+  <li>For <strong>Stored</strong> formats, only bit preservation is done, without any formal format identification (no PRONOM identifier).</li>
+  <li>For <strong>Identified</strong> formats, formal format identification has resulted in a PRONOM identifier.</li>
+  <li>For <strong>Known</strong> formats, format validation has been performed, and technical metadata have been extracted. This information can then be used to identify preservation-related risks at the level of individual files, and actions to mitigate these risks can be taken if necessary.</li>
+</ol>
+
+<p>The move from bit preservation to functional preservation will involve raising the “knowledge level” status of the formats in our digital collections from “stored” (which is the current situation) to “identified” or (ideally) “known”. This development coincides with the ongoing migration of these collections our new <a href="https://www.kb.nl/en/actueel/nieuws/dutch-national-library-steps-new-future-digital-archiving">Rosetta archiving system</a>.</p>
+
+<h2 id="pdf-preservation-risks">PDF preservation risks</h2>
+
+<p>Being one of the <a href="/2015/04/29/top-50-file-formats-in-the-kb-e-depot">most prevalent formats</a> in our collections, it comes as no surprise that my colleagues at our digital preservation department marked PDF as one of the prime candidates for raising the current knowledge level. They were particularly interested in extracting information from PDF files that indicates potential preservation risks.</p>
+
+<p>Now this is a subject that I’ve already explored before. As part of the <a href="https://scape-project.eu/">SCAPE project</a>, I investigated to what extent <em>Preflight</em>, the PDF/A-1 validator component of the open-source <a href="https://pdfbox.apache.org/">Apache PDFBox</a> software, could be used to detect PDF features that are potential preservation risks<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">2</a></sup>. Some of the findings of that work were later used as input for <a href="https://verapdf.org/">VeraPDF</a>. In 2017 I <a href="/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression">repeated some of the SCAPE-era experiments with VeraPDF</a>, which showed VeraPDF to be superior to Apache preflight for detecting preservation risks.</p>
+
+<h2 id="what-risks-exactly">What risks exactly?</h2>
+
+<p>For the purpose of this research, I will mostly focus on the following features:</p>
+
+<ul>
+  <li>Encryption and security-related features. The associated risks are restricted functionality (e.g. text access, copying, printing), or files that are inaccessible altogether (because they can only be opened using a password).</li>
+  <li>External dependencies, such as fonts that are not embedded, or dependencies on external documents or software. The associated risk is that that documents may not render as originally intended if the external resources or software are not available.
+  Multimedia features (embedded multimedia objects may be subject to format obsolescence)</li>
+</ul>
+
+<h2 id="verapdf-vs-jhove">VeraPDF vs JHOVE</h2>
+
+<p>I decided to take this earlier work (which I had not followed up on since then) as a starting point for the current investigation. Since VeraPDF is currently not included in Rosetta, my colleagues wondered to what extent the <a href="https://jhove.openpreservation.org/">JHOVE</a> tool (which is part of Rosetta’s default setup) would be up to the job. So, this blog post presents a comparison of VeraPDF and JHOVE.</p>
+
+<p>It’s important to stress here that VeraPDF and JHOVE have different (but partially overlapping) scopes and functionalities. VeraPDF was primarily written to test for conformance against the various <a href="https://en.wikipedia.org/wiki/PDF/A">PDF/A</a> profiles, with recent versions also supporting (partial) conformance testing for <a href="https://en.wikipedia.org/wiki/PDF/UA">PDF/UA</a>. It does not (or at best only to a limited degree) validate the lower-level data structures that make up a PDF file. The latter is the primary domain of JHOVE’s PDF module, which was designed for “full on” PDF validation<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">3</a></sup>.</p>
+
+<p>The main overlap between VeraPDF and JHOVE lies in their ability tools to extract metadata and technical features.</p>
+
+<h2 id="scope">Scope</h2>
+
+<p>This</p>
+
+<h2 id="software-versions">Software versions</h2>
+
+<ul>
+  <li><a href="https://verapdf.org/">veraPDF</a> 1.22.3</li>
+  <li><a href="https://jhove.openpreservation.org/">JHOVE</a> 1.26.1</li>
+</ul>
+
+<p>. Nei</p>
+
+<p>A fundamental difference between VeraPDF and JHOVE is that VeraPDF is unable to do validation against the PDF specification. Deviations from the spec can also pose potential preservation risks, although it’s <a href="https://blog.dshr.org/2009/01/postels-law.html">debatable</a> how much PDF validity actually matters in practice. Also, none of the tools that are currently available for PDF validation, including JHOVE, have <a href="https://www.pdfa.org/wp-content/until2016_uploads/2015/12/iPres2014-CanonicalPDF-submission_20140827.pdf">gained broad acceptance</a>. This is a huge subject in its own right, that is out of the scope of this analysis.</p>
+
+<h2 id="test-data">Test data</h2>
+
+<p>PDF Cabinet of Horrors corpus (Horror Corpus):</p>
+
+<p><a href="https://github.com/openpreserve/format-corpus/tree/master/pdfCabinetOfHorrors">https://github.com/openpreserve/format-corpus/tree/master/pdfCabinetOfHorrors</a></p>
+
+<p>Adobe Acrobat Engineering:</p>
+
+<p><a href="https://web.archive.org/web/20140114131026/http://acroeng.adobe.com/wp/">https://web.archive.org/web/20140114131026/http://acroeng.adobe.com/wp/</a></p>
+
+<p>Files from “fonts” and “multimedia” categories.</p>
+
+<p>PDF 2.0 examples (PDF Association):</p>
+
+<p><a href="https://github.com/pdf-association/pdf20examples">https://github.com/pdf-association/pdf20examples</a></p>
+
+<h2 id="verapdf-feature-extraction-configuration">VeraPDF feature extraction configuration</h2>
+
+<p>As per the <a href="https://docs.verapdf.org/cli/config/#features.xml">documentation</a> I started with <em>every</em> feature enabled:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
+<span class="nt">&lt;featuresConfig&gt;</span>
+    <span class="nt">&lt;enabledFeatures&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>ACTION<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>ANNOTATION<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>COLORSPACE<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>DOCUMENT_SECURITY<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>EMBEDDED_FILE<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>EXT_G_STATE<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>FONT<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>FORM_XOBJECT<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>ICCPROFILE<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>IMAGE_XOBJECT<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>INFORMATION_DICTIONARY<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>INTERACTIVE_FORM_FIELDS<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>LOW_LEVEL_INFO<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>METADATA<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>OUTLINES<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>OUTPUTINTENT<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>PAGE<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>PATTERN<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>POSTSCRIPT_XOBJECT<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>PROPERTIES<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>SHADING<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>SIGNATURE<span class="nt">&lt;/feature&gt;</span>
+    <span class="nt">&lt;/enabledFeatures&gt;</span>
+<span class="nt">&lt;/featuresConfig&gt;</span>
+</code></pre></div></div>
+
+<p>In the following sections I will apply both VeraPDF and JHOVE to the aforementioned datasets.</p>
+
+<h2 id="analysis-of-horror-corpus">Analysis of Horror Corpus</h2>
+
+<p>I will start with a rather detailed analysis of the <a href="https://github.com/openpreserve/format-corpus/tree/master/pdfCabinetOfHorrors">Horror Corpus</a>, as this is an annotated corpus of files with known features. Even though it only covers a limited selection of “risky” features, this analysis is useful to get a first impression of the differences between VerapDF and JHOVE. It also enables us to identify which parts of the output of both tools are of potential interest for further perusal.</p>
+
+<h3 id="open-password">Open password</h3>
+
+<p>The Horror Corpus contains <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/encryption_openpassword.pdf?raw=true">one file</a> that requires a password to open it.</p>
+
+<h4 id="verapdf">VeraPDF</h4>
+
+<p>For this file, VerapDF reports an exception (full output <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_openpassword-vera.xml">here</a>):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;taskResult</span> <span class="na">type=</span><span class="s">"PARSE"</span> <span class="na">isExecuted=</span><span class="s">"true"</span> <span class="na">isSuccess=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;duration</span> <span class="na">start=</span><span class="s">"1683818755295"</span> <span class="na">finish=</span><span class="s">"1683818755343"</span><span class="nt">&gt;</span>00:00:00.048<span class="nt">&lt;/duration&gt;</span>
+    <span class="nt">&lt;exceptionMessage&gt;</span>Exception: The PDF stream appears to be encrypted. caused by exception: Reader::init(...)encrypted pdf is not supported<span class="nt">&lt;/exceptionMessage&gt;</span>
+<span class="nt">&lt;/taskResult&gt;</span>
+</code></pre></div></div>
+
+<h4 id="jhove">JHOVE</h4>
+
+<p>By contrast, the <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_openpassword-jhove.xml">output of JHOVE</a> for this file results in a rather confusing validation error:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;message</span> <span class="na">offset=</span><span class="s">"65395"</span> <span class="na">severity=</span><span class="s">"error"</span> <span class="na">id=</span><span class="s">"PDF-HUL-109"</span><span class="nt">&gt;</span>Compression method is invalid or unknown to JHOVE<span class="nt">&lt;/message&gt;</span>
+</code></pre></div></div>
+
+<p>This message is not particularly informative or helpful, and this <a href="https://github.com/openpreserve/jhove/issues/640">has been a known bug</a> now for over two years.</p>
+
+<h3 id="copy-printing-and-text-access-passwords">Copy, printing and text access passwords</h3>
+
+<p>The corpus contain three other files with security-related restrictions, which prohibit <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/encryption_nocopy.pdf?raw=true">copying text</a>, <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/encryption_noprinting.pdf?raw=true">printing</a> and <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/encryption_notextaccess.pdf?raw=true">screen reader access</a> without a password.</p>
+
+<h4 id="verapdf-1">VeraPDF</h4>
+
+<p>Information on usage restrictions can be found in the <em>documentSecurity</em> element of VeraPDF’s output. Below is an example (taken from the <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_nocopy-vera.xml">output</a> of the copy-protected file):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentSecurity&gt;</span>
+    <span class="nt">&lt;filter&gt;</span>Standard<span class="nt">&lt;/filter&gt;</span>
+    <span class="nt">&lt;version&gt;</span>4<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;length&gt;</span>128<span class="nt">&lt;/length&gt;</span>
+    <span class="nt">&lt;ownerKey&gt;</span>5F7FA03AD5A40C66...<span class="nt">&lt;/ownerKey&gt;</span>
+    <span class="nt">&lt;userKey&gt;</span>A572ACDFF8B3DC74...<span class="nt">&lt;/userKey&gt;</span>
+    <span class="nt">&lt;encryptMetadata&gt;</span>true<span class="nt">&lt;/encryptMetadata&gt;</span>
+    <span class="nt">&lt;printAllowed&gt;</span>true<span class="nt">&lt;/printAllowed&gt;</span>
+    <span class="nt">&lt;printDegradedAllowed&gt;</span>true<span class="nt">&lt;/printDegradedAllowed&gt;</span>
+    <span class="nt">&lt;changesAllowed&gt;</span>true<span class="nt">&lt;/changesAllowed&gt;</span>
+    <span class="nt">&lt;modifyAnnotationsAllowed&gt;</span>true<span class="nt">&lt;/modifyAnnotationsAllowed&gt;</span>
+    <span class="nt">&lt;fillingSigningAllowed&gt;</span>true<span class="nt">&lt;/fillingSigningAllowed&gt;</span>
+    <span class="nt">&lt;documentAssemblyAllowed&gt;</span>false<span class="nt">&lt;/documentAssemblyAllowed&gt;</span>
+    <span class="nt">&lt;extractContentAllowed&gt;</span>false<span class="nt">&lt;/extractContentAllowed&gt;</span>
+    <span class="nt">&lt;extractAccessibilityAllowed&gt;</span>true<span class="nt">&lt;/extractAccessibilityAllowed&gt;</span>
+<span class="nt">&lt;/documentSecurity&gt;</span>
+</code></pre></div></div>
+
+<p>Here, the “false” value of the <em>extractContentAllowed</em> element indicates this file is copy-protected. The <em>printAllowed</em>  <em>printDegradedAllowed</em> elements indicate whether printing is allowed (example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-vera.xml">here</a>), and “false” values of <em>extractContentAllowed</em> and <em>extractAccessibilityAllowed</em> indicate a text access password ((example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_notextaccess-vera.xml">here</a>).</p>
+
+<h4 id="jhove-1">JHOVE</h4>
+
+<p>JHOVE again only reports the confusing “Compression method is invalid or unknown to JHOVE” error for PDFs with copy, printing of text access restrictions (example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-jhove.xml">here</a>), and doesn’t even do any further parsing.</p>
+
+<h3 id="multimedia">Multimedia</h3>
+
+<p>The Horror Corpus contains two PDFs with embedded multimedia content: one with an <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/embedded_video_quicktime.pdf?raw=true">embedded Quicktime movie</a>, and and a similar one with an <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/embedded_video_avi.pdf?raw=true">AVI movie</a>.</p>
+
+<h4 id="verapdf-2">VeraPDF</h4>
+
+<p>For both files the presence of the multimedia content is indicated by two elements in <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/embedded_video_quicktime-vera.xml">VeraPDF’s output</a>. First, the <em>actions</em> element contains a reference to a “Rendition Action”:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"Rendition"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;location&gt;</span>Annotation<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div></div>
+
+<p>Furthermore, the <em>annotations</em> element contains a reference to a “Screen Annotation”:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;annotation</span> <span class="na">id=</span><span class="s">"annotIndir35"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;subType&gt;</span>Screen<span class="nt">&lt;/subType&gt;</span>
+    <span class="nt">&lt;rectangle</span> <span class="na">lly=</span><span class="s">"360.647"</span> <span class="na">llx=</span><span class="s">"73.180"</span> <span class="na">urx=</span><span class="s">"393.180"</span> <span class="na">ury=</span><span class="s">"600.647"</span><span class="nt">&gt;&lt;/rectangle&gt;</span>
+    <span class="nt">&lt;width&gt;</span>320.000<span class="nt">&lt;/width&gt;</span>
+    <span class="nt">&lt;height&gt;</span>240.000<span class="nt">&lt;/height&gt;</span>
+    <span class="nt">&lt;resources&gt;</span>
+        <span class="nt">&lt;xobject</span> <span class="na">id=</span><span class="s">"xobjIndir39"</span><span class="nt">&gt;&lt;/xobject&gt;</span>
+    <span class="nt">&lt;/resources&gt;</span>
+    <span class="nt">&lt;invisible&gt;</span>false<span class="nt">&lt;/invisible&gt;</span>
+    <span class="nt">&lt;hidden&gt;</span>false<span class="nt">&lt;/hidden&gt;</span>
+    <span class="nt">&lt;print&gt;</span>true<span class="nt">&lt;/print&gt;</span>
+    <span class="nt">&lt;noZoom&gt;</span>false<span class="nt">&lt;/noZoom&gt;</span>
+    <span class="nt">&lt;noRotate&gt;</span>false<span class="nt">&lt;/noRotate&gt;</span>
+    <span class="nt">&lt;noView&gt;</span>false<span class="nt">&lt;/noView&gt;</span>
+    <span class="nt">&lt;readOnly&gt;</span>false<span class="nt">&lt;/readOnly&gt;</span>
+    <span class="nt">&lt;locked&gt;</span>false<span class="nt">&lt;/locked&gt;</span>
+    <span class="nt">&lt;toggleNoView&gt;</span>false<span class="nt">&lt;/toggleNoView&gt;</span>
+    <span class="nt">&lt;lockedContents&gt;</span>false<span class="nt">&lt;/lockedContents&gt;</span>
+<span class="nt">&lt;/annotation&gt;</span>
+</code></pre></div></div>
+
+<h4 id="jhove-2">JHOVE</h4>
+
+<p>The <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/embedded_video_quicktime-jhove.xml">JHOVE output</a> only refers to the “Screen Annotation” for these files (JHOVE doesn’t report on Actions):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;property&gt;</span>
+<span class="nt">&lt;name&gt;</span>Annotation<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"List"</span> <span class="na">type=</span><span class="s">"Property"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;property&gt;</span>
+<span class="nt">&lt;name&gt;</span>Subtype<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"Scalar"</span> <span class="na">type=</span><span class="s">"String"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;value&gt;</span>Screen<span class="nt">&lt;/value&gt;</span>
+<span class="nt">&lt;/values&gt;</span>
+<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;property&gt;</span>
+</code></pre></div></div>
+
+<p>Besides “Rendition Actions” and “Screen Annotations”, there are several other “action” and “annotation” types that indicate multimedia content, and we’ll see some examples later on in the analysis of the Adobe Acrobat Engineering files.</p>
+
+<h3 id="javascript">JavaScript</h3>
+
+<p><a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/javascript.pdf?raw=true">This sample file</a> contains JavaScript.</p>
+
+<h4 id="verapdf-3">VeraPDF</h4>
+
+<p>The <em>actions</em> element of <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/javascript-vera.xml">VeraPDF’s output</a> contains the following “JavaScript Action” reference<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">4</a></sup>:</p>
+
+<p>Result:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"JavaScript"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;location&gt;</span>Document<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div></div>
+
+<h4 id="jhove-3">JHOVE</h4>
+
+<p>I couldn’t find any JavaScript reference in the <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/javascript-jhove.xml">JHOVE output</a> for the same file.</p>
+
+<h3 id="font-embedding">Font embedding</h3>
+
+<h4 id="verapdf-4">VeraPDF</h4>
+
+<p>The <em>fonts</em> element in VeraPDF’s output contains child elements for each font that is used in a document. For <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/text_only_fontsNotEmbedded.pdf?raw=true">this PDF</a>, which only has fonts that are not embedded, this results in the following output (full output file <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/text_only_fontsNotEmbedded-vera.xml">here</a>):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;font</span> <span class="na">id=</span><span class="s">"fntIndir30"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;type&gt;</span>TrueType<span class="nt">&lt;/type&gt;</span>
+<span class="nt">&lt;baseFont&gt;</span>TimesNewRomanPSMT<span class="nt">&lt;/baseFont&gt;</span>
+<span class="nt">&lt;firstChar&gt;</span>32<span class="nt">&lt;/firstChar&gt;</span>
+<span class="nt">&lt;lastChar&gt;</span>255<span class="nt">&lt;/lastChar&gt;</span>
+<span class="nt">&lt;encoding&gt;</span>WinAnsiEncoding<span class="nt">&lt;/encoding&gt;</span>
+<span class="nt">&lt;fontDescriptor&gt;</span>
+     <span class="nt">&lt;subset&gt;</span>false<span class="nt">&lt;/subset&gt;</span>
+     <span class="nt">&lt;fontName&gt;</span>TimesNewRomanPSMT<span class="nt">&lt;/fontName&gt;</span>
+     <span class="nt">&lt;fontFamily&gt;</span>Times New Roman<span class="nt">&lt;/fontFamily&gt;</span>
+     <span class="nt">&lt;fontStretch&gt;</span>Normal<span class="nt">&lt;/fontStretch&gt;</span>
+     <span class="nt">&lt;fontWeight&gt;</span>400.000<span class="nt">&lt;/fontWeight&gt;</span>
+     <span class="nt">&lt;fixedPitch&gt;</span>false<span class="nt">&lt;/fixedPitch&gt;</span>
+     <span class="nt">&lt;serif&gt;</span>true<span class="nt">&lt;/serif&gt;</span>
+     <span class="nt">&lt;symbolic&gt;</span>false<span class="nt">&lt;/symbolic&gt;</span>
+     <span class="nt">&lt;script&gt;</span>false<span class="nt">&lt;/script&gt;</span>
+     <span class="nt">&lt;nonsymbolic&gt;</span>true<span class="nt">&lt;/nonsymbolic&gt;</span>
+     <span class="nt">&lt;italic&gt;</span>false<span class="nt">&lt;/italic&gt;</span>
+     <span class="nt">&lt;allCap&gt;</span>false<span class="nt">&lt;/allCap&gt;</span>
+     <span class="nt">&lt;smallCap&gt;</span>false<span class="nt">&lt;/smallCap&gt;</span>
+     <span class="nt">&lt;forceBold&gt;</span>false<span class="nt">&lt;/forceBold&gt;</span>
+     <span class="nt">&lt;fontBBox</span> <span class="na">lly=</span><span class="s">"-307.000"</span> <span class="na">llx=</span><span class="s">"-568.000"</span> <span class="na">urx=</span><span class="s">"2000.000"</span> <span class="na">ury=</span><span class="s">"1007.000"</span><span class="nt">&gt;&lt;/fontBBox&gt;</span>
+     <span class="nt">&lt;italicAngle&gt;</span>0.000<span class="nt">&lt;/italicAngle&gt;</span>
+     <span class="nt">&lt;ascent&gt;</span>891.000<span class="nt">&lt;/ascent&gt;</span>
+     <span class="nt">&lt;descent&gt;</span>-216.000<span class="nt">&lt;/descent&gt;</span>
+     <span class="nt">&lt;leading&gt;</span>0.000<span class="nt">&lt;/leading&gt;</span>
+     <span class="nt">&lt;capHeight&gt;</span>1000.000<span class="nt">&lt;/capHeight&gt;</span>
+     <span class="nt">&lt;xHeight&gt;</span>1000.000<span class="nt">&lt;/xHeight&gt;</span>
+     <span class="nt">&lt;stemV&gt;</span>82.000<span class="nt">&lt;/stemV&gt;</span>
+     <span class="nt">&lt;stemH&gt;</span>0.000<span class="nt">&lt;/stemH&gt;</span>
+     <span class="nt">&lt;averageWidth&gt;</span>0.000<span class="nt">&lt;/averageWidth&gt;</span>
+     <span class="nt">&lt;maxWidth&gt;</span>0.000<span class="nt">&lt;/maxWidth&gt;</span>
+     <span class="nt">&lt;missingWidth&gt;</span>0.000<span class="nt">&lt;/missingWidth&gt;</span>
+     <span class="nt">&lt;embedded&gt;</span>false<span class="nt">&lt;/embedded&gt;</span>
+<span class="nt">&lt;/fontDescriptor&gt;</span>
+<span class="nt">&lt;/font&gt;</span>
+</code></pre></div></div>
+
+<p>Here, the value of <em>embedded</em> in the <em>fontDescriptor</em> sub-element indicates whether a font is embededded or not (in this example it isn’t). So, to check if a PDF uses fonts that are not embedded, one can simply iterate over all <em>font</em> elements and check the value of <em>/fontDescriptor/embedded</em> for each of these.</p>
+
+<h4 id="jhove-4">JHOVE</h4>
+
+<p>The <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/text_only_fontsNotEmbedded-jhove.xml">JHOVE output for the same PDF</a> does contain several font-related properties, but none of them are related to embedding. So, I initially assumed that JHOVE simply didn’t report this. Then I took a closer look at <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/text_only_fontsEmbeddedAll-jhove.xml">JHOVE’s output</a> for <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/text_only_fontsEmbeddedAll.pdf?raw=true">another PDF</a> that <em>only</em> has embedded fonts, and noticed this property (part of a <em>FontDescriptor</em> element):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;property&gt;</span>
+    <span class="nt">&lt;name&gt;</span>FontFile2<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"Scalar"</span> <span class="na">type=</span><span class="s">"Boolean"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/values&gt;</span>
+<span class="nt">&lt;/property&gt;</span>
+</code></pre></div></div>
+
+<p>Since JHOVE doesn’t report the <em>FontFile2</em> property for the PDF without embedded fonts, I wondered if this was a coincidence. As the meaning of this property (or any of JHOVE’s properties for that matter) is not documented, I took a peek at <a href="https://github.com/openpreserve/jhove/blob/94da570caa55759354fa6fcd50e4ea7edbba1e7d/jhove-modules/pdf-hul/src/main/java/edu/harvard/hul/ois/jhove/module/PdfModule.java#L3830">JHOVE’s source code</a>. This that the <em>FontFile2</em> property originates from the “font descriptor” dictionary, which is documented in section 9.8 (Font Descriptors) of the <a href="https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf">ISO 32000-1 PDF specification</a>. Here we can see (Table 122) that the keys <em>FontFile</em>, <em>FontFile2</em> and <em>FontFile3</em> (which also exist as separate JHOVE properties) all indicate embedded fonts.</p>
+
+<p>This means we can actually use JHOVE’s output to check for font embedding, but to identify a PDF with one or more fonts that are not embedded one needs to iterate over all font property groups, and then check for the <em>absence</em> of either of three separate properties (<em>FontFile</em>, <em>FontFile2</em> and <em>FontFile3</em>), none of which are documented. This is not ideal to begin with, and made worse by JHOVE’s rather labyrinthine output format.</p>
+
+<h3 id="file-attachments">File attachments</h3>
+
+<p>File attachments in PDF can be implemented in two different ways, using either an <em>EmbeddedFiles</em> entry in the document’s name dictionary (<a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/fileAttachment.pdf?raw=true">sample file</a>), or a “File Attachment Annotation” (<a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/fileAttachment_fileAttachmentAnnotation.pdf?raw=true">sample file</a>).</p>
+
+<h4 id="verapdf-5">VeraPDF</h4>
+
+<p>For the sample file with the <em>EmbeddedFiles</em> entry, <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/fileAttachment-vera.xml">VeraPDF’s output</a> contains an <em>embeddedFiles</em> with one or more child elements:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;embeddedFiles&gt;</span>
+    <span class="nt">&lt;embeddedFile</span> <span class="na">id=</span><span class="s">"file1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;fileName&gt;</span>KSBASE.WQ2<span class="nt">&lt;/fileName&gt;</span>
+    <span class="nt">&lt;description&gt;&lt;/description&gt;</span>
+    <span class="nt">&lt;filter&gt;</span>FlateDecode<span class="nt">&lt;/filter&gt;</span>
+    <span class="nt">&lt;creationDate&gt;</span>2012-11-23T15:40:38.000+01:00<span class="nt">&lt;/creationDate&gt;</span>
+    <span class="nt">&lt;modDate&gt;</span>2012-11-19T12:35:10.000Z<span class="nt">&lt;/modDate&gt;</span>
+    <span class="nt">&lt;checkSum&gt;</span>)#x000002Aﬁ˛½�ﬂô#x000004‘SèŠ-¡<span class="nt">&lt;/checkSum&gt;</span>
+    <span class="nt">&lt;size&gt;</span>20668<span class="nt">&lt;/size&gt;</span>
+    <span class="nt">&lt;/embeddedFile&gt;</span>
+<span class="nt">&lt;/embeddedFiles&gt;</span>
+</code></pre></div></div>
+
+<p>For the sample file with the “File Attachment Annotation”, the <em>annotations</em> element in VeraPDF’s <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/fileAttachment_fileAttachmentAnnotation-vera.xml">output</a> contains an <em>annotation</em> child element that has “FileAttachment” as its subtype:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;annotation</span> <span class="na">id=</span><span class="s">"annotIndir26"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;subType&gt;</span>FileAttachment<span class="nt">&lt;/subType&gt;</span>
+    <span class="nt">&lt;rectangle</span> <span class="na">lly=</span><span class="s">"562.840"</span> <span class="na">llx=</span><span class="s">"185.281"</span> <span class="na">urx=</span><span class="s">"199.281"</span> <span class="na">ury=</span><span class="s">"582.840"</span><span class="nt">&gt;&lt;/rectangle&gt;</span>
+    <span class="nt">&lt;width&gt;</span>14.000<span class="nt">&lt;/width&gt;</span>
+    <span class="nt">&lt;height&gt;</span>20.000<span class="nt">&lt;/height&gt;</span>
+    <span class="nt">&lt;contents&gt;</span>PF.WK1<span class="nt">&lt;/contents&gt;</span>
+    <span class="nt">&lt;annotationName&gt;</span>9a716f25-da75-4309-b918-483cfa9f6473<span class="nt">&lt;/annotationName&gt;</span>
+    <span class="nt">&lt;modifiedDate&gt;</span>D:20131024143706+02'00'<span class="nt">&lt;/modifiedDate&gt;</span>
+    <span class="nt">&lt;resources&gt;</span>
+        <span class="nt">&lt;xobject</span> <span class="na">id=</span><span class="s">"xobjIndir29"</span><span class="nt">&gt;&lt;/xobject&gt;</span>
+    <span class="nt">&lt;/resources&gt;</span>
+    <span class="nt">&lt;color</span> <span class="na">red=</span><span class="s">"0.250000"</span> <span class="na">green=</span><span class="s">"0.333328"</span> <span class="na">blue=</span><span class="s">"1.000000"</span><span class="nt">&gt;&lt;/color&gt;</span>
+    <span class="nt">&lt;invisible&gt;</span>false<span class="nt">&lt;/invisible&gt;</span>
+    <span class="nt">&lt;hidden&gt;</span>false<span class="nt">&lt;/hidden&gt;</span>
+    <span class="nt">&lt;print&gt;</span>true<span class="nt">&lt;/print&gt;</span>
+    <span class="nt">&lt;noZoom&gt;</span>true<span class="nt">&lt;/noZoom&gt;</span>
+    <span class="nt">&lt;noRotate&gt;</span>true<span class="nt">&lt;/noRotate&gt;</span>
+    <span class="nt">&lt;noView&gt;</span>false<span class="nt">&lt;/noView&gt;</span>
+    <span class="nt">&lt;readOnly&gt;</span>false<span class="nt">&lt;/readOnly&gt;</span>
+    <span class="nt">&lt;locked&gt;</span>false<span class="nt">&lt;/locked&gt;</span>
+    <span class="nt">&lt;toggleNoView&gt;</span>false<span class="nt">&lt;/toggleNoView&gt;</span>
+    <span class="nt">&lt;lockedContents&gt;</span>false<span class="nt">&lt;/lockedContents&gt;</span>
+<span class="nt">&lt;/annotation&gt;</span>
+</code></pre></div></div>
+
+<h4 id="jhove-5">JHOVE</h4>
+
+<p>For the sample file with the <em>EmbeddedFiles</em> entry, <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/fileAttachment-jhove.xml">JHOVE’s output</a> contains a <em>PageMode</em> element with <em>UseAttachments</em> as one of its values:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;property&gt;</span>
+     <span class="nt">&lt;name&gt;</span>PageMode<span class="nt">&lt;/name&gt;</span>
+     <span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"Scalar"</span> <span class="na">type=</span><span class="s">"String"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;value&gt;</span>UseAttachments<span class="nt">&lt;/value&gt;</span>
+     <span class="nt">&lt;/values&gt;</span>
+<span class="nt">&lt;/property&gt;</span>
+</code></pre></div></div>
+
+<p>For the sample file with the “File Attachment Annotation”, JHOVE’s <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/fileAttachment_fileAttachmentAnnotation-jhove.xml">output</a> reports a “FileAttachment” annotation:</p>
+
+<p>Annotation with FileAttachment as Subtype:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;property&gt;</span>
+<span class="nt">&lt;name&gt;</span>Annotation<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"List"</span> <span class="na">type=</span><span class="s">"Property"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;property&gt;</span>
+     <span class="nt">&lt;name&gt;</span>Subtype<span class="nt">&lt;/name&gt;</span>
+     <span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"Scalar"</span> <span class="na">type=</span><span class="s">"String"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;value&gt;</span>FileAttachment<span class="nt">&lt;/value&gt;</span>
+     <span class="nt">&lt;/values&gt;</span>
+<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;property&gt;</span>
+</code></pre></div></div>
+
+<h3 id="link-to-external-file">Link to external file</h3>
+
+<p><a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/externalLink.pdf?raw=true">This file</a> contains a link to an external document.</p>
+
+<h4 id="verapdf-6">VeraPDF</h4>
+
+<p>For the external link sample file, the <em>actions</em> element of <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/externalLink-vera.xml">VeraPDF’s output</a> contains a “Launch” action:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"Launch"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;location&gt;</span>Annotation<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div></div>
+
+<p>Further to that, the <em>annotations</em> element contains a child element for a “Link” annotation:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;annotation</span> <span class="na">id=</span><span class="s">"annotIndir35"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;subType&gt;</span>Link<span class="nt">&lt;/subType&gt;</span>
+     <span class="nt">&lt;rectangle</span> <span class="na">lly=</span><span class="s">"678.816"</span> <span class="na">llx=</span><span class="s">"70.860"</span> <span class="na">urx=</span><span class="s">"200.820"</span> <span class="na">ury=</span><span class="s">"694.584"</span><span class="nt">&gt;&lt;/rectangle&gt;</span>
+     <span class="nt">&lt;width&gt;</span>129.960<span class="nt">&lt;/width&gt;</span>
+     <span class="nt">&lt;height&gt;</span>15.768<span class="nt">&lt;/height&gt;</span>
+     <span class="nt">&lt;invisible&gt;</span>false<span class="nt">&lt;/invisible&gt;</span>
+     <span class="nt">&lt;hidden&gt;</span>false<span class="nt">&lt;/hidden&gt;</span>
+     <span class="nt">&lt;print&gt;</span>true<span class="nt">&lt;/print&gt;</span>
+     <span class="nt">&lt;noZoom&gt;</span>false<span class="nt">&lt;/noZoom&gt;</span>
+     <span class="nt">&lt;noRotate&gt;</span>false<span class="nt">&lt;/noRotate&gt;</span>
+     <span class="nt">&lt;noView&gt;</span>false<span class="nt">&lt;/noView&gt;</span>
+     <span class="nt">&lt;readOnly&gt;</span>false<span class="nt">&lt;/readOnly&gt;</span>
+     <span class="nt">&lt;locked&gt;</span>false<span class="nt">&lt;/locked&gt;</span>
+     <span class="nt">&lt;toggleNoView&gt;</span>false<span class="nt">&lt;/toggleNoView&gt;</span>
+     <span class="nt">&lt;lockedContents&gt;</span>false<span class="nt">&lt;/lockedContents&gt;</span>
+<span class="nt">&lt;/annotation&gt;</span>
+</code></pre></div></div>
+
+<p>As explained in section 12.6.4.5 (Launch Actions) of <a href="https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf">ISO 32000-1</a>:</p>
+
+<blockquote>
+  <p>A launch action launches an application or opens or prints a document.</p>
+</blockquote>
+
+<p>So, it is not exclusively associated with external <em>documents</em>, but it might also indicate a dependency on external <em>software</em>, which makes it all the more relevant for preservation. Link annotations can also serve several purposes. Section 12.5.6.5 (Link Annotations) of ISO 32000-1:</p>
+
+<blockquote>
+  <p>A link annotation represents either a hypertext link to a destination elsewhere in the document (…) or an action to be performed.</p>
+</blockquote>
+
+<p>If I’m reading this correctly, the presence of a link annotation alone not always imply an external dependency.</p>
+
+<h4 id="jhove-6">JHOVE</h4>
+
+<p><a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/externalLink-jhove.xml">JHOVE’s output</a> only contains this reference to the Link annnotation:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;property&gt;</span>
+<span class="nt">&lt;name&gt;</span>Annotation<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"List"</span> <span class="na">type=</span><span class="s">"Property"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;property&gt;</span>
+<span class="nt">&lt;name&gt;</span>Subtype<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;values</span> <span class="na">arity=</span><span class="s">"Scalar"</span> <span class="na">type=</span><span class="s">"String"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;value&gt;</span>Link<span class="nt">&lt;/value&gt;</span>
+<span class="nt">&lt;/values&gt;</span>
+<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;property&gt;</span>
+</code></pre></div></div>
+
+<p>JHOVE doesn’t report any Actions (including the Launch action in this file).</p>
+
+<h3 id="web-capture-content">Web Capture content</h3>
+
+<p><a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/webCapture.pdf?raw=true">This file</a> uses the Web Capture feature. When I created this file back in 2012, I was under the impression that all Web Capture content by its nature had a dependency on the live web. Reading section 14.10 (Web Capture) of <a href="https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf">ISO 32000-1</a> once more, it turns out that this is not the case:</p>
+
+<blockquote>
+  <p>The information in the Web Capture data structures enables conforming products to perform the following
+operations:</p>
+  <ul>
+    <li>Save locally and preserve the visual appearance of material from the Web</li>
+    <li>Retrieve additional material from the Web and add it to an existing PDF file</li>
+    <li>Update or modify existing material previously captured from the Web</li>
+  </ul>
+</blockquote>
+
+<p>So, Web Capture content may simply be a local copy of material that was captured from the web at the time of the PDF’s creation. It seems that this is the case with the PDF from the Horror Corpus. When I open it on my machine (using <a href="https://github.com/linuxmint/xreader/">Xreader</a>), it shows a snapshot of the Open Planets Foundation website from the time of the document’s creation (2012). It’s not entirely clear to me how and under what circumstances additional material is retrieved from the web, or existing material is updated. This makes it hard to judge how much of a preservation risk Web Capture content poses in actual practice.
+ies work in practice.</p>
+
+<h4 id="verapdf-7">veraPDF</h4>
+
+<p>The <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/webCapture-vera.xml">output</a> of VeraPDF contains several interesting bits. First, there are these references to a “GoTo Action”, a “URI Action” and a “SubmitForm Action”:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"GoTo"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;location&gt;</span>Annotation<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"URI"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;location&gt;</span>Annotation<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"SubmitForm"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;location&gt;</span>Annotation<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div></div>
+
+<p>Moreover, the <em>annotations</em> element contains a large number of Link annotations:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;annotation</span> <span class="na">id=</span><span class="s">"annotIndir163"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;subType&gt;</span>Link<span class="nt">&lt;/subType&gt;</span>
+<span class="nt">&lt;rectangle</span> <span class="na">lly=</span><span class="s">"720.000"</span> <span class="na">llx=</span><span class="s">"11.000"</span> <span class="na">urx=</span><span class="s">"88.000"</span> <span class="na">ury=</span><span class="s">"760.000"</span><span class="nt">&gt;&lt;/rectangle&gt;</span>
+<span class="nt">&lt;width&gt;</span>77.000<span class="nt">&lt;/width&gt;</span>
+<span class="nt">&lt;height&gt;</span>40.000<span class="nt">&lt;/height&gt;</span>
+<span class="nt">&lt;invisible&gt;</span>false<span class="nt">&lt;/invisible&gt;</span>
+<span class="nt">&lt;hidden&gt;</span>false<span class="nt">&lt;/hidden&gt;</span>
+<span class="nt">&lt;print&gt;</span>false<span class="nt">&lt;/print&gt;</span>
+<span class="nt">&lt;noZoom&gt;</span>false<span class="nt">&lt;/noZoom&gt;</span>
+<span class="nt">&lt;noRotate&gt;</span>false<span class="nt">&lt;/noRotate&gt;</span>
+<span class="nt">&lt;noView&gt;</span>false<span class="nt">&lt;/noView&gt;</span>
+<span class="nt">&lt;readOnly&gt;</span>false<span class="nt">&lt;/readOnly&gt;</span>
+<span class="nt">&lt;locked&gt;</span>false<span class="nt">&lt;/locked&gt;</span>
+<span class="nt">&lt;toggleNoView&gt;</span>false<span class="nt">&lt;/toggleNoView&gt;</span>
+<span class="nt">&lt;lockedContents&gt;</span>false<span class="nt">&lt;/lockedContents&gt;</span>
+<span class="nt">&lt;/annotation&gt;</span>
+</code></pre></div></div>
+
+<h4 id="jhove-7">JHOVE</h4>
+
+<p>Looking at <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/webCapture-jhove.xml">JHOVE’s output</a>, I couldn’t find any reference to the Web Capture content at all. The missing references to the “GoTo Action”, “URI Action” and “SubmitForm Action” are understandable, since JHOVE doesn’t report any Actions. The absence of any reference to the numerous Link annotations is nevertheless surprising.</p>
+
+<h3 id="byte-corruption">Byte corruption</h3>
+
+<p>In <a href="https://github.com/openpreserve/format-corpus/blob/master/pdfCabinetOfHorrors/corruptionOneByteMissing.pdf?raw=true">this file</a>, one byte is missing just after the file header.</p>
+
+<h4 id="verapdf-8">VeraPDF</h4>
+
+<p>The byte corruption in this file causes an exception in VeraPDF. Details can be found in the <em>taskResult</em> element of the <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/corruptionOneByteMissing-vera.xml">output</a> file:</p>
+
+<p>Result:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;taskResult</span> <span class="na">type=</span><span class="s">"PARSE"</span> <span class="na">isExecuted=</span><span class="s">"true"</span> <span class="na">isSuccess=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;duration</span> <span class="na">start=</span><span class="s">"1683818745078"</span> <span class="na">finish=</span><span class="s">"1683818745121"</span><span class="nt">&gt;</span>00:00:00.043<span class="nt">&lt;/duration&gt;</span>
+    <span class="nt">&lt;exceptionMessage&gt;</span>Exception: Couldn't parse stream caused by exception: Pages not found<span class="nt">&lt;/exceptionMessage&gt;</span>
+<span class="nt">&lt;/taskResult&gt;</span>
+</code></pre></div></div>
+
+<p>It looks like the <em>taskResult</em> element is currently <em>only</em> included if an exception occurs. It would be more consistent to include it for <em>every</em> processsed file. This would make it more straightforward to use the output to identify PDFS that caused any exceptions or parse errors in VeraPDF. These are usually an indication that something is seriously wrong with a file, and the value of the <em>isSuccess</em> attribute could be used as a rough validation proxy. I’ve created <a href="https://github.com/veraPDF/veraPDF-library/issues/1336">an issue</a> for this.</p>
+
+<h4 id="jhove-8">JHOVE</h4>
+
+<p><a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/corruptionOneByteMissing-jhove.xml">JHOVE’s output</a> contains the following error:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;message</span> <span class="na">offset=</span><span class="s">"0"</span> <span class="na">severity=</span><span class="s">"error"</span> <span class="na">id=</span><span class="s">"PDF-HUL-140"</span><span class="nt">&gt;</span>Document catalog dictionary object number and trailer root ref number are inconsistent.<span class="nt">&lt;/message&gt;</span>
+</code></pre></div></div>
+
+<p>Since the sample file used here only represents one very specific case of byte corruption, I expect that other types might result in quite different JHOVE errors (but this is outside the scope of this investigation).</p>
+
+<h2 id="analysis-adobe-acrobat-engineering-dataset">Analysis Adobe Acrobat Engineering dataset</h2>
+
+<p>The results of the Horror Corpus analysis highlight the significance of annotations and actions, which are often indicative of features that are indicative of preservation risks. Therefore, I ran some additional tests on the files in the “multimedia” category from the Adobe Acrobat Engineering dataset (which make heavy use of both features). The full output can be found <a href="https://github.com/KBNLresearch/pdf-characterisation/tree/main/output/ae-multimedia">here</a>.</p>
+
+<h3 id="annotations-verapdf-vs-jhove">Annotations: VeraPDF vs JHOVE</h3>
+
+<p>First, I wanted to know how VeraPDF and JHOVE compare against each other in their reporting of annotations. The following table shows, for each file, all reported annotations:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">File</th>
+      <th style="text-align: left">VeraPDF</th>
+      <th style="text-align: left">JHOVE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">AdobeChassisDemo-commented_Review.pdf</td>
+      <td style="text-align: left">Text<br />3D<br />Polygon<br />Ink<br />Popup</td>
+      <td style="text-align: left">Popup<br />Text<br />Polygon<br />Ink<br />3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://web.archive.org/web/20100714002808/http://acroeng.adobe.com:80/Test_Files/movie/movie.pdf">movie.pdf</a></td>
+      <td style="text-align: left">Movie</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MusicalScore.pdf</td>
+      <td style="text-align: left">Screen<br />Link<br />Widget</td>
+      <td style="text-align: left">Screen<br />Widget<br />Link</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">LabelExample.pdf</td>
+      <td style="text-align: left">Widget<br />3D</td>
+      <td style="text-align: left">Widget<br />3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MultiMedia_Acro6.pdf</td>
+      <td style="text-align: left">Screen</td>
+      <td style="text-align: left">Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">AVI+Transitions Demo.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://web.archive.org/web/20140519130059/http://acroeng.adobe.com/Test_Files/classic_multimedia//20020402_CALOS.pdf">20020402_CALOS.pdf</a></td>
+      <td style="text-align: left">Movie<br />Link<br />Widget</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Disney-Flash.pdf</td>
+      <td style="text-align: left">Widget<br />Link<br />Screen</td>
+      <td style="text-align: left">Screen<br />Widget<br />Link</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">gXsummer2004-stream.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SVG-AnnotAnim.pdf</td>
+      <td style="text-align: left">SVG</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Service Form_media.pdf</td>
+      <td style="text-align: left">Screen<br />Link<br />Widget</td>
+      <td style="text-align: left">Widget<br />Screen<br />Link</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Binder_6-3DPages.pdf</td>
+      <td style="text-align: left">3D</td>
+      <td style="text-align: left">3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">us_population.pdf</td>
+      <td style="text-align: left">SVG</td>
+      <td style="text-align: left">SVG</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SVG.pdf</td>
+      <td style="text-align: left">Widget</td>
+      <td style="text-align: left">Widget</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">phlmapbeta7.pdf</td>
+      <td style="text-align: left">Screen</td>
+      <td style="text-align: left">Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ScriptEvents.pdf</td>
+      <td style="text-align: left">Widget<br />Screen</td>
+      <td style="text-align: left">Screen<br />Widget</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Trophy.pdf</td>
+      <td style="text-align: left">Screen<br />Widget<br />Link</td>
+      <td style="text-align: left">Screen<br />Widget<br />Link</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">VolvoS40V50-Full.pdf</td>
+      <td style="text-align: left">Widget<br />Screen<br />Link</td>
+      <td style="text-align: left">Screen<br />Link<br />Widget</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jpeg_linked.pdf</td>
+      <td style="text-align: left">Link<br />Screen</td>
+      <td style="text-align: left">Link<br />Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">AdobeChassisDemo-commented.pdf</td>
+      <td style="text-align: left">Text<br />Polygon<br />Popup<br />3D</td>
+      <td style="text-align: left">Polygon<br />Text<br />Popup<br />3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">drape_raster_contour_sample.pdf</td>
+      <td style="text-align: left">Link<br />3D</td>
+      <td style="text-align: left">3D<br />Link</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://web.archive.org/web/20100714002816/http://acroeng.adobe.com:80/Test_Files/movie/remotemovieurl.pdf">remotemovieurl.pdf</a></td>
+      <td style="text-align: left">Movie<br />FreeText</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3-D_PDF.pdf</td>
+      <td style="text-align: left">3D</td>
+      <td style="text-align: left">3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://web.archive.org/web/20100714002811/http://acroeng.adobe.com:80/Test_Files/movie/movie_down1.pdf">movie_down1.pdf</a></td>
+      <td style="text-align: left">Movie</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Although the results for VeraPDF and JHOVE are broadly similar, there are some noteworthy differences:</p>
+
+<ul>
+  <li>For the files <a href="https://web.archive.org/web/20100714002808/http://acroeng.adobe.com:80/Test_Files/movie/movie.pdf">“movie.pdf”</a>, <a href="https://web.archive.org/web/20140519130059/http://acroeng.adobe.com/Test_Files/classic_multimedia//20020402_CALOS.pdf">“20020402_CALOS.pdf”</a>, <a href="https://web.archive.org/web/20100714002816/http://acroeng.adobe.com:80/Test_Files/movie/remotemovieurl.pdf">“remotemovieurl.pdf”</a> and <a href="https://web.archive.org/web/20100714002811/http://acroeng.adobe.com:80/Test_Files/movie/movie_down1.pdf">“movie_down1.pdf”</a>, JHOVE doesn’t report any annotations at all. In all four cases the <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/ae-multimedia/20020402_CALOS-jhove.xml">output</a> contains an annotation-related validation error (“Annotation dictionary missing required type (S) entry”). VeraPDF’s output shows that all of these files contain a Movie annotation. I’m not sure if this is a coincidence.</li>
+  <li>For the file “SVG-AnnotAnim.pdf”, JHOVE doesn’t report the SVG annotation. A look at the <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/ae-multimedia/SVG-AnnotAnim-jhove.xml">output</a> shows that JHOVE wasn’t able to parse this file at all (it reports a “Pages dictionary has no Type key or it has a null value” error).</li>
+</ul>
+
+<h3 id="actions-and-annotations-in-verapdf">Actions and annotations in VeraPDF</h3>
+
+<p>The following table lists all actions reported by VeraPDF (JHOVE doesn’t report these at all). Since actions are often associated with annotations, I also included a column with the annotations (which is identical to the “VeraPDF” column in the previous table):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">File</th>
+      <th style="text-align: left">Actions</th>
+      <th style="text-align: left">Annotations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">AdobeChassisDemo-commented_Review.pdf</td>
+      <td style="text-align: left">JavaScript</td>
+      <td style="text-align: left">Text<br />3D<br />Polygon<br />Ink<br />Popup</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">movie.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Movie</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MusicalScore.pdf</td>
+      <td style="text-align: left">GoTo<br />URI<br />Rendition<br />JavaScript</td>
+      <td style="text-align: left">Screen<br />Link<br />Widget</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">LabelExample.pdf</td>
+      <td style="text-align: left">GoTo3DView<br />JavaScript</td>
+      <td style="text-align: left">Widget<br />3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MultiMedia_Acro6.pdf</td>
+      <td style="text-align: left">Rendition</td>
+      <td style="text-align: left">Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">AVI+Transitions Demo.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">20020402_CALOS.pdf</td>
+      <td style="text-align: left">GoTo<br />Named<br />Hide<br />Movie</td>
+      <td style="text-align: left">Movie<br />Link<br />Widget</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Disney-Flash.pdf</td>
+      <td style="text-align: left">SubmitForm<br />URI<br />Rendition</td>
+      <td style="text-align: left">Widget<br />Link<br />Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">gXsummer2004-stream.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SVG-AnnotAnim.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">SVG</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Service Form_media.pdf</td>
+      <td style="text-align: left">ResetForm<br />JavaScript<br />SubmitForm<br />Named<br />Rendition</td>
+      <td style="text-align: left">Screen<br />Link<br />Widget</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Binder_6-3DPages.pdf</td>
+      <td style="text-align: left">GoTo</td>
+      <td style="text-align: left">3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">us_population.pdf</td>
+      <td style="text-align: left">GoTo</td>
+      <td style="text-align: left">SVG</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SVG.pdf</td>
+      <td style="text-align: left">URI<br />JavaScript</td>
+      <td style="text-align: left">Widget</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">phlmapbeta7.pdf</td>
+      <td style="text-align: left">Rendition</td>
+      <td style="text-align: left">Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ScriptEvents.pdf</td>
+      <td style="text-align: left">GoTo<br />Rendition<br />JavaScript</td>
+      <td style="text-align: left">Widget<br />Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Trophy.pdf</td>
+      <td style="text-align: left">Rendition<br />JavaScript<br />URI<br />GoTo</td>
+      <td style="text-align: left">Screen<br />Widget<br />Link</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">VolvoS40V50-Full.pdf</td>
+      <td style="text-align: left">Named<br />URI<br />Rendition<br />GoTo<br />JavaScript</td>
+      <td style="text-align: left">Widget<br />Screen<br />Link</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jpeg_linked.pdf</td>
+      <td style="text-align: left">Rendition<br />Named<br />GoTo</td>
+      <td style="text-align: left">Link<br />Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">AdobeChassisDemo-commented.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Text<br />Polygon<br />Popup<br />3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">drape_raster_contour_sample.pdf</td>
+      <td style="text-align: left">URI</td>
+      <td style="text-align: left">Link<br />3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">remotemovieurl.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Movie<br />FreeText</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3-D_PDF.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">3D</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">movie_down1.pdf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Movie</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An in-depth analysis of these actions and their possible significance for preservation is beyond the scope here, but it’s useful to know that VeraPDF is able to report them.</p>
+
+<h3 id="corrupted-files">Corrupted files</h3>
+
+<p>Two PDFs in this dataset are corrupted: “gXsummer2004-stream.pdf” and “AVI+Transitions Demo.pdf”. For both files, <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/ae-multimedia/gXsummer2004-stream-vera.xml">VeraPDF’s output</a> reports a parse exception, while <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/ae-multimedia/gXsummer2004-stream-jhove.xml">JHOVE</a> throws a “No PDF header” validation error.</p>
+
+<h2 id="support-for-pdf-20">Support for PDF 2.0</h2>
+
+<p>Since it’s been almost six years now since the <a href="https://www.iso.org/news/ref2199.html">launch</a> of PDF 2.0, I was curious to see to what extent it is supported by VeraPDF and JHOVE. To find out, I ran both on <a href="https://github.com/pdf-association/pdf20examples">this set of PDF 2.0 example files</a> by the PDF Association.</p>
+
+<p>Out of the 7 files in this dataset, 6 resulted in the following JHOVE error (full output <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/pdf20examples/Simple%20PDF%202.0%20file-jhove.xml">here</a>):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;message</span> <span class="na">offset=</span><span class="s">"0"</span> <span class="na">severity=</span><span class="s">"error"</span> <span class="na">id=</span><span class="s">"PDF-HUL-137"</span><span class="nt">&gt;</span>No PDF header<span class="nt">&lt;/message&gt;</span>
+</code></pre></div></div>
+<p>These files were subsequently not parsed at all. The only exception here is this <a href="https://github.com/pdf-association/pdf20examples/blob/master/PDF%202.0%20via%20incremental%20save.pdf">“PDF 2.0 via incremental save.pdf”</a> file, which has “1.7” as its designated version number in the PDF header.</p>
+
+<p>By contrast, VeraPDF was able to read all PDF 2.0 files in this dataset without any problems.</p>
+
+<h2 id="discussion-and-conclusions">Discussion and conclusions</h2>
+
+<p>The combined results of the above analyses of the Horror Corpus, the Adobe Acrobat Engineering dataset and the PDF 2.0 example files allow us to draw a number of conclusions.</p>
+
+<p>First of all, even though both VeraPDF and JHOVE are able to detect many PDF features that are associated with known preservation risks, JHOVE has several limitations that make it less than ideally suited for this purpose.</p>
+
+<h3 id="jhove-behaviour-on-actions">JHOVE behaviour on actions</h3>
+
+<p>First, JHOVE’s output doesn’t include any information about “actions”, which means that JHOVE cannot be used for detecting e.g. JavaScript or Launch Actions (which typically indicate some external dependency).</p>
+
+<h3 id="jhove-behaviour-on-annotations">JHOVE behaviour on annotations</h3>
+
+<p>Many PDF features that are preservation risks are associated with “annotations”, and although JHOVE is able to report these, the comparison against VeraPDF’s output shows that JHOVE’s coverage of annotations is often incomplete.</p>
+
+<h3 id="jhove-behaviour-on-security-related-restrictions">JHOVE behaviour on security-related restrictions</h3>
+
+<p>JHOVE’s reporting on encryption and security-related restrictions is also not very informative (and rather confusing).</p>
+
+<h3 id="jhove-behaviour-on-font-embedding-status">JHOVE behaviour on font embedding status</h3>
+
+<p>Even though JHOVE does report whether fonts are embedded or not, this information is encoded in a way that is needlessly complicated (and undocumented).</p>
+
+<h3 id="jhove-documentation">JHOVE documentation</h3>
+
+<p>The analyses also highlighted some more general problems with JHOVE. First, as far as I’m aware no documentation exists of any of its reported properties. This makes it difficult to figure out what to look out for to begin with. The font embedding issue is a good example of this: if we want to know if a particular font is embedded or not, we need to check three separate properties (<em>FontFile</em>, <em>FontFile2</em> and <em>FontFile3</em>), which are all undocumented. I was only able to figure this out by digging into JHOVE’s source code, and consulting the ISO 32000-1 PDF specification.</p>
+
+<h3 id="jhove-xml-format">JHOVE XML format</h3>
+
+<p>Another (but related) problem is JHOVE’s rather clumsy and convoluted XML output format, which is made up by a labyrinthine assortment of nested “property” elements. This makes the format quite difficult to read, either by a human or a machine<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">5</a></sup>. It’s not possible to address the reported properties directly using, for example, standard <a href="https://en.wikipedia.org/wiki/XPath">xpath</a> expressions. This is because all properties are encoded as identically-named <em>property</em> elements, where the name of each individual property is the text value of its <em>name</em> child element. To be clear: this doesn’t preclude parsing the format altogether, but it does make working with JHOVE’s output considerably harder than most modern, well-designed XML formats.</p>
+
+<h3 id="jhove-parsing-persistence">JHOVE parsing persistence</h3>
+
+<p>Finally, the analyses show that JHOVE tends to “give up” parsing rather more quickly compared against VeraPDF, and when this happens it will not give any information about the file at all. Examples are PDFs with security-related restrictions (e.g. copy, printing and text access passwords), but also PDF 2.0 documents.</p>
+
+<h3 id="verapdf-9">VeraPDF</h3>
+
+<p>VeraPDF was able to detect all features that are associated with known preservation risks in the “Horror Corpus” files. Unlike JHOVE, VeraPDF also reports on actions. VeraPDF’s coverage of annotations is more comprehensive, and it also provides detailed information about security-related restrictions. I was unable to find any detailed documentation of VeraPDF’s reported properties, but the documentation does provide a <a href="https://docs.verapdf.org/cli/config/#features.xml">general overview of the reported feature categories</a>. Also, VeraPDF’s XML output format is much simpler and better structured than the one used by JHOVE. All reported properties can be addressed directly by the name of their corresponding XML element, and the property names are mostly self-explanatory.</p>
+
+<p>For convenience, the following table summarises the elements in VeraPDF’s output that turned out to be the most interesting ones for the current analysis (asterisks indicates repeatable elements):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Element (relative to <em>job</em> element)</th>
+      <th style="text-align: left">Significance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">taskResult</td>
+      <td style="text-align: left">Parse status, rough validity proxy, may be used to identify malformed files and files that require open password</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">featuresReport/documentSecurity</td>
+      <td style="text-align: left">Child elements indicate security-related restrictions (e.g. copy, printing and text access passwords)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">featuresReport/actions/action*</td>
+      <td style="text-align: left">Some Actions imply a preservation risk</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">featuresReport/annotations/annotation*</td>
+      <td style="text-align: left">Some Annotations imply a preservation risk</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">featuresReport/documentResources/fonts/font/fontDescriptor/embedded*</td>
+      <td style="text-align: left">Value indicates whether font is embedded or not</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">featuresReport/embeddedFiles/embeddedFile*</td>
+      <td style="text-align: left">Indicates presence of file attachment</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In order to report these, at minimum the following features must be enabled in VeraPDF’s configuration file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
+<span class="nt">&lt;featuresConfig&gt;</span>
+    <span class="nt">&lt;enabledFeatures&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>ACTION<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>ANNOTATION<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>DOCUMENT_SECURITY<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>EMBEDDED_FILE<span class="nt">&lt;/feature&gt;</span>
+        <span class="nt">&lt;feature&gt;</span>FONT<span class="nt">&lt;/feature&gt;</span>
+    <span class="nt">&lt;/enabledFeatures&gt;</span>
+<span class="nt">&lt;/featuresConfig&gt;</span>
+</code></pre></div></div>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:3" role="doc-endnote">
+      <p>See the KB <a href="https://www.kb.nl/en/file-download/download/public/842">File Format Guidelines</a> for more details. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>See <a href="/2012/12/19/identification-pdf-preservation-risks-apache-preflight-first-impression">here</a>, <a href="/2013/07/25/identification-pdf-preservation-risks-sequel">here</a> and <a href="/2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus">here</a>. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>Several other tools PDF validators exist, but none of these, including JHOVE, have <a href="https://www.pdfa.org/wp-content/until2016_uploads/2015/12/iPres2014-CanonicalPDF-submission_20140827.pdf">gained widespread acceptance by industry and other stakeholders</a>. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:1" role="doc-endnote">
+      <p>JavaScript detection wasn’t possible in <a href="/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression">an earlier analysis I did in 2017</a>, because VeraPDF didn’t support Actions at that time. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>For my analyses I had to re-run JHOVE with output set to TEXT on various occasions to make sense of the output. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+   <div class="buttonArea">
+   <a href="/2023/05/30/pdf-risks" class="button">Read more ...</a>
+  </div>
+   
+   <ul class="tag_box inline">
+     
+     
+
+
+
+
+  
+    <li>
+      <details>
+      <summary>PDF</summary>
+      <ul>
+      
+        <li><a href="/2023/05/30/pdf-risks">PDF Risks</a></li>
+      
+        <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression">Policy-based assessment with VeraPDF - a first impression</a></li>
+      
+        <li><a href="/2016/12/09/pdfa-as-a-preferred-sustainable-format-for-spreadsheets">PDF/A as a preferred, sustainable format for spreadsheets?</a></li>
+      
+        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
+      
+        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
+      
+        <li><a href="/2014/08/27/when-not-migrate-pdf-pdfa">When (not) to migrate a PDF to PDF/A</a></li>
+      
+        <li><a href="/2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus">Identification of PDF preservation risks&#58; analysis of Govdocs selected corpus</a></li>
+      
+        <li><a href="/2013/07/25/identification-pdf-preservation-risks-sequel">Identification of PDF preservation risks with Apache Preflight&#58; the sequel</a></li>
+      
+        <li><a href="/2013/01/09/what-do-we-mean-embedded-files-pdf">What do we mean by "embedded" files in PDF?</a></li>
+      
+        <li><a href="/2012/12/19/identification-pdf-preservation-risks-apache-preflight-first-impression">Identification of PDF preservation risks with Apache Preflight&#58; a first impression</a></li>
+      
+        <li><a href="/2012/07/26/pdf-inventory-long-term-preservation-risks">PDF – Inventory of long-term preservation risks</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+
+
+
+   </ul>
+  
+   </div>
+   <hr>
+
+   <div class="post-entry">
    <h1><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></h1>
    <div class="date">
     <span>09 March 2023</span>
@@ -363,63 +1397,6 @@
         <li><a href="/2014/11/13/Demise-Of-Dutch-Blogosphere">Demise of the Dutch Blogosphere</a></li>
       
         <li><a href="/2014/08/02/How-to-save-a-web-page-to-the-Internet-Archive">How to save a web page to the Internet Archive</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-
-
-
-   </ul>
-  
-   </div>
-   <hr>
-
-   <div class="post-entry">
-   <h1><a href="/2022/11/03/wheel-out-the-digital-dark-age-klaxon">Wheel Out the Digital Dark Age Klaxon!</a></h1>
-   <div class="date">
-    <span>03 November 2022</span>
-   </div>
-   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
-   <figure class="image">
-<iframe width="750" height="422" src="https://www.youtube-nocookie.com/embed/C47ZCosJPAw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-</figure>
-
-<p>Dutch electro outfit the Digital Dark Age Crew are one of the forgotten legends that used to be a mainstay of Rotterdam’s late 90s to mid-2000s underground electro scene. Their music was characterised by relentless electro beats, sparse synth lines, and lyrics that typically commented on the fragility and transience of digital media and digital information in general. In a twisted turn of events, this very theme would eventually define the Digital Dark Age Crew’s own history, ultimately leading to the group’s dramatic demise in 2007. After a fifteen year absence, the Digital Dark Age Crew have now made a long overdue comeback with their new track “Wheel Out the Digital Dark Age Klaxon”, which was released today on the occasion of <a href="https://www.dpconline.org/events/world-digital-preservation-day">World Digital Preservation Day 2022</a>. Time to take a look back at the history of the Digital Dark Age Crew, and their continued relevance today!</p>
-
-
-   <div class="buttonArea">
-   <a href="/2022/11/03/wheel-out-the-digital-dark-age-klaxon" class="button">Read more ...</a>
-  </div>
-   
-   <ul class="tag_box inline">
-     
-     
-
-
-
-
-  
-    <li>
-      <details>
-      <summary>digital-dark-age</summary>
-      <ul>
-      
-        <li><a href="/2022/11/20/how-to-preserve-your-personal-twitter-archive">How to preserve your personal Twitter archive</a></li>
-      
-        <li><a href="/2022/11/03/wheel-out-the-digital-dark-age-klaxon">Wheel Out the Digital Dark Age Klaxon!</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>digital-preservation-day</summary>
-      <ul>
-      
-        <li><a href="/2022/11/03/wheel-out-the-digital-dark-age-klaxon">Wheel Out the Digital Dark Age Klaxon!</a></li>
       
       </ul>
       </details>
@@ -1200,6 +2177,8 @@
       <summary>PDF</summary>
       <ul>
       
+        <li><a href="/2023/05/30/pdf-risks">PDF Risks</a></li>
+      
         <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
       
         <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
@@ -1569,8 +2548,27 @@
     
       <details open>
       <summary>2023</summary>
-      <h3>March</h3>
+      <h3>May</h3>
       <ul>
+    
+  
+	<li><a href="/2023/05/30/pdf-risks">PDF Risks</a></li>
+	
+    
+          
+        
+          </ul>
+          <h3>March</h3>
+          <ul>
+        
+      
+    
+  
+    
+    
+    
+    
+  
     
   
 	<li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
