@@ -144,7 +144,7 @@
 
 <h2 id="analysis-of-horror-corpus">Analysis of Horror Corpus</h2>
 
-<p>I will start with a rather detailed analysis of the <a href="https://github.com/openpreserve/format-corpus/tree/master/pdfCabinetOfHorrors">Horror Corpus</a>, as this is an annotated corpus of files with known features. Even though it only covers a limited selection of “risky” features, this analysis is useful to get a first impression of the differences between VerapDF and JHOVE. It also enables us to identify which parts of the output of both tools are of potential interest for further perusal.</p>
+<p>I will start with a rather detailed analysis of the <a href="https://github.com/openpreserve/format-corpus/tree/master/pdfCabinetOfHorrors">Horror Corpus</a>, as this is an annotated corpus of files with known features. Each of the following sub-sections covers one “risky” feature, which is demonstrated by one or more files in the Horror Corpus. For each feature, I show how it is represented in VeraPDF’s and JHOVE’s output (if it is represented at all). Even though this only covers a limited selection of “risky” features, this analysis is useful to get a first impression of the differences between VerapDF and JHOVE. It also enables us to identify which parts of the output of both tools are of potential interest for further perusal.</p>
 
 <h3 id="open-password">Open password</h3>
 
@@ -233,11 +233,11 @@
 <span class="nt">&lt;/documentSecurity&gt;</span>
 </code></pre></div></div>
 
-<p>Here, the “false” value of the <em>extractContentAllowed</em> element indicates this file is copy-protected. The <em>printAllowed</em>  <em>printDegradedAllowed</em> elements indicate whether printing is allowed (example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-vera.xml">here</a>), and “false” values of <em>extractContentAllowed</em> and <em>extractAccessibilityAllowed</em> indicate a text access password ((example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_notextaccess-vera.xml">here</a>).</p>
+<p>Here, the “false” value of the <em>extractContentAllowed</em> element indicates this file is copy-protected. The <em>printAllowed</em>  <em>printDegradedAllowed</em> elements indicate whether printing is allowed (example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-vera.xml">here</a>), and “false” values of <em>extractContentAllowed</em> and <em>extractAccessibilityAllowed</em> indicate a text access password (example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_notextaccess-vera.xml">here</a>).</p>
 
 <h4 id="jhove-1">JHOVE</h4>
 
-<p>JHOVE again only reports the confusing “Compression method is invalid or unknown to JHOVE” error for PDFs with copy, printing of text access restrictions (example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-jhove.xml">here</a>), and doesn’t even do any further parsing.</p>
+<p>JHOVE again only reports the confusing “Compression method is invalid or unknown to JHOVE” error (example <a href="https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-jhove.xml">here</a>), and doesn’t even do any further parsing.</p>
 
 <h3 id="multimedia">Multimedia</h3>
 
