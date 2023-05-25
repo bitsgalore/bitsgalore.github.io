@@ -823,9 +823,7 @@ Thanks are due to Sam Alloing (KB) and Tyler Thorsted (Brigham Young University)
 
 [^5]: Several other tools PDF validators exist, but none of these, including JHOVE, have [gained widespread acceptance by industry and other stakeholders](https://www.pdfa.org/wp-content/until2016_uploads/2015/12/iPres2014-CanonicalPDF-submission_20140827.pdf).
 
-[^7]: See e.g. ["A PDF Test-Set forWell-Formedness Validation in JHOVE - The Good, the Bad and the Ugly"](https://zenodo.org/record/1228650) by Lindlar, Tunnat and Wilson.
-
-
+[^7]: See e.g. ["A PDF Test-Set for Well-Formedness Validation in JHOVE - The Good, the Bad and the Ugly"](https://zenodo.org/record/1228650) by Lindlar, Tunnat and Wilson.
 
 [^8]: This is explained in VeraPDF's [documentation](https://docs.verapdf.org/cli/config/#features.xml).
 
