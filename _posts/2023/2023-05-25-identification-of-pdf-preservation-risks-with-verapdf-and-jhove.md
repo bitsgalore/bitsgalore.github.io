@@ -6,7 +6,7 @@ comment_id: 88
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2023/05/Rock_em_Sock_em_Robots_Game.jpg" alt="Photo of a red toy robot and a similar looking blue toy robot in a boxing ring. Both robots face each in a threatening stance.">
+  <img src="{{ BASE_PATH }}/images/2023/05/Rock_em_Sock_em_Robots_Game.jpg" alt="Photo of a red toy robot and a similar looking blue toy robot in a boxing ring. Both robots face each other in a threatening stance.">
   <figcaption><a href="https://commons.wikimedia.org/wiki/File:Rock_%27em_Sock_%27em_Robots_Game.jpg">"Rock 'em Sock 'em Robots Game"</a> by  Lorie Shaull, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>, via Wikimedia Commons.</figcaption>
 </figure>
 
