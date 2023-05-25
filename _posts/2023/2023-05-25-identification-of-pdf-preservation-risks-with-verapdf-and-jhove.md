@@ -68,6 +68,8 @@ The results then served as input for a second test, which is based on a subset o
 
 Finally, I tested how well VeraPDF and JHOVE are able to handle PDF 2.0 documents by running them on the PDF Association's [PDF 2.0 examples](https://github.com/pdf-association/pdf20examples) dataset.
 
+Advance warning: the level of detail in the following sections may be too much for some (most?) readers. If this is the case, you may be want to skip to the "Discussion" section from here.
+
 ## Analysis of Horror Corpus
 
 I will start with a rather detailed analysis of the [Horror Corpus](https://github.com/openpreserve/format-corpus/tree/master/pdfCabinetOfHorrors), as this is an annotated corpus of files with known features. Each of the following sub-sections covers one "risky" feature, which is demonstrated by one or more files in the Horror Corpus. For each feature, I show how it is represented in VeraPDF's and JHOVE's output (if it is represented at all). Even though this only covers a limited selection of "risky" features, this analysis is useful to get a first impression of the differences between VerapDF and JHOVE. It also enables us to identify which parts of the output of both tools are of potential interest for further perusal.
