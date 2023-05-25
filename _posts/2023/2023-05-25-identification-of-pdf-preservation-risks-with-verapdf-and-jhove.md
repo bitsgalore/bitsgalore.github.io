@@ -2,7 +2,13 @@
 layout: post
 title: Identification of PDF preservation risks with VeraPDF and JHOVE
 tags: [PDF, preservation-risks, VeraPDF, JHOVE]
+comment_id: 88
 ---
+
+<figure class="image">
+  <img src="{{ BASE_PATH }}/images/2023/05/Rock_em_Sock_em_Robots_Game.jpg" alt="Photo of a red toy robot and a similar looking blue toy robot in a boxing ring. Both robots face each in a threatening stance.">
+  <figcaption><a href="https://commons.wikimedia.org/wiki/File:Rock_%27em_Sock_%27em_Robots_Game.jpg">"Rock 'em Sock 'em Robots Game"</a> by  Lorie Shaull, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>, via Wikimedia Commons.</figcaption>
+</figure>
 
 The PDF format has a number of features that don’t sit well with the aims of long-term preservation and accessibility. This includes encryption and password protection, external dependencies (e.g. fonts that are not embedded in a document), and reliance on external software. In this post I'll review to what extent such features can be detected using [VeraPDF](https://verapdf.org/) and [JHOVE](https://jhove.openpreservation.org/). It further builds on earlier work I did on this subject between 2012 and 2017.
 
@@ -16,13 +22,13 @@ In 2019 the KB published its current [preservation policy](https://www.kb.nl/en/
 2. For **identified** formats, formal format identification has resulted in a PRONOM identifier.
 3. For **known** formats, format validation has been performed, and technical metadata have been extracted. This information can then be used to identify preservation-related risks at the level of individual files, and actions to mitigate these risks can be taken if necessary.
 
-The move from bit preservation to functional preservation involves raising the "knowledge level" status of the formats in our digital collections from "stored" (which is the current situation) to "identified" or (ideally) "known". This development coincides with the ongoing migration of these collections our new [Rosetta archiving system](https://www.kb.nl/en/actueel/nieuws/dutch-national-library-steps-new-future-digital-archiving).
+The move from bit preservation to functional preservation involves raising the "knowledge level" status of the formats in our digital collections from "stored" (which is the current situation) to "identified" or, ideally, "known". This development coincides with the ongoing migration of these collections to our new [Rosetta archiving system](https://www.kb.nl/en/actueel/nieuws/dutch-national-library-steps-new-future-digital-archiving).
 
 ## PDF preservation risks
 
-Being one of the [most prevalent formats]({{ BASE_PATH }}/2015/04/29/top-50-file-formats-in-the-kb-e-depot) in our collections, it comes as no surprise that PDF is one of the prime candidates for raising the current knowledge level. This is why my colleagues at our digital preservation department asked me take a new dive into PDF features that are potential preservation risks, and, more importantly, how to detect such features with existing software tools.
+Being one of the [most prevalent formats]({{ BASE_PATH }}/2015/04/29/top-50-file-formats-in-the-kb-e-depot) in our collections, it comes as no surprise that PDF is one of the first formats for which we want to raise the current knowledge level. This is why my colleagues at our digital preservation department asked me take a new dive into PDF features that are potential preservation risks, and, more importantly, how to detect such features with existing software tools.
 
-Long-term readers may remember that I've explored this subject before. As part of the [SCAPE project](https://scape-project.eu/), I investigated to what extent *Preflight*, the PDF/A-1 validator component of the open-source [Apache PDFBox](https://pdfbox.apache.org/) software, could be used to detect PDF features that are associated with preservation risks[^4]. In 2017 I [repeated some of the SCAPE-era experiments](({{ BASE_PATH }}/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression)), this time using [VeraPDF](https://verapdf.org/), which showed VeraPDF to be superior to Apache preflight for detecting preservation risks. For various reasons that work never saw a proper follow-up, but six years onwards it's finally on the agenda once again! In the meantime others have been working on this subject as well. The [PDF Significant Properties Spreadsheet](https://docs.google.com/spreadsheets/d/1eW7R8yACBciNimr16Z2ptC7fs1FlmZMnzdtG_DHBuD4/edit?usp=sharing) by Tyler Thorsted (currently at Brigham Young University) deserves a special mention here. It gives an overview of metadata fields and technical properties that are reported by 12 different software tools.
+As long-term readers may remember, risk detection in PDF isn't an unfamiliar subject to me. Between 2012 and 2014 I experimented with detecting "risky" PDF features using the open-source [Apache PDFBox](https://pdfbox.apache.org/) software[^4]. This work was done as part of the [SCAPE project](https://scape-project.eu/). In 2017 I [repeated some of the SCAPE-era experiments](({{ BASE_PATH }}/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression)), this time using [VeraPDF](https://verapdf.org/). For various reasons that work never saw a proper follow-up, but six years onwards it's finally on the agenda once again! In the meantime others have produced relevant related work as well. The [PDF Significant Properties Spreadsheet](https://docs.google.com/spreadsheets/d/1eW7R8yACBciNimr16Z2ptC7fs1FlmZMnzdtG_DHBuD4/edit?usp=sharing) by Tyler Thorsted (currently at Brigham Young University) deserves a special mention here. It gives an overview of metadata fields and technical properties that are reported by 12 different software tools.
 
 ## PDF features and risks
 
@@ -34,11 +40,11 @@ Before going any further, it's important to be clear about our definition of pre
 - File attachments. The associated risk is that attached files may require external software to render.
 - JavaScript. This presents various risks, which are mostly security-related.
 
-This list is not exhaustive, but it provides a useful starting point. Deviations from the format specification (PDF validity) can also pose potential preservation risks[^6]. This is a huge subject in its own right[^7], that is out of the scope of the current analysis.
+This list is not exhaustive, but it provides a useful starting point. Deviations from the format specification (PDF validity) can also pose potential preservation risks. [Opinions are divided](https://blog.dshr.org/2009/01/postels-law.html) about the importance of format validity in actual practice. PDF format validation is a huge subject in its own right[^7], which is out of the scope of the current analysis.
 
 ## VeraPDF vs JHOVE
 
-Since [the 2017 analysis]({{ BASE_PATH }}/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression) already showed that VeraPDF was able to detect most risk-associated PDF features, the inclusion of VeraPDF in this follow-up was an obvious choice. With that said, VeraPDF is currently not included in Rosetta, and my colleagues wondered to what extent [JHOVE](https://jhove.openpreservation.org/) (which is part of Rosetta's default setup) would be up to the job. So, in the remainder of this blog post I will present a comparison of VeraPDF and JHOVE.
+The [2017 analysis]({{ BASE_PATH }}/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression) already showed that VeraPDF was able to detect most risk-associated PDF features, which made the inclusion of VeraPDF an obvious choice for this follow-up. VeraPDF is currently not included in Rosetta, and my colleagues wondered to what extent [JHOVE](https://jhove.openpreservation.org/) (which is part of Rosetta's default setup) would be up to the job. So, in the remainder of this blog post I will present a comparison of VeraPDF and JHOVE.
 
 It's important to mention that VeraPDF and JHOVE have different (but partially overlapping) scopes and functionalities. VeraPDF was primarily written to test for conformance against the various [PDF/A](https://en.wikipedia.org/wiki/PDF/A) profiles, with recent versions also supporting (partial) conformance testing for [PDF/UA](https://en.wikipedia.org/wiki/PDF/UA). It does not (or at best only to a limited degree) validate the lower-level data structures that make up a PDF file. The latter is the primary domain of JHOVE's PDF module, which was designed for "full on" PDF validation[^5]. The main overlap between VeraPDF and JHOVE lies in their ability to extract metadata and technical features, and for the current analysis I have only looked at this particular functionality of both tools.
 
@@ -161,7 +167,7 @@ Unlike VeraPDF, JHOVE appears to be able to parse the file in spite of the open 
 </property>
 ```
 
-Even though it's helpful that JHOVE shows that this file contains security-related features, the above output doesn't provide any direct clue of the more specific open password feature[^9]. This is surprising, given that open passwords are one of the most serious PDF preservation risks.
+Even though it's helpful that JHOVE shows that this file contains security-related features, the above output doesn't provide any direct clue of the more specific open password feature[^9]. This is unfortunate, given that open passwords are one of the most serious PDF preservation risks.
 
 ### Copy, printing and text access passwords
 
@@ -201,7 +207,7 @@ Information on usage restrictions can be found in the *documentSecurity* element
 </documentSecurity>
 ```
 
-Here, the "false" value of the *extractContentAllowed* element indicates this file is copy-protected. The *printAllowed*  *printDegradedAllowed* elements indicate whether printing is allowed (example [here](https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-vera.xml)), and "false" values of *extractContentAllowed* and *extractAccessibilityAllowed* indicate a text access password (example [here](https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_notextaccess-vera.xml)).
+Here, the "false" value of the *extractContentAllowed* element indicates this file is copy-protected. The *printAllowed* and *printDegradedAllowed* elements indicate whether printing is allowed (example [here](https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_noprinting-vera.xml)), and "false" values of *extractContentAllowed* and *extractAccessibilityAllowed* indicate a text access password (example [here](https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/encryption_notextaccess-vera.xml)).
 
 #### JHOVE
 
@@ -404,7 +410,7 @@ The [JHOVE output for the same PDF](https://github.com/KBNLresearch/pdf-characte
 
 Since JHOVE doesn't report the *FontFile2* property for the PDF without embedded fonts, I wondered if this was a coincidence. As the meaning of this property (or any of JHOVE's properties for that matter) is not documented, I took a peek at [JHOVE's source code](https://github.com/openpreserve/jhove/blob/94da570caa55759354fa6fcd50e4ea7edbba1e7d/jhove-modules/pdf-hul/src/main/java/edu/harvard/hul/ois/jhove/module/PdfModule.java#L3830). This revealed that the *FontFile2* property originates from the "font descriptor" dictionary, which is documented in section 9.8 (Font Descriptors) of the [ISO 32000-1 PDF specification](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf). Here we can see (Table 122) that the keys *FontFile*, *FontFile2* and *FontFile3* (which also exist as separate JHOVE properties) all indicate embedded fonts.
 
-This means we can actually use JHOVE's output to check for font embedding, but to identify a PDF with one or more fonts that are not embedded one needs to iterate over all font property groups, and then check for the *absence* of either of three separate properties (*FontFile*, *FontFile2* and *FontFile3*), none of which are documented. This is not ideal to begin with, and made worse by JHOVE's rather labyrinthine output format.
+This means we can actually use JHOVE's output to check for font embedding, but to identify a PDF with one or more fonts that are not embedded, one needs to iterate over all font property groups, and then check for the *absence* of either of three separate properties (*FontFile*, *FontFile2* and *FontFile3*). None of these properties are documented. This is not ideal to begin with, and made worse by JHOVE's rather labyrinthine output format.
 
 ### File attachments
 
@@ -419,7 +425,7 @@ File attachments in PDF can be implemented in two different ways, using either a
 
 #### VeraPDF
 
-For the sample file with the *EmbeddedFiles* entry, [VeraPDF's output](https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/fileAttachment-vera.xml) contains an *embeddedFiles* with one or more child elements:
+For the sample file with the *EmbeddedFiles* entry, [VeraPDF's output](https://github.com/KBNLresearch/pdf-characterisation/blob/main/output/horror/fileAttachment-vera.xml) contains an *embeddedFiles* element with one or more child elements:
 
 ```xml
 <embeddedFiles>
@@ -660,13 +666,11 @@ Since this test file only represents one very specific case of byte corruption, 
 
 ## Analysis Adobe Acrobat Engineering dataset
 
-The results of the Horror Corpus analysis highlight the significance of actions and annotations, which are often indicative of features that are associated with preservation risks. The Horror Corpus analysis already showed that for one test file, annotations that are reported by VeraPDF were subsequently not picked up by JHOVE. I did some further tests to determine whether this was an isolated case, or perhaps an indication of a more structural problem. For these tests I used the files in the ["Classic Multimedia"](https://web.archive.org/web/20130726144923/http://acroeng.adobe.com/wp/?page_id=61) category of the Adobe Acrobat Engineering dataset. These files make heavy use of actions and annotations, which makes them optimally suited for this purpose.
+The results of the Horror Corpus analysis highlight the significance of actions and annotations, which are often indicative of features that are associated with preservation risks. The Horror Corpus analysis already showed that for one test file, annotations that were correctly reported by VeraPDF, were subsequently not picked up by JHOVE. I did some further tests to determine whether this was an isolated case, or perhaps an indication of a more structural problem. For these tests I used the files in the ["Classic Multimedia"](https://web.archive.org/web/20130726144923/http://acroeng.adobe.com/wp/?page_id=61) category of the Adobe Acrobat Engineering dataset. These files make heavy use of actions and annotations, which makes them well suited for this purpose.
 
 ### Results
 
-The full VeraPDF and JHOVE output for these files can be found [here](https://github.com/KBNLresearch/pdf-characterisation/tree/main/output/ae-multimedia).
-
-The following table summarizes the actions and annotations that are reported by VeraPDF and JHOVE:
+The full VeraPDF and JHOVE output for these files can be found [here](https://github.com/KBNLresearch/pdf-characterisation/tree/main/output/ae-multimedia). The following table summarizes the actions and annotations that are reported by VeraPDF and JHOVE:
 
 |File|Actions (VeraPDF)|Annotations (VeraPDF)|Annotations (JHOVE)|
 |:--|:--|:--|:--|
@@ -746,12 +750,12 @@ The combined results of the above analyses of the Horror Corpus, the Adobe Acrob
 
 ### JHOVE
 
-First of all, even though both VeraPDF and JHOVE are able to detect many PDF features that are associated with known preservation risks, JHOVE has several limitations that make it less than ideally suited for this purpose:
+First of all, even though both VeraPDF and JHOVE are able to detect many PDF features that are associated with known preservation risks, JHOVE has several limitations that make it less appealing for this purpose:
 
-- First, JHOVE's output doesn't include any information about **actions**, which means it cannot be used for detecting e.g. JavaScript or Launch actions (which are often indicative of external dependencies).
-- Many PDF features that are preservation risks are associated with **annotations**, and although JHOVE is able to report these, the comparison against VeraPDF's output shows that JHOVE's reporting of annotations is often incomplete.
+- JHOVE's output doesn't include any information about **actions**, which means it cannot be used for detecting e.g. JavaScript or Launch actions (which are often indicative of external dependencies).
+- Many PDF features that are preservation risks are associated with **annotations**. Even though JHOVE is able to report most of these, the comparison against VeraPDF's output shows that JHOVE's reporting of annotations is often incomplete.
 - JHOVE's reporting on **encryption and security-related restrictions** could be more informative. Most importantly, it doesn't allow one to single out files that require an **open password** (which present one of the most serious PDF preservation risks).
-- Moreover, JHOVE makes the detection of **user access restrictions** (print, copy and text access) unnecessarily difficult by only reporting these features if they are *not* restricted. This is impractical, because it means we have to check for the *absence* of these features in JHOVE's output. It also assumes prior knowledge on the user's behalf of property values that are undocumented.
+- Moreover, JHOVE makes the detection of **user access restrictions** (print, copy and text access) unnecessarily difficult by only reporting these features if they are *not* restricted. This is impractical, because it means we have to check for the *absence* of these features in JHOVE's output. It also assumes prior knowledge on the user's behalf of properties that are completely undocumented.
 - Even though JHOVE does report whether **fonts are embedded**, this information is encoded in a way that is needlessly complicated, because it involves checking the output for the *absence* (again!) of three properties that are undocumented.
 - **No documentation exists of any of JHOVE's reported properties**. This can make their interpretation difficult. The aforementioned font embedding issue is a good example of this: if we want to know if a particular font is embedded or not, we need to check three separate properties (*FontFile*, *FontFile2* and *FontFile3*), which are all undocumented. I was only able to figure this out by digging into JHOVE's source code, and consulting the ISO 32000-1 PDF specification.
 - Another (but related) problem is JHOVE's rather **clumsy and convoluted XML output format**, which is made up by a labyrinthine assortment of nested "property" elements. This makes the format difficult to read, either by a human or a machine[^2]. It's not possible to address the reported properties directly using, for example, standard [xpath](https://en.wikipedia.org/wiki/XPath) expressions. This is because all properties are encoded as identically-named *property* elements, where the name of each individual property is the text value of its *name* child element. Of course this doesn't preclude parsing the format altogether, but it does make working with JHOVE's output considerably harder than most modern, well-designed XML formats.
@@ -799,7 +803,7 @@ Thanks are due to Sam Alloing (KB) and Tyler Thorsted (Brigham Young University)
 
 - [Github repo with analysis scripts and raw tool output](https://github.com/KBNLresearch/pdf-characterisation)
 
-- [Open Preservation Foundation format corpus](https://github.com/openpreserve/format-corpus/tree/master)
+- [Open Preservation Foundation format corpus](https://github.com/openpreserve/format-corpus)
 
 - [PDF 2.0 examples](https://github.com/pdf-association/pdf20examples) 
 
@@ -811,11 +815,9 @@ Thanks are due to Sam Alloing (KB) and Tyler Thorsted (Brigham Young University)
 
 [^3]: See the KB [File Format Guidelines](https://www.kb.nl/en/file-download/download/public/842) for more details.
 
-[^4]: See [here]({{ BASE_PATH }}/2012/12/19/identification-pdf-preservation-risks-apache-preflight-first-impression), [here]({{ BASE_PATH }}/2013/07/25/identification-pdf-preservation-risks-sequel) and [here]({{ BASE_PATH }}/2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus).
+[^4]: See ["Identification of PDF preservation risks with Apache Preflight: a first impression"]({{ BASE_PATH }}/2012/12/19/identification-pdf-preservation-risks-apache-preflight-first-impression), ["Identification of PDF preservation risks with Apache Preflight: the sequel"]({{ BASE_PATH }}/2013/07/25/identification-pdf-preservation-risks-sequel) and ["Identification of PDF preservation risks: analysis of Govdocs selected corpus"]({{ BASE_PATH }}/2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus).
 
 [^5]: Several other tools PDF validators exist, but none of these, including JHOVE, have [gained widespread acceptance by industry and other stakeholders](https://www.pdfa.org/wp-content/until2016_uploads/2015/12/iPres2014-CanonicalPDF-submission_20140827.pdf).
-
-[^6]: The importance of format validity in actual practice [is the subject of ongoing debate](https://blog.dshr.org/2009/01/postels-law.html).
 
 [^7]: See e.g. [this paper by Lindlar, Tunnat and Wilson](https://zenodo.org/record/1228650).
 
