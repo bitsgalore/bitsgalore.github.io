@@ -68,7 +68,9 @@ The results then served as input for a second test, which is based on a subset o
 
 Finally, I tested how well VeraPDF and JHOVE are able to handle PDF 2.0 documents by running them on the PDF Association's [PDF 2.0 examples](https://github.com/pdf-association/pdf20examples) dataset.
 
-Advance warning: the level of detail in the following sections may be too much for some (most?) readers. If this is the case, you may be want to skip to the "Discussion" section from here.
+## Advance warning
+
+The level of detail in the following sections (in particular the one that covers the Horror Corpus) may be too much for some (most?) readers to digest, except perhaps for the most hardcore PDF freaks (you know who you are!). If this is the case, you may be want to skip to the "Discussion" section from here. Otherwise, now is the time to fasten your seatbelts!
 
 ## Analysis of Horror Corpus
 
