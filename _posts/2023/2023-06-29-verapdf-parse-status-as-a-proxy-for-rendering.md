@@ -1,6 +1,6 @@
 ---
 layout: post
-title: VeraPDF parse status as a proxy for PDF renderingy&colon; experiments with the Synthetic PDF Testset
+title: VeraPDF parse status as a proxy for PDF rendering&colon; experiments with the Synthetic PDF Testset
 tags: [PDF, format-validation, VeraPDF, JHOVE]
 comment_id: 89
 ---
