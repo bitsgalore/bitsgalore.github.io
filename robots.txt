@@ -1,7 +1,6 @@
 # robotstxt.org/
 
-User-agent: *
-
 User-agent: GPTBot
 Disallow: /
+
 
