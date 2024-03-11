@@ -1,7 +1,7 @@
 ---
 layout: post
 title: PDF processing and analysis with open-source tools
-tags: [PDF, VeraPDF, JHOVE, Apache-Tika, preservation-risks]
+tags: [PDF, VeraPDF, JHOVE, Apache-Tika, ExifTool, ImageMagick, preservation-risks]
 comment_id: 76
 ---
 

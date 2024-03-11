@@ -63,6 +63,135 @@
 
 
    <div class="post-entry">
+   <h1><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></h1>
+   <div class="date">
+    <span>11 March 2024</span>
+   </div>
+   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
+   <figure class="image">
+  <img src="/images/2024/03/confused-muddled-illogical-957696-1024.jpg" alt="Photograph that shows a hammer that is used to smash a screw into a piece of wood. On the left is a nail that is partially pushed into the same piece of wood, with an adjustable wrench immediately next to it." />
+  <figcaption><a href="https://jenikirbyhistory.getarchive.net/media/confused-muddled-illogical-957696">"Confused, muddled, illogical"</a>. Used under <a href="https://web.archive.org/web/20170727004823/https://pixabay.com/en/service/license/">Pixabay License</a>.</figcaption>
+</figure>
+
+<p>The KB has been using JP2 (JPEG 2000 Part 1) as the primary file format for its mass-digitisation activities for over 15 years now. Nevertheless, we still use uncompressed TIFF for a few collections. At the moment there’s an ongoing discussion about whether we should migrate those to JP2 as well at some point to save storage costs. Last week I ran a small test on a selection of TIFFs from those collections. I first converted them to JP2, and then verified whether no information got lost during the conversion. This resulted in some unexpected surprises, which turned out to be caused by the presence of thumbnail images in some of the source TIFFs. This post discusses the impact of having multiple images indide a TIFF on preservation workflows, and also provides some suggestions on how to identify such files.</p>
+
+
+   <div class="buttonArea">
+   <a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories" class="button">Read more ...</a>
+  </div>
+   
+   <ul class="tag_box inline">
+     
+     
+
+
+
+
+  
+    <li>
+      <details>
+      <summary>ExifTool</summary>
+      <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>ImageMagick</summary>
+      <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>JHOVE</summary>
+      <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
+      
+        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2017/01/04/breaking-waves-and-some-flacs">Breaking WAVEs (and some FLACs too)</a></li>
+      
+        <li><a href="/2014/01/31/why-cant-we-have-digital-preservation-tools-just-work">Why can't we have digital preservation tools that just work?</a></li>
+      
+        <li><a href="/2011/09/01/simple-jp2-file-structure-checker">A simple JP2 file structure checker</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>preservation-risks</summary>
+      <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
+      
+        <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2020/04/30/iso-iec-ts-22424-standard-on-epub3-preservation">ISO/IEC TS 22424 standard on EPUB3 preservation</a></li>
+      
+        <li><a href="/2020/03/11/does-microsoft-onedrive-export-large-ZIP-files-that-are-corrupt">Does Microsoft OneDrive export large ZIP files that are corrupt?</a></li>
+      
+        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
+      
+        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
+      
+        <li><a href="/2013/10/08/measuring-bigfoot">Measuring Bigfoot</a></li>
+      
+        <li><a href="/2013/09/30/assessing-file-format-risks-searching-bigfoot">Assessing file format risks&#58; searching for Bigfoot?</a></li>
+      
+        <li><a href="/2012/07/26/pdf-inventory-long-term-preservation-risks">PDF – Inventory of long-term preservation risks</a></li>
+      
+        <li><a href="/2012/06/18/epub-archival-preservation">EPUB for archival preservation</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>TIFF</summary>
+      <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+
+
+
+   </ul>
+  
+   </div>
+   <hr>
+
+   <div class="post-entry">
    <h1><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></h1>
    <div class="date">
     <span>29 June 2023</span>
@@ -103,6 +232,8 @@
       <details>
       <summary>JHOVE</summary>
       <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
@@ -217,6 +348,8 @@
       <summary>JHOVE</summary>
       <ul>
       
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
         <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
@@ -274,6 +407,8 @@
       <details>
       <summary>preservation-risks</summary>
       <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
       
@@ -473,73 +608,6 @@
       <ul>
       
         <li><a href="/2023/02/20/moving-my-internet-domains">Moving my Internet domains</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-
-
-
-   </ul>
-  
-   </div>
-   <hr>
-
-   <div class="post-entry">
-   <h1><a href="/2023/01/23/writing-a-workflow-tool-for-imaging-portable-media">Writing yet another workflow tool for imaging portable media</a></h1>
-   <div class="date">
-    <span>23 January 2023</span>
-   </div>
-   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
-   <figure class="image">
-  <img src="/images/2023/01/ipmlab-laptop-1024.jpg" alt="Photo of a laptop running the Ipmlab software. In the foreground is a removable USB floppy drive with some 3.5 inch floppies lying on top of it. To the right of the laptop is a vintage floppy storage box that contains more floppies." />
-</figure>
-
-<p>In 2017 I wrote <a href="/2017/06/19/image-and-rip-optical-media-like-a-boss">a blog post</a> on <a href="https://github.com/KBNLresearch/iromlab">Iromlab</a> (an acronym for “Image and Rip Optical Media Like A Boss”), a custom-built software tool that streamlines imaging and ripping of optical media using an Acronova Nimbie disc robot. The KB has been using Iromlab since 2019 as part of an <a href="https://www.kb.nl/over-ons/projecten/digitalisering-optische-dragers">ongoing effort</a> to preserve the information contained in its vast collection of legacy optical media. This project is expected to reach its completion later this year, but as demonstrated <a href="/2020/02/20/offline-digital-carriers-kb-deposit-collection">by this earlier inventory</a>, our deposit collection also contains various other types of legacy media that are under threat of becoming inaccessible. Out of these, 3.5 inch floppy disks are the most common data carriers (after optical media), so it made sense to focus on these as a next step.</p>
-
-<p>Using the existing Iromlab-based workflow as a starting point, I created a preliminary workflow tool that can be used for imaging our 3.5” floppies (and various other types portable media). In this post I’ll explain how this tool came about, and highlight some of the challenges I encountered during its development.</p>
-
-
-   <div class="buttonArea">
-   <a href="/2023/01/23/writing-a-workflow-tool-for-imaging-portable-media" class="button">Read more ...</a>
-  </div>
-   
-   <ul class="tag_box inline">
-     
-     
-
-
-
-
-  
-    <li>
-      <details>
-      <summary>disk-imaging</summary>
-      <ul>
-      
-        <li><a href="/2023/01/23/writing-a-workflow-tool-for-imaging-portable-media">Writing yet another workflow tool for imaging portable media</a></li>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-        <li><a href="/2019/04/10/a-simple-disk-imaging-workflow-tool">A simple disk imaging workflow tool</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>floppy-disks</summary>
-      <ul>
-      
-        <li><a href="/2023/01/23/writing-a-workflow-tool-for-imaging-portable-media">Writing yet another workflow tool for imaging portable media</a></li>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-        <li><a href="/2020/02/20/offline-digital-carriers-kb-deposit-collection">Offline digital data carriers in the KB deposit collection</a></li>
-      
-        <li><a href="/2019/04/10/a-simple-disk-imaging-workflow-tool">A simple disk imaging workflow tool</a></li>
       
       </ul>
       </details>
@@ -880,6 +948,19 @@
   
     <li>
       <details>
+      <summary>ExifTool</summary>
+      <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
       <summary>Fido</summary>
       <ul>
       
@@ -1027,6 +1108,19 @@
   
     <li>
       <details>
+      <summary>ImageMagick</summary>
+      <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
       <summary>internet</summary>
       <ul>
       
@@ -1111,6 +1205,8 @@
       <details>
       <summary>JHOVE</summary>
       <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
@@ -1372,6 +1468,8 @@
       <summary>preservation-risks</summary>
       <ul>
       
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
         <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
       
         <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
@@ -1521,6 +1619,8 @@
       <details>
       <summary>TIFF</summary>
       <ul>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
       
@@ -1711,9 +1811,29 @@
   
     
       <details open>
-      <summary>2023</summary>
-      <h3>June</h3>
+      <summary>2024</summary>
+      <h3>March</h3>
       <ul>
+    
+  
+	<li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+	
+    
+      
+        </ul>
+        </details>
+        <details>
+        <summary>2023</summary>
+        <h3>June</h3>
+        <ul>
+      
+    
+  
+    
+    
+    
+    
+  
     
   
 	<li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
@@ -3087,7 +3207,6 @@
       <div class="sidebarGroup">
         <h2>Social</h2>
         <h3><a rel="me" href="https://digipres.club/@bitsgalore" target="_blank">Mastodon (digipres.club)</a></h3>
-        <h3><a href="https://twitter.com/bitsgalore" target="_blank">Twitter</a></h3>
       </div>
 
       <div class="sidebarGroup">
@@ -3107,7 +3226,7 @@
       </div>
 
       <div id="footerContent">
-        <p>&copy; 2023 Johan van der Knijff. All content on this blog is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>, unless indicated otherwise. Created using <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+        <p>&copy; 2024 Johan van der Knijff. All content on this blog is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>, unless indicated otherwise. Created using <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="https://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>.</p>
 
       </div>
