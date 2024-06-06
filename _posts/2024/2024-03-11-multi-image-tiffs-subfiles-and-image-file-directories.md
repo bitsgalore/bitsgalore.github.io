@@ -9,7 +9,7 @@ comment_id: 90
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ headImageAltText }}">
+  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
   <figcaption><a href="https://jenikirbyhistory.getarchive.net/media/confused-muddled-illogical-957696">"Confused, muddled, illogical"</a>. Used under <a href="https://web.archive.org/web/20170727004823/https://pixabay.com/en/service/license/">Pixabay License</a>.</figcaption>
 </figure>
 
