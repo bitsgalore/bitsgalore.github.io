@@ -16,8 +16,10 @@
 <meta property="og:image" content="{{ site.production_url }}{{ page.largeimage }}">
 {% else %}
 {% if page.image %}
+<!-- page.image ---->
 <meta property="og:image" content="{{ site.production_url }}{{ page.image }}">
 {% else %}
+<!-- title.image ---->
 <meta property="og:image" content="{{ site.production_url }}{{ site.title_image }}">
 {% endif %}
 {% endif %}
