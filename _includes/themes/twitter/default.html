@@ -34,7 +34,25 @@
     <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
 
     <!-- Opengraph metadata for Mastodon cards -->
-    {% include head.html %}
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:url" content="{{ site.production_url }}{{ page.url }}">
+
+    {% if page.description %}
+    <meta property="og:description" content="{{ page.description }}">
+    {% else %}
+    <meta property="og:description" content="{{ site.description }}">
+    {% endif %}
+    
+    {% if page.image %}
+    <!-- page.image ---->
+    <meta property="og:image" content="{{ site.production_url }}{{ page.image }}">
+    {% else %}
+    <!-- title.image ---->
+    <meta property="og:image" content="{{ site.production_url }}{{ site.title_image }}">
+    {% endif %}
+    <!-- end open graph -->
 
   </head>
 

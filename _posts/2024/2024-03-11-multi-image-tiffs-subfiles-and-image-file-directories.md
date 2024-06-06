@@ -2,7 +2,7 @@
 layout: post
 title: Multi-image TIFFs, subfiles and image file directories
 image: "/images/2024/03/confused-muddled-illogical-957696-1024.jpg"
-summary: "This post discusses the impact of having multiple images indide a TIFF on preservation workflows, and also provides some suggestions on how to identify such files."
+description: "This post discusses the impact of having multiple images indide a TIFF on preservation workflows, and also provides some suggestions on how to identify such files."
 tags: [TIFF, ImageMagick, JHOVE, ExifTool, preservation-risks]
 comment_id: 90
 ---
