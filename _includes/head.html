@@ -13,12 +13,12 @@
  
 
 {% if page.largeimage %}
-<meta property="og:image" content="{{ BASE_PATH }}{{ page.largeimage }}">
+<meta property="og:image" content="{{ site.production_url }}{{ page.largeimage }}">
 {% else %}
 {% if page.image %}
-<meta property="og:image" content="{{ BASE_PATH }}{{ page.image }}">
+<meta property="og:image" content="{{ site.production_url }}{{ page.image }}">
 {% else %}
-<meta property="og:image" content="{{ BASE_PATH }}{{ site.title_image }}">
+<meta property="og:image" content="{{ site.production_url }}{{ site.title_image }}">
 {% endif %}
 {% endif %}
 <!-- end open graph -->
