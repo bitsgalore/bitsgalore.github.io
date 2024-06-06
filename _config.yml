@@ -85,7 +85,7 @@ JB :
 
   # Path to title image (used as fallback image for Mastodon cards)
   #
-  title_image: /images/bgava-large.png
+  title_image: "/images/bgava-large.png"
 
   # Settings for comments helper
   # Set 'provider' to the comment provider you want to use.
