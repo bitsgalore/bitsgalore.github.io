@@ -1,12 +1,15 @@
 ---
 layout: post
 title: Identification of PDF preservation risks with VeraPDF and JHOVE
+headImage: "/images/2023/05/Rock_em_Sock_em_Robots_Game.jpg"
+headImageAltText: "Photo of a red toy robot and a similar looking blue toy robot in a boxing ring. Both robots face each other in a threatening stance."
+description: "The PDF format has several features that are potential preservation risks. This post reviews to what extent such features can be detected using VeraPDF and JHOVE."
 tags: [PDF, preservation-risks, VeraPDF, JHOVE]
 comment_id: 88
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2023/05/Rock_em_Sock_em_Robots_Game.jpg" alt="Photo of a red toy robot and a similar looking blue toy robot in a boxing ring. Both robots face each other in a threatening stance.">
+  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
   <figcaption><a href="https://commons.wikimedia.org/wiki/File:Rock_%27em_Sock_%27em_Robots_Game.jpg">"Rock 'em Sock 'em Robots Game"</a> by  Lorie Shaull, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>, via Wikimedia Commons.</figcaption>
 </figure>
 

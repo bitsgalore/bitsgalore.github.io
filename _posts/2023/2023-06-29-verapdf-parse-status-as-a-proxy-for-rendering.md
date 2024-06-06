@@ -1,12 +1,15 @@
 ---
 layout: post
 title: VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset
+headImage: "/images/2023/06/barnum-bailey.jpg"
+headImageAltText: "Vintage lithograph circus poster that shows a circus ring. In the front is a woman in a red dress, standing on horseback. Behind her there are more horses, with a variety of circus artists, including acrobats and jugglers, performing on horseback as well. In the background acrobats are walking on a tightrope."
+description: "This post explores to what extent VeraPDF's parse status can be used as a proxy variable for PDF rendering behaviour."
 tags: [PDF, format-validation, VeraPDF, JHOVE]
 comment_id: 89
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2023/06/barnum-bailey.jpg" alt="Vintage lithograph circus poster that shows a circus ring. In the front is a woman in a red dress, standing on horseback. Behind her there are more horses, with a variety of circus artists, including acrobats and jugglers, performing on horseback as well. In the background acrobats are walking on a tightrope.">
+  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
   <figcaption><a href="https://www.flickr.com/photos/boston_public_library/6554392117/in/album-72157629549177588/">"The Barnum & Bailey greatest show on earth"</a>. Used under <a href="https://creativecommons.org/licenses/by/2.0/">CC BY-BY 2.0</a>, via Boston Public Library.</figcaption>
 </figure>
 

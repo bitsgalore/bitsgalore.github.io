@@ -1,12 +1,15 @@
 ---
 layout: post
 title: Moving my Internet domains
+headImage: "/images/2023/02/donkey-cart.png"
+headImageAltText: "Icon of a donkey that is pulling a cart that has the words bitsgalore.org written on it. In the background the sun is shining."
+description: "In this post I share my experiences from moving my internet domains to a new registrar, and point out some useful resources along the way."
 tags: [internet, DNS, GitHub-Pages]
 comment_id: 84
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2023/02/donkey-cart.png" alt="Icon of a donkey that is pulling a cart that has the words bitsgalore.org written on it. In the background the sun is shining.">
+  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
   <figcaption>Donkey, cart and sun icons licensed from <a href="https://thenounproject.com/">the Noun Project</a>.</figcaption>
 </figure>
 

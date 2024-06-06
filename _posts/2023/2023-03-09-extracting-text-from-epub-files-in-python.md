@@ -1,12 +1,15 @@
 ---
 layout: post
 title: Extracting text from EPUB files in Python
+headImage: "/images/2023/03/clockwork-extraction.jpg"
+headImageAltText: "Street scene showing crowd gathered around an open carriage in which a dentist performs a tooth extraction on a patient. Next to the patient a man is banging on a large drum."
+description: "This post gives an introduction to extracting unformatted text from EPUB files in Python."
 tags: [EPUB, Apache-Tika, python]
 comment_id: 85
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2023/03/clockwork-extraction.jpg" alt="Street scene showing crowd gathered around an open carriage in which a dentist performs a tooth extraction on a patient. Next to the patient a man is banging on a large drum.">
+  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
   <figcaption>Clockwork picture of an itinerant dentist performing an extraction in French rural scene, wood frame, metal workings, first half 19th century. <a href="https://wellcomecollection.org/works/hwpe3cxp">Science Museum, London</a>. <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0 International (CC BY 4.0)</a> (cropped from original).</figcaption>
 </figure>
 

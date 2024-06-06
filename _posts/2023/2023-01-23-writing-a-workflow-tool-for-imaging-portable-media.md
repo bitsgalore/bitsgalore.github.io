@@ -1,12 +1,15 @@
 ---
 layout: post
 title: Writing yet another workflow tool for imaging portable media
+headImage: "/images/2023/01/ipmlab-laptop-1024.jpg"
+headImageAltText: "Photo of a laptop running the Ipmlab software. In the foreground is a removable USB floppy drive with some 3.5 inch floppies lying on top of it. To the right of the laptop is a vintage floppy storage box that contains more floppies."
+description: "This post describes the creation of a new workflow tool for imaging 3.5 inch floppies and other portable media types. It explain how this tool came about, and highlights some of the challenges encountered during its development."
 tags: [disk-imaging, floppy-disks]
 comment_id: 83
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2023/01/ipmlab-laptop-1024.jpg" alt="Photo of a laptop running the Ipmlab software. In the foreground is a removable USB floppy drive with some 3.5 inch floppies lying on top of it. To the right of the laptop is a vintage floppy storage box that contains more floppies.">
+  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
 </figure>
 
 In 2017 I wrote [a blog post]({{ BASE_PATH }}/2017/06/19/image-and-rip-optical-media-like-a-boss) on [Iromlab](https://github.com/KBNLresearch/iromlab) (an acronym for "Image and Rip Optical Media Like A Boss"), a custom-built software tool that streamlines imaging and ripping of optical media using an Acronova Nimbie disc robot. The KB has been using Iromlab since 2019 as part of an [ongoing effort](https://www.kb.nl/over-ons/projecten/digitalisering-optische-dragers) to preserve the information contained in its vast collection of legacy optical media. This project is expected to reach its completion later this year, but as demonstrated [by this earlier inventory]({{ BASE_PATH }}/2020/02/20/offline-digital-carriers-kb-deposit-collection), our deposit collection also contains various other types of legacy media that are under threat of becoming inaccessible. Out of these, 3.5 inch floppy disks are the most common data carriers (after optical media), so it made sense to focus on these as a next step. 
