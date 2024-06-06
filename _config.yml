@@ -15,6 +15,7 @@ paginate: 5
 #
 title : bitsgalore.org
 tagline: Assorted random stuff
+description: digital preservation, file formats
 author :
   name : Johan van der Knijff
   email : bitsgalore@bitsgalore.org
@@ -82,6 +83,10 @@ JB :
   atom_path : /atom.xml
   rss_path : /rss.xml
 
+  # Path to title image (used as fallback image for Mastodon cards)
+  #
+  title_image: /images/bgava-large.png
+
   # Settings for comments helper
   # Set 'provider' to the comment provider you want to use.
   # Set 'provider' to false to turn commenting off globally.
@@ -89,6 +94,7 @@ JB :
   comments :
     provider : false
   
+
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
   # Set 'provider' to false to turn analytics off globally.
