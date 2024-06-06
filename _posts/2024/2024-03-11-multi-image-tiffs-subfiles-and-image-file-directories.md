@@ -1,14 +1,14 @@
 ---
 layout: post
 title: Multi-image TIFFs, subfiles and image file directories
-image: "{{ BASE_PATH }}/images/2024/03/confused-muddled-illogical-957696-1024.jpg"
+image: "/images/2024/03/confused-muddled-illogical-957696-1024.jpg"
 summary: "This post discusses the impact of having multiple images indide a TIFF on preservation workflows, and also provides some suggestions on how to identify such files."
 tags: [TIFF, ImageMagick, JHOVE, ExifTool, preservation-risks]
 comment_id: 90
 ---
 
 <figure class="image">
-  <img src="{{ page.image }}" alt="Photograph that shows a hammer that is used to smash a screw into a piece of wood. On the left is a nail that is partially pushed into the same piece of wood, with an adjustable wrench immediately next to it.">
+  <img src="{{ BASE_PATH }}{{ page.image }}" alt="Photograph that shows a hammer that is used to smash a screw into a piece of wood. On the left is a nail that is partially pushed into the same piece of wood, with an adjustable wrench immediately next to it.">
   <figcaption><a href="https://jenikirbyhistory.getarchive.net/media/confused-muddled-illogical-957696">"Confused, muddled, illogical"</a>. Used under <a href="https://web.archive.org/web/20170727004823/https://pixabay.com/en/service/license/">Pixabay License</a>.</figcaption>
 </figure>
 

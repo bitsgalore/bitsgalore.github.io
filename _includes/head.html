@@ -2,7 +2,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:title" content="{{ page.title }}">
-<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:url" content="{{ BASE_PATH }}{{ page.url }}">
 
 
 {% if page.summary %}
@@ -13,12 +13,12 @@
  
 
 {% if page.largeimage %}
-<meta property="og:image" content="{{ site.url }}{{ page.largeimage }}">
+<meta property="og:image" content="{{ BASE_PATH }}{{ page.largeimage }}">
 {% else %}
 {% if page.image %}
-<meta property="og:image" content="{{ site.url }}{{ page.image }}">
+<meta property="og:image" content="{{ BASE_PATH }}{{ page.image }}">
 {% else %}
-<meta property="og:image" content="{{ site.title_image }}">
+<meta property="og:image" content="{{ BASE_PATH }}{{ site.title_image }}">
 {% endif %}
 {% endif %}
 <!-- end open graph -->
