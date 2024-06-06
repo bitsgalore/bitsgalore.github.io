@@ -38,22 +38,20 @@
     <meta property="og:site_name" content="{{ site.title }}">
     <meta property="og:title" content="{{ page.title }}">
     <meta property="og:url" content="{{ site.production_url }}{{ page.url }}">
-
     {% if page.description %}
     <meta property="og:description" content="{{ page.description }}">
     {% else %}
     <meta property="og:description" content="{{ site.description }}">
     {% endif %}
-    
-    {% if page.image %}
-    <!-- page.image ---->
-    <meta property="og:image" content="{{ site.production_url }}{{ page.image }}">
+    {% if page.headImage %}
+    <meta property="og:image" content="{{ site.production_url }}{{ page.headImage }}">
     {% else %}
-    <!-- title.image ---->
     <meta property="og:image" content="{{ site.production_url }}{{ site.title_image }}">
     {% endif %}
+    {% if page.headImageAltText %}
+    <meta property="og:image:alt" content="{{ page.headImageAltText }}">
+    {% endif %}
     <!-- end open graph -->
-
   </head>
 
   <body>

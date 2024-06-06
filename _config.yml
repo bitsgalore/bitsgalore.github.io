@@ -32,6 +32,10 @@ author :
 #
 production_url : https://bitsgalore.org
 
+# Path to title image (used as fallback image for Mastodon cards)
+#
+title_image : /images/bgava-large.png
+
 # By default Jekyll ignores dirs starting with ".", so need to bypass
 # for ".well-known" dir
 include: [".well-known"]
@@ -82,10 +86,6 @@ JB :
   tags_path : /tags.html
   atom_path : /atom.xml
   rss_path : /rss.xml
-
-  # Path to title image (used as fallback image for Mastodon cards)
-  #
-  title_image: "/images/bgava-large.png"
 
   # Settings for comments helper
   # Set 'provider' to the comment provider you want to use.
