@@ -753,7 +753,7 @@ endobj
 
 - Extract only stream contents as raw binary data and write to a new file:
   ```bash
-  mutool show -b whatever.pdf 151 > whatever.dat
+  mutool show -be -o whatever.dat whatever.pdf 151
   ```
 
   This command is particularly useful for extracting the raw data from a stream object (e.g. an image or multimedia file).
@@ -803,6 +803,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - 10 October 2022: added update on and link to Hacker News topic on this post.
 - 28 November 2022: added reference to Micky Lindlar's blog post on trouble-shooting PDF validation errors.
 - 16 February 2023: added section on reducing PDF file size with ImageMagick's *convert* tool.
+- 26 September 2024: corrected mutool stream content extraction example. 
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
