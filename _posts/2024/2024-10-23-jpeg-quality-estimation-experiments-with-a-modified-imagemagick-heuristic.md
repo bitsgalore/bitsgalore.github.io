@@ -206,7 +206,7 @@ This method is outlined on [Neil Krawetz’s Fotoforensics site](https://fotofor
 
 ### Cogranne method
 
-A [2018 paper by Cogranne](https://arxiv.org/abs/1802.00992) describes an alternative method for estimating JPEG quality. It claims to overcome some of the limitations of established methods, such as the ImageMagick heuristic. However, as it is only valid for a quality factor greater than 49, this also isn't ideally suited to my use case.
+A [2018 paper by Rémi Cogranne](https://arxiv.org/abs/1802.00992) describes an alternative method for estimating JPEG quality. It claims to overcome some of the limitations of established methods, such as the ImageMagick heuristic. However, as it is only valid for a quality factor greater than 49, this also isn't ideally suited to my use case.
 
 ## Further resources
 
