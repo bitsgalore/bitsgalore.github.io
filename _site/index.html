@@ -76,6 +76,92 @@
 
 
    <div class="post-entry">
+   <h1><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></h1>
+   <div class="date">
+    <span>23 October 2024</span>
+   </div>
+   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
+   <figure class="image">
+  <img src="/images/2024/10/bailey-1024.jpg" alt="Photograph of golden retriever dog Bailey sitting at a desk in front of a laptop, bashing her paws away at the laptop's keyboard while wearing a necktie." />
+  <figcaption><a href="https://imgur.com/a/golden-baileys-story-pictures-XGli7">Bailey AKA the "I have no idea what I'm doing" dog</a>. License unknown.</figcaption>
+</figure>
+
+<p>I’m currently working on an automated workflow for quality-checking scanned books and periodicals in PDF format. These PDFs are created by external suppliers for The Digital Library for Dutch Literature (<a href="https://www.dbnl.org/">dbnl</a>), which has been managed by the KB since 2015.</p>
+
+<p>As per our current specifications, each book or periodical volume is scanned to PDF. For each publication, 2 versions are made:</p>
+
+<ol>
+  <li>A “production master” PDF with scans that are encoded at 85% JPEG quality.</li>
+  <li>A (relatively) small access PDF with scans encoded at 50% JPEG quality.</li>
+</ol>
+
+<p>It’s important to have some way of verifying the approximate quality of both versions. The production master serves as input for EPUB, XML and unformatted text representations. If the scans are compressed too heavily, this adversely affects these derived products. On the other hand, too little compression on the access PDFs will result in files that are impractically large for access.</p>
+
+<p>In this post I explain some of the challenges I ran into while trying to estimate JPEG quality for our scans. More specifically, I focus on a problem with <a href="https://imagemagick.org/">ImageMagick</a>’s JPEG quality heuristic when it is applied to low quality images. I propose a simple tentative solution, that applies some small changes to ImageMagick’s heuristic. However, for a combination of reasons I’m not fully confident these changes can be justified. By posting this, I hope this will provoke some response by people who are better versed in in the inner workings of JPEG compression.</p>
+
+
+   <div class="buttonArea">
+   <a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic" class="button">Read more ...</a>
+  </div>
+   
+   <ul class="tag_box inline">
+     
+     
+
+
+
+
+  
+    <li>
+      <details>
+      <summary>ExifTool</summary>
+      <ul>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>ImageMagick</summary>
+      <ul>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>JPEG</summary>
+      <ul>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+
+
+
+   </ul>
+  
+   </div>
+   <hr>
+
+   <div class="post-entry">
    <h1><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></h1>
    <div class="date">
     <span>11 March 2024</span>
@@ -106,6 +192,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
@@ -118,6 +206,8 @@
       <details>
       <summary>ImageMagick</summary>
       <ul>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -567,73 +657,6 @@
    </div>
    <hr>
 
-   <div class="post-entry">
-   <h1><a href="/2023/02/20/moving-my-internet-domains">Moving my Internet domains</a></h1>
-   <div class="date">
-    <span>20 February 2023</span>
-   </div>
-   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
-   <figure class="image">
-  <img src="/images/2023/02/donkey-cart.png" alt="Icon of a donkey that is pulling a cart that has the words bitsgalore.org written on it. In the background the sun is shining." />
-  <figcaption>Donkey, cart and sun icons licensed from <a href="https://thenounproject.com/">the Noun Project</a>.</figcaption>
-</figure>
-
-<p>I recently moved the two Internet domains I own away from the UK-based domain registrar I’d been using since 2004 to a EU-based registrar. While the actual domain transfer was fairly simple, finding a registrar that suited my specific situation turned out more difficult than expected. Leaving my old registrar also resulted in a surprise. It’s unlikely that my situation is unique, so I thought it would be useful to share my experiences in this blog post, and point to some useful online resources that I found along the way. The move also allowed me to make my domains up to date with (mostly security-related) modern internet standards. I’ll briefly address this in the final sections of this post. This includes some suggestions on how to make these optimizations work with a GitHub Pages-hosted sites like this one.</p>
-
-
-   <div class="buttonArea">
-   <a href="/2023/02/20/moving-my-internet-domains" class="button">Read more ...</a>
-  </div>
-   
-   <ul class="tag_box inline">
-     
-     
-
-
-
-
-  
-    <li>
-      <details>
-      <summary>DNS</summary>
-      <ul>
-      
-        <li><a href="/2023/02/20/moving-my-internet-domains">Moving my Internet domains</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>GitHub-Pages</summary>
-      <ul>
-      
-        <li><a href="/2023/02/20/moving-my-internet-domains">Moving my Internet domains</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>internet</summary>
-      <ul>
-      
-        <li><a href="/2023/02/20/moving-my-internet-domains">Moving my Internet domains</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-
-
-
-   </ul>
-  
-   </div>
-   <hr>
-
 
 <!-- Pagination links -->
 
@@ -702,6 +725,10 @@
   
     
       <a href="/page15">15</a>
+    
+  
+    
+      <a href="/page16">16</a>
     
   
 
@@ -964,6 +991,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
@@ -1124,6 +1153,8 @@
       <summary>ImageMagick</summary>
       <ul>
       
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
@@ -1282,6 +1313,17 @@
         <li><a href="/2011/06/06/paper-jpeg-2000-preservation-9">Paper on JPEG 2000 for preservation</a></li>
       
         <li><a href="/2010/12/02/ensuring-suitability-of-jpeg">Ensuring the suitability of JPEG 2000 for preservation</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>JPEG</summary>
+      <ul>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
       </ul>
       </details>
@@ -1825,8 +1867,27 @@
     
       <details open>
       <summary>2024</summary>
-      <h3>March</h3>
+      <h3>October</h3>
       <ul>
+    
+  
+	<li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+	
+    
+          
+        
+          </ul>
+          <h3>March</h3>
+          <ul>
+        
+      
+    
+  
+    
+    
+    
+    
+  
     
   
 	<li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
