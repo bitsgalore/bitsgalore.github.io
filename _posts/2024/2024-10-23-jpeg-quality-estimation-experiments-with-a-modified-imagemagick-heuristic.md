@@ -208,9 +208,11 @@ This method is outlined on [Neil Krawetz’s Fotoforensics site](https://fotofor
 
 A [2018 paper by Rémi Cogranne](https://arxiv.org/abs/1802.00992) describes an alternative method for estimating JPEG quality. It claims to overcome some of the limitations of established methods, such as the ImageMagick heuristic. However, as it is only valid for a quality factor greater than 49, this also isn't ideally suited to my use case.
 
-## Further resources
+## Scripts and test data
 
-[jpeg-quality-demo](https://github.com/KBNLresearch/jpeg-quality-demo) - Git repository with all scripts and test images that were used in this analysis. 
+All scripts and test data that were used in this analysis are available from this Git repository:
+
+<https://github.com/KBNLresearch/jpeg-quality-demo>
 
 [^1]: I used [Poppler](https://poppler.freedesktop.org/)'s *pdfimages* tool to extract the images from the PDF, using the `-all` switch which ensures images are kept in their original format.
 
