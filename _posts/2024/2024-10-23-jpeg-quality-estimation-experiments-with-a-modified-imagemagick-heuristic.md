@@ -115,6 +115,8 @@ Here we see that at `i=17`, the value of `sums[i]` becomes smaller than `qsum`. 
 
 In this case, we see that `qvalue` is indeed smaller than `hashes[i]`, but `qsum` is *not* smaller than (or equal to) `sums[i]`. So the first condition is not met. Since `i` equals 17, the second condition is not met either, meaning that the code doesn't come up with a meaningful quality estimate, and reports the fallback value (-1) instead.
 
+## Changing the threshold
+
 It's not entirely clear to me why the heuristic uses the threshold value of 50, although [Neil Krawetz mentions](https://fotoforensics.com/tutorial.php?tt=estq) that "the JPEG Standard changes algorithms at quality values below 50%". As a test, I tried  changing the threshold to 0:
 
 ```python
