@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic
+title: JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic
 headImage: "/images/2024/10/bailey-1024.jpg"
 headImageAltText: "Photograph of golden retriever dog Bailey sitting at a desk in front of a laptop, bashing her paws away at the laptop's keyboard while wearing a necktie."
 description: "This post addresses some of the challenges I ran into while trying to estimate JPEG quality from some low quality images. It also proposes a tentative solution, that is based on a modified version of ImageMagick's JPEG quality heuristic. I hope this post will provoke some reactions from people who are more familiar with the inner workings of the JPEG compression algorithm."
