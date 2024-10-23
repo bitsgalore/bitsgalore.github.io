@@ -68,6 +68,8 @@ This changed when I recently came across [this StackOverflow post](https://stack
 
 A quick test showed that it produced results that were identical to ImageMagick in most cases, but like ImageMagick, it failed to come up with a quality estimate for my problematic JPEG. To find out why, I incorporated Edwards's code into [this test script](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-original.py).
 
+## How it works
+
 The algorithm reads the image's quantization tables (usually 2), each of which is an array with 64 integer numbers. It first adds up all of these numbers, resulting in variable `qsum`. It then calculates `qvalue`, which is the sum of 2 specific values in each quantization table (which is in turn summed up for all quantization tables). The main "meat and potatoes" of the heuristic is this loop at the very end of the function:
 
 ```python
@@ -78,7 +80,7 @@ for i in range(100):
         return i+1
 ```
 
-For each iteration, `qvalue` and `qsum` are evaluated against the corresponding values in two hard-coded numerical arrays (`hashes[i]` and `sums[i]`). The first *if* block makes sure that as long as `qvalue` is smaller than `hashes[i]` *and* `qsum` is smaller than `sums[i]`, the code will immediately jump to the next iteration, skipping the second *if* block.
+For each iteration, `qvalue` and `qsum` are evaluated against the corresponding values in two hard-coded numerical arrays (`hashes[i]` and `sums[i]`). The first *if* block makes sure that as long as `qvalue` is smaller than `hashes[i]` *and* `qsum` is smaller than `sums[i]`, the code will immediately jump to the next iteration, skipping the second *if* block. The second *if* block (which reports the quality estimate as `i+1`) is only evaluated if the test condition in the first block fails.
 
 ## Tracing all loop variables
 
