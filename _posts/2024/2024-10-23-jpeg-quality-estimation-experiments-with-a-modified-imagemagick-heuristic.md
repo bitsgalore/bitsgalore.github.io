@@ -54,7 +54,7 @@ However, when I ran this command on some of our access scans, the results were n
 
 ## Check with Fotoforensics
 
-To verify this unexpected result I uploaded the image to Neil Krawetz's  [*fotoforensics*](https://fotoforensics.com/) service. The [result is available here](https://fotoforensics.com/analysis.php?id=2e0a9f3203e35ece9a23c68c9e6dc7c908891372.353235&show=estq). *Fotoforensics* estimates the JPEG quality at a paltry 18%. So why does ImageMagick report a value of 92% here?
+To verify this unexpected result I uploaded the image to Neil Krawetz's  [*Fotoforensics*](https://fotoforensics.com/) service. The [result is available here](https://fotoforensics.com/analysis.php?id=2e0a9f3203e35ece9a23c68c9e6dc7c908891372.353235&show=estq). *Fotoforensics* estimates the JPEG quality at a paltry 18%. So why does ImageMagick report a value of 92% here?
 
 ## ImageMagick uses "92" as a fallback value
 
