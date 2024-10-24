@@ -76,7 +76,7 @@
 
 
    <div class="post-entry">
-   <h1><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></h1>
+   <h1><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></h1>
    <div class="date">
     <span>23 October 2024</span>
    </div>
@@ -86,18 +86,9 @@
   <figcaption><a href="https://imgur.com/a/golden-baileys-story-pictures-XGli7">Bailey AKA the "I have no idea what I'm doing" dog</a>. License unknown.</figcaption>
 </figure>
 
-<p>I’m currently working on an automated workflow for quality-checking scanned books and periodicals in PDF format. These PDFs are created by external suppliers for The Digital Library for Dutch Literature (<a href="https://www.dbnl.org/">dbnl</a>), which has been managed by the KB since 2015.</p>
+<p>In this post I explore some of the challenges I ran into while trying to estimate the quality level of JPEG images. By quality level I mean the percentage (1-100) that expresses the <a href="https://en.wikipedia.org/wiki/Lossy_compression">lossiness</a> that was applied by the encoder at the last “save” operation. Here, a value of 1 results in very aggressive compression with a lot of information loss (and thus very low quality), whereas at 100 almost no information loss occurs at all<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">1</a></sup>.</p>
 
-<p>As per our current specifications, each book or periodical volume is scanned to PDF. For each publication, 2 versions are made:</p>
-
-<ol>
-  <li>A “production master” PDF with scans that are encoded at 85% JPEG quality.</li>
-  <li>A (relatively) small access PDF with scans encoded at 50% JPEG quality.</li>
-</ol>
-
-<p>It’s important to have some way of verifying the approximate quality of both versions. The production master serves as input for EPUB, XML and unformatted text representations. If the scans are compressed too heavily, this adversely affects these derived products. On the other hand, too little compression on the access PDFs will result in files that are impractically large for access.</p>
-
-<p>In this post I explain some of the challenges I ran into while trying to estimate JPEG quality for our scans. More specifically, I focus on a problem with <a href="https://imagemagick.org/">ImageMagick</a>’s JPEG quality heuristic when it is applied to low quality images. I propose a simple tentative solution, that applies some small changes to ImageMagick’s heuristic. However, for a combination of reasons I’m not fully confident these changes can be justified. By posting this, I hope this will provoke some response by people who are better versed in in the inner workings of JPEG compression.</p>
+<p>More specifically, I focus on a problem with <a href="https://imagemagick.org/">ImageMagick</a>’s JPEG quality heuristic when it is applied to low quality images. I propose a simple tentative solution, that applies some small changes to ImageMagick’s heuristic. For a combination of reasons I’m not fully confident these changes can be justified. By posting this, I hope this will provoke some response by people who are better versed in in the inner workings of JPEG compression.</p>
 
 
    <div class="buttonArea">
@@ -117,7 +108,7 @@
       <summary>ExifTool</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -132,7 +123,7 @@
       <summary>ImageMagick</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -147,7 +138,7 @@
       <summary>JPEG</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
       </ul>
       </details>
@@ -192,7 +183,7 @@
       <summary>ExifTool</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -207,7 +198,7 @@
       <summary>ImageMagick</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -991,7 +982,7 @@
       <summary>ExifTool</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -1153,7 +1144,7 @@
       <summary>ImageMagick</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -1323,7 +1314,7 @@
       <summary>JPEG</summary>
       <ul>
       
-        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
       </ul>
       </details>
@@ -1871,7 +1862,7 @@
       <ul>
     
   
-	<li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG Quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+	<li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
 	
     
           

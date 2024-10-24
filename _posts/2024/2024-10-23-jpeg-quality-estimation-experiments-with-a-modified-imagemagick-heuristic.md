@@ -13,18 +13,23 @@ comment_id: 91
   <figcaption><a href="https://imgur.com/a/golden-baileys-story-pictures-XGli7">Bailey AKA the "I have no idea what I'm doing" dog</a>. License unknown.</figcaption>
 </figure>
 
+
+In this post I explore some of the challenges I ran into while trying to estimate the quality level of JPEG images. By quality level I mean the percentage (1-100) that expresses the [lossiness](https://en.wikipedia.org/wiki/Lossy_compression) that was applied by the encoder at the last "save" operation. Here, a value of 1 results in very aggressive compression with a lot of information loss (and thus very low quality), whereas at 100 almost no information loss occurs at all[^4].
+
+More specifically, I focus on a problem with [ImageMagick](https://imagemagick.org/)'s JPEG quality heuristic when it is applied to low quality images. I propose a simple tentative solution, that applies some small changes to ImageMagick's heuristic. For a combination of reasons I'm not fully confident these changes can be justified. By posting this, I hope this will provoke some response by people who are better versed in in the inner workings of JPEG compression.
+
+<!-- more -->
+
+## Context of this work
+
 I'm currently working on an automated workflow for quality-checking scanned books and periodicals in PDF format. These PDFs are created by external suppliers for The Digital Library for Dutch Literature ([dbnl](https://www.dbnl.org/)), which has been managed by the KB since 2015.
 
-As per our current specifications, each book or periodical volume is scanned to PDF. For each publication, 2 versions are made:
+Each book or periodical volume is scanned to PDF. For each publication, 2 versions are made:
 
 1. A "production master" PDF with scans that are encoded at 85% JPEG quality.
 2. A (relatively) small access PDF with scans encoded at 50% JPEG quality.
 
-It's important to have some way of verifying the approximate quality of both versions. The production master serves as input for EPUB, XML and unformatted text representations. If the scans are compressed too heavily, this adversely affects these derived products. On the other hand, too little compression on the access PDFs will result in files that are impractically large for access.
-
-In this post I explain some of the challenges I ran into while trying to estimate JPEG quality for our scans. More specifically, I focus on a problem with [ImageMagick](https://imagemagick.org/)'s JPEG quality heuristic when it is applied to low quality images. I propose a simple tentative solution, that applies some small changes to ImageMagick's heuristic. However, for a combination of reasons I'm not fully confident these changes can be justified. By posting this, I hope this will provoke some response by people who are better versed in in the inner workings of JPEG compression.
-
-<!-- more -->
+It's important to have some way of verifying the approximate quality of both versions. The production master serves as input for derived EPUB, XML and unformatted text versions. If the scans are compressed too heavily, this adversely affects these derived products. On the other hand, too little compression on the access PDFs will result in files that are impractically large for access.
 
 ## Estimating JPEG quality
 
@@ -218,8 +223,14 @@ All scripts and test data that were used in this analysis are available from thi
 
 <https://github.com/KBNLresearch/jpeg-quality-demo>
 
+## Revision history
+
+- 24 October 2024: re-arranged introductory section, and added an explanation on the difference between quality level and image quality.
+
 [^1]: I used [Poppler](https://poppler.freedesktop.org/)'s *pdfimages* tool to extract the images from the PDF, using the `-all` switch which ensures images are kept in their original format.
 
 [^2]: I used ImageMagick 6.9.10-23.
 
 [^3]: I assume this corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neil Krawetz's Fotoforensics site](https://fotoforensics.com/tutorial.php?tt=estq).
+
+[^4]: Note that the quality level does not necessarily reflect the *image quality*! As an example, if an image was first compressed at 20% quality and subsequently re-saved at 90%, the image quality will be very low (relative to the source image), despite the high quality level at the last save operation. So the quality level only says something about the *compression process* that was used on the last save. 
