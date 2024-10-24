@@ -180,7 +180,7 @@ The main issue here is that even though it's not hard to understand *what* the I
 
 ## Let me know your feedback!
 
-For all of the reasons mentioned above, any feedback on the modified ImageMagick heuristic would be highly appreciated! I've created a [Github repo](https://github.com/KBNLresearch/jpeg-quality-demo) with all the scripts and data I used for my analyses. Hopefully this will encourage others to have another look at this, or even comeb up with something better!
+For all of the reasons mentioned above, any feedback on the modified ImageMagick heuristic would be highly appreciated! I've created a [Github repo](https://github.com/KBNLresearch/jpeg-quality-demo) with all the scripts and data I used for my analyses. Hopefully this will encourage others to have another look at this, or even come up with something better!
 
 ## Acknowledgment
 
