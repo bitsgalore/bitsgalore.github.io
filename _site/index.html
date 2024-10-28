@@ -88,7 +88,7 @@
 
 <p>In this post I explore some of the challenges I ran into while trying to estimate the quality level of JPEG images. By quality level I mean the percentage (1-100) that expresses the <a href="https://en.wikipedia.org/wiki/Lossy_compression">lossiness</a> that was applied by the encoder at the last “save” operation. Here, a value of 1 results in very aggressive compression with a lot of information loss (and thus very low quality), whereas at 100 almost no information loss occurs at all<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">1</a></sup>.</p>
 
-<p>More specifically, I focus on a problem with <a href="https://imagemagick.org/">ImageMagick</a>’s JPEG quality heuristic when it is applied to low quality images. I propose a simple tentative solution, that applies some small changes to ImageMagick’s heuristic. For a combination of reasons I’m not fully confident these changes can be justified. By posting this, I hope this will provoke some response by people who are better versed in in the inner workings of JPEG compression.</p>
+<p>More specifically, I focus on problems with <a href="https://imagemagick.org/">ImageMagick</a>’s JPEG quality heuristic, which become particularly apparent when applied to low quality images. I also propose a simple tentative solution, that applies some small changes to ImageMagick’s heuristic.</p>
 
 
    <div class="buttonArea">
