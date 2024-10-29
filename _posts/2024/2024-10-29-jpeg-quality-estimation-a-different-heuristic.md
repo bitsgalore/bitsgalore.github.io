@@ -456,7 +456,12 @@ As always, any feedback and suggestions in response to this post are very welcom
 
 ## Scripts and test data
 
-All scripts and test data that were used in this analysis are available from the [jpeg-quality-demo Github repository](https://github.com/KBNLresearch/jpeg-quality-demo).
+- [jpeg-quality-demo Github repository](https://github.com/KBNLresearch/jpeg-quality-demo) - Github repo with all scripts and test data that were used in this analysis. 
+- [test-jpegquality-tablematch.py](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-tablematch.py) - Python implementation of the direct table match method.
+
+### Important note on Python Pillow version
+
+The Python implementation of the direct table match method (and most of the other scripts as well) requires a recent version of the [Pillow Imaging Library](https://python-pillow.org/). This is because around the release of version 8.3 (I think) Pillow changed the order in which it returns the values inside JPEG quantization tables ([details here](https://github.com/python-pillow/Pillow/pull/4989)). All scripts in the repo expect the current/new behaviour, and they will give *very* wrong results when used with older Pillow versions!
 
 [^3]: From its description I think this corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neil Krawetz's FotoForensics site](https://fotoforensics.com/tutorial.php?tt=estq) (but the site doesn't provide any details about the implementation).
 
@@ -470,4 +475,4 @@ All scripts and test data that were used in this analysis are available from the
 
 [^11]: In this case the numerator of the *NSE* equation (the *SSE* value) was 81, and the denominator (the variance of the quantization coefficients) 7743557. This results in *NSE* = 1 - (81/7743557) = 0.99998954, which is reported as 1.0 when rounded to 3 decimals. Meanwhile *RMSE* = &#8730;(81/128) = 0.795.
 
-[^12]: See also [this post on StackOverflow](https://stackoverflow.com/a/29216609/1209004).
+[^12]: See also [this post on StackOverflow](https://stackoverflow.com/a/29216609/1209004).]
