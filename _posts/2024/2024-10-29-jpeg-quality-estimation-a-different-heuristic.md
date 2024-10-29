@@ -341,7 +341,7 @@ I created [a test script with a Python implementation](https://github.com/KBNLre
 
 As a first test I ran the script on the [Pillow and ImageMagick JPEGs](https://github.com/KBNLresearch/jpeg-quality-demo/tree/main/images/im_pil) I discussed in my previous post. This gave the following result:
 
-|Q<sub>enc</sub>|Q<sub>est</sub>(Pillow)|RMSE(Pillow)|NSE(Pillow)|Q<sub>est</sub>(IM)|RMSE(IM)|NSE(IM)
+|Q<sub>enc</sub>|Q<sub>est</sub>(PIL)|RMSE(PIL)|NSE(PIL)|Q<sub>est</sub>(IM)|RMSE(IM)|NSE(IM)
 |:--|:--|:--|:--|:--|:--|:--|
 |5|5|0.0|1.0|5|0.0|1.0|
 |10|10|0.0|1.0|10|0.0|1.0|
@@ -350,7 +350,7 @@ As a first test I ran the script on the [Pillow and ImageMagick JPEGs](https://g
 |75|75|0.0|1.0|75|0.0|1.0|
 |100|100|0.0|1.0|100|0.0|1.0|
 
-Here *Q<sub>enc</sub>* is the encoding quality, and *Q<sub>est</sub>(Pillow)* and *Q<sub>est</sub>(IM)* are the script's estimates for the Pillow and ImageMagick images, respectively. The script correctly reproduced the encoding quality for all test images. The values *RMSE*=0 and *NSE*=1 also indicate that all images use the standard JPEG quantization tables.
+Here *Q<sub>enc</sub>* is the encoding quality, and *Q<sub>est</sub>(PIL)* and *Q<sub>est</sub>(IM)* are the script's estimates for the Pillow and ImageMagick images, respectively. The script correctly reproduced the encoding quality for all test images. The values *RMSE*=0 and *NSE*=1 also indicate that all images use the standard JPEG quantization tables.
 
 ## Comparison of quality estimation methods
 
