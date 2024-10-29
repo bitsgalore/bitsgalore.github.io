@@ -41,7 +41,7 @@ To understand how this works, it's first important to know that Annex K in the [
 |49|64|78|87|103|121|120|101|
 |72|92|95|98|112|100|103|99]
 
-This is the base table with coefficients that are valid for quality level 50. The tables for all other quality levels can be derived from this base table using Equations 1 and 2 from [this paper by Kornblum (2008)](https://www.sciencedirect.com/science/article/pii/S1742287608000285). First, for each quality level *Q* we can calculate a corresponding scaling factor *S*:
+This is the base table with coefficients that are valid for quality level 50. The tables for all other quality levels can be derived from this base table using Equations 1 and 2 from [this paper by Kornblum (2008)](https://www.sciencedirect.com/science/article/pii/S1742287608000285)[^12]. First, for each quality level *Q* we can calculate a corresponding scaling factor *S*:
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow>
@@ -297,7 +297,7 @@ One "goodness of fit" measure that does not have these drawbacks is the [Nash–
   </mrow>
 </math>
 
-Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantization tables, and *T<sub>s</sub><sup>i</sup>* is the corresponding coefficient from the (scaled) standard tables. *N* is the total number of coefficients in the image's quantization tables. Note that, unlike the  *SSE* equation, this includes both the luminance and chrominance coefficients. Finally, <span style="border-top: 1px solid #000000;">*T*</span> is the mean of all coefficients *T<sup>i</sup>* in the image's quantization tables. The interpretation of *NSE* is quite straightforward:
+Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantization tables, and *T<sub>s</sub><sup>i</sup>* is the corresponding coefficient from the (scaled) standard tables. *N* is the total number of coefficients in the image's quantization tables. Note that, unlike in the  *SSE* equation, the luminance and chrominance coefficients are lumped here for simplicity. Finally, <span style="border-top: 1px solid #000000;">*T*</span> is the mean of all coefficients *T<sup>i</sup>* in the image's quantization tables. The interpretation of *NSE* is quite straightforward:
 
 - A value of 1 indicates a perfect agreement between the image quantization tables and the corresponding standard tables.
 - For a value of 0, the standard tables are as good (or rather, bad) an approximation of the image's quantization tables as *T<sub>avg</sub>*.
@@ -469,3 +469,5 @@ All scripts and test data that were used in this analysis are available from the
 [^10]: This is because its hard-coded `sums` and `hashes` lists (see my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic)) are based on 8-bit values.
 
 [^11]: In this case the numerator of the *NSE* equation (the *SSE* value) was 81, and the denominator (the variance of the quantization coefficients) 7743557. This results in *NSE* = 1 - (81/7743557) = 0.99998954, which is reported as 1.0 when rounded to 3 decimals. Meanwhile *RMSE* = &#8730;(81/128) = 0.795.
+
+[^12]: See also [this post on StackOverflow](https://stackoverflow.com/a/29216609/1209004).
