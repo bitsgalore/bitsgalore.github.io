@@ -376,18 +376,18 @@ Below I highlight some of the more interesting results.
 
 ### [jpeg444.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/jpeg444.jpg)
 
-Here both the original and modified ImageMagick heuristics estimate the quality at 60%, with no "exact" match. By contrast, the direct table match method came up with a quality of 75%, with *RMSE* and *NSE* indicating a perfect match with the standard JPEG quantization tables. This is comfirmed by plotting the coefficients from the quantization tables against the standard coefficients:
+For this image, both the original and modified ImageMagick heuristics estimate the quality at 60%, with no "exact" match. By contrast, the direct table match method came up with a quality of 75%, with *RMSE* and *NSE* indicating a perfect match with the standard JPEG quantization tables. This is comfirmed by plotting the coefficients from the quantization tables against the standard coefficients:
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/jpeg444-scatter.png" alt="Scatterplot of T against Ts for file jpeg444-scatter.png, with Quality = 75%, RMSE = 0.0 and NSE = 1.0.">
 </figure>
 
-I triple-checked the result by uploading the image to FotoForensics, which [also came up with 75% quality, and an exact match with the standard tables](https://fotoforensics.com/analysis.php?id=2e8c6fc55fefbdf2e3b96e9c531d3d24b7b5ea16.5667).
+I double-checked the result by uploading the image to FotoForensics, which [also came up with 75% quality, and an exact match with the standard tables](https://fotoforensics.com/analysis.php?id=2e8c6fc55fefbdf2e3b96e9c531d3d24b7b5ea16.5667).
 
 
 ### [image-98.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/image-98.jpg)
 
-For this image, the quality is estimated at 63% by both the original and modified ImageMagick heuristics, with an "exact" match. However, the direct table match method results in a much higher (81%) quality, but the relatively low *NSE* value of 0.732 indicates a poor fit to the standard JPEG tables. This is confirmed by the scatter plot of *T* vs *T<sub>s</sub>* :
+Here, the quality is estimated at 63% by both the original and modified ImageMagick heuristics, with an "exact" match. However, the direct table match method results in a much higher (81%) quality, but the relatively low *NSE* value of 0.732 indicates a poor fit to the standard JPEG tables. This is confirmed by the scatter plot of *T* vs *T<sub>s</sub>* :
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/image-98-scatter.png" alt="Scatterplot of T against Ts for file image-98-scatter.png, with Quality = 81%, RMSE = 25.509 and NSE = 0.732.">
