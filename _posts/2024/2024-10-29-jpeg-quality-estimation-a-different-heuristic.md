@@ -303,16 +303,16 @@ Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantizat
 - For a value of 0, the standard tables are as good (or rather, bad) an approximation of the image's quantization tables as <span style="border-top: 1px solid #000000;">*T*</span>.
 - Negative values indicate an extremely poor agreement.
 
-As an example, the below scatterplot shows the quantization coefficients (*T*) from [one of out dbnl master images](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-master.jpg), plotted against the corresponding coefficients (*Ts*) from the best matching standard table. It also shows the line of perfect agreement (red, dashed), the quality estimate, the root mean squared error, and the Nash-Sutcliffe Efficiency:
+As an example, the below scatter plot shows the quantization coefficients (*T*) from [one of out dbnl master images](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-master.jpg), plotted against the corresponding coefficients (*Ts*) from the best matching standard table. It also shows the line of perfect agreement (red, dashed), the quality estimate, the root mean squared error, and the Nash-Sutcliffe Efficiency:
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2024/10/mul-master-scatter.png" alt="Scatterplot of T against Ts for file mul-master.jpg, with Quality = 84%, RMSE = 1.057 and NSE = 0.997.">
+  <img src="{{ BASE_PATH }}/images/2024/10/mul-master-scatter.png" alt="scatter plot of T against Ts for file mul-master.jpg, with Quality = 84%, RMSE = 1.057 and NSE = 0.997.">
 </figure>
 
 The plot shows that, aside from one outlier, the coefficients from the standard quantization table closely approximate the image's quantization table. This is reflected by the *NSE* value, which is close to 1. Now compare this with the plot I made for [the corresponding access image](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-access.jpg):
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2024/10/mul-access-scatter.png" alt="Scatterplot of T against Ts for file mul-access.jpg, with Quality = 18%, RMSE = 6.244 and NSE = 0.999.">
+  <img src="{{ BASE_PATH }}/images/2024/10/mul-access-scatter.png" alt="scatter plot of T against Ts for file mul-access.jpg, with Quality = 18%, RMSE = 6.244 and NSE = 0.999.">
 </figure>
 
 Visually, the agreement between the standard quantization table coefficients and those of the image looks very similar to the previous plot. But note how the *RMSE* value is much larger here, which is caused by the much larger overall coefficients in the quantization tables. However, this doesn't have any effect on *NSE*, which is even marginally closer to 1 than for the master image.
@@ -320,13 +320,13 @@ Visually, the agreement between the standard quantization table coefficients and
 By contrast, things are very different for [this image](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/image-177.jpg):
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2024/10/image-177-scatter.png" alt="Scatterplot of T against Ts for file image-177-scatter.png, with Quality = 81%, RMSE = 20.509 and NSE = 0.732.">
+  <img src="{{ BASE_PATH }}/images/2024/10/image-177-scatter.png" alt="scatter plot of T against Ts for file image-177-scatter.png, with Quality = 81%, RMSE = 20.509 and NSE = 0.732.">
 </figure>
 
 The plot shows that the standard JPEG tables are a relatively poor approximation here, and this is refected by the low *NSE* value. A similar case is [this image](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/sample-jpg-files-sample-4.jpg): 
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2024/10/sample-jpg-files-sample-4-scatter.png" alt="Scatterplot of T against Ts for file sample-jpg-files-sample-4-scatter.png, with Quality = 89%, RMSE = 12.294 and NSE = 0.734.">
+  <img src="{{ BASE_PATH }}/images/2024/10/sample-jpg-files-sample-4-scatter.png" alt="scatter plot of T against Ts for file sample-jpg-files-sample-4-scatter.png, with Quality = 89%, RMSE = 12.294 and NSE = 0.734.">
 </figure>
 
 Despite the different quality estimate and *RMSE* value, this visually looks like it's in the same ballpark as the previous image, and the similar *NSE* value confirms this.
@@ -379,7 +379,7 @@ Below I highlight some of the more interesting results.
 For this image, both the original and modified ImageMagick heuristics estimate the quality at 60%, with no "exact" match. By contrast, the direct table match method came up with a quality of 75%, with *RMSE* and *NSE* indicating a perfect match with the standard JPEG quantization tables. This is comfirmed by plotting the coefficients from the quantization tables against the standard coefficients:
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2024/10/jpeg444-scatter.png" alt="Scatterplot of T against Ts for file jpeg444-scatter.png, with Quality = 75%, RMSE = 0.0 and NSE = 1.0.">
+  <img src="{{ BASE_PATH }}/images/2024/10/jpeg444-scatter.png" alt="scatter plot of T against Ts for file jpeg444-scatter.png, with Quality = 75%, RMSE = 0.0 and NSE = 1.0.">
 </figure>
 
 I double-checked the result by uploading the image to FotoForensics, which [also came up with 75% quality, and an exact match with the standard tables](https://fotoforensics.com/analysis.php?id=2e8c6fc55fefbdf2e3b96e9c531d3d24b7b5ea16.5667).
@@ -390,7 +390,7 @@ I double-checked the result by uploading the image to FotoForensics, which [also
 Here, the quality is estimated at 63% by both the original and modified ImageMagick heuristics, with an "exact" match. However, the direct table match method results in a much higher (81%) quality, but the relatively low *NSE* value of 0.732 indicates a poor fit to the standard JPEG tables. This is confirmed by the scatter plot of *T* vs *T<sub>s</sub>* :
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2024/10/image-98-scatter.png" alt="Scatterplot of T against Ts for file image-98-scatter.png, with Quality = 81%, RMSE = 25.509 and NSE = 0.732.">
+  <img src="{{ BASE_PATH }}/images/2024/10/image-98-scatter.png" alt="scatter plot of T against Ts for file image-98-scatter.png, with Quality = 81%, RMSE = 25.509 and NSE = 0.732.">
 </figure>
 
 The [FotoForensics result](https://fotoforensics.com/analysis.php?id=3f271d3383ea2984b461620f2d54075dc5ec26da.37769) also indicates a quality of 81%.
@@ -400,7 +400,7 @@ The [FotoForensics result](https://fotoforensics.com/analysis.php?id=3f271d3383e
 This image is interesting for a number of reasons. ImageMagick's original heuristic fails to come up with a quality estimate, while the modified ImageMagick heuristic returns a 1% estimate. Meanwhile, the direct table match estimates the quality at 13%. Here's the corresponding scatter plot:
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2024/10/hopper_16bit_qtables-scatter.png" alt="Scatterplot of T against Ts for file hopper_16bit_qtables-scatter.png, with Quality = 13%, RMSE = 0.795 and NSE = 1.0.">
+  <img src="{{ BASE_PATH }}/images/2024/10/hopper_16bit_qtables-scatter.png" alt="scatter plot of T against Ts for file hopper_16bit_qtables-scatter.png, with Quality = 13%, RMSE = 0.795 and NSE = 1.0.">
 </figure>
 
 The coefficients in the JPEG quantization tables are usually stored as 8-bit unsigned integers, which means the highest possible value is 255. This particular image uses 16-bit values instead, which we can see from the range of *T* values in the plot, which goes all the way up to 380! ImageMagick's heuristic is unable to deal with this[^10], which results (for the modified version) in an unrealistically low value. The direct table match method explicitly checks for coefficients outside the 8-bit range, and adjusts its calculations accordingly. Its quality estimate corresponds to [the assessment by FotoForensics](https://fotoforensics.com/analysis.php?id=079bf03e3187859bf2bdf0b28c341d3b75ad8442.2044).
