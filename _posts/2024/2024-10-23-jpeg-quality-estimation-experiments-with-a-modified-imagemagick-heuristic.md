@@ -14,7 +14,7 @@ comment_id: 91
 </figure>
 
 
-In this post I explore some of the challenges I ran into while trying to estimate the quality level of JPEG images. By quality level I mean the percentage (1-100) that expresses the [lossiness](https://en.wikipedia.org/wiki/Lossy_compression) that was applied by the encoder at the last "save" operation. Here, a value of 1 results in very aggressive compression with a lot of information loss (and thus very low quality), whereas at 100 almost no information loss occurs at all[^4].
+In this post I explore some of the challenges I ran into while trying to estimate the quality level of JPEG images. By quality level I mean the percentage (1-100) that expresses the [lossiness](https://en.wikipedia.org/wiki/Lossy_compression) that was applied by the encoder at the last "save" operation. Here, a value of 1 results in very aggressive compression with a lot of information loss (and thus a very low quality), whereas at 100 almost no information loss occurs at all[^4].
 
 More specifically, I focus on problems with [ImageMagick](https://imagemagick.org/)'s JPEG quality heuristic, which become particularly apparent when applied to low quality images. I also propose a simple tentative solution, that applies some small changes to ImageMagick's heuristic.
 
@@ -75,7 +75,7 @@ A quick test showed that it produced results that were identical to ImageMagick 
 
 ## How it works
 
-The algorithm reads the image's quantization tables (usually 2), each of which is a list of 64 quantization values. It first adds up all of these numbers, resulting in variable `qsum`. It then calculates `qvalue`, which is the sum of the quantization values at 2 specific positions in each table (these are then summed for all quantization tables). The main "meat and potatoes" of the heuristic is this loop at the very end of the function:
+The algorithm reads the image's quantization tables (usually 2), each of which is a list of 64 quantization coefficients. It first adds up all of these numbers, resulting in variable `qsum`. It then calculates `qvalue`, which is the sum of the quantization coefficients at 2 specific positions in each table (these are then summed for all quantization tables). The main "meat and potatoes" of the heuristic is this loop at the very end of the function:
 
 ```python
 for i in range(100):
@@ -163,13 +163,13 @@ As a first test I created a set of small test images with known quality values. 
 
 Here *Q<sub>enc</sub>* is the encoding quality, and *Q<sub>est</sub>(Pillow)* and *Q<sub>est</sub>(IM)* represent the script's estimates for the Pillow and ImageMagick images, respectively. *Exact(Pillow)* and *Exact(IM)* represent the reported values of the "exactness" flag. The table shows that the script was able to reproduce the encoding quality with an "exact" match for all test images.
 
-I also ran the script on some of the problematic JPEGs from our dbnl  access PDFs. Here, it estimated the JPEG quality at 18%, but without an "exact" match. The JPEGs from the corresponding master PDFs resulted in a 84% quality estimate (which is slightly less than the expected quality of 85%), but again without an "exact" result.
+I also ran the script on some of the problematic JPEGs from our dbnl access PDFs. Here, it estimated the JPEG quality at 18%, but without an "exact" match. The JPEGs from the corresponding master PDFs resulted in a 84% quality estimate (which is slightly less than the expected quality of 85%), but again without an "exact" result.
 
 Although the results of these (very limited!) tests look encouraging at first sight, this exercise left me with some doubts and reservations.
 
 ## Limitations of ImageMagick's heuristic
 
-Most importantly, ImageMagick's heuristic is based on a comparison of *aggregated* values of the image's quantization tables, which makes it potentially vulnerable to collisions. As an example, for any value of `qsum` (the sum of all values in the quantization table), many possible combinations of quantization values exist that will add up to the same value. The `qvalue` check (which is based on values at specific positions in the quantization table) partially overcomes this, but it does this in a pretty crude way using yet another aggregate measure.
+Most importantly, ImageMagick's heuristic is based on a comparison of *aggregated* coefficients of the image's quantization tables, which makes it potentially vulnerable to collisions. As an example, for any value of `qsum` (the sum of all coefficients in the quantization table), many possible combinations of quantization coefficients exist that will add up to the same value. The `qvalue` check (which is based on coefficients at specific positions in the quantization table) partially overcomes this, but it does this in a pretty crude way using yet another aggregate measure.
 
 Another thing that bothered me, is that the reasoning behind certain aspects of ImageMagick's heuristic isn't entirely clear to me. Examples are the 50% threshold, the `qvalue` check (again) and the precise meaning of its "exact" vs "approximate" designation.
 
@@ -214,9 +214,7 @@ A [2018 paper by Rémi Cogranne](https://arxiv.org/abs/1802.00992) describes an 
 
 ## Scripts and test data
 
-All scripts and test data that were used in this analysis are available from this Git repository:
-
-<https://github.com/KBNLresearch/jpeg-quality-demo>
+All scripts and test data that were used in this analysis are available from the [jpeg-quality-demo Github repository](https://github.com/KBNLresearch/jpeg-quality-demo).
 
 ## Revision history
 
@@ -232,5 +230,5 @@ All scripts and test data that were used in this analysis are available from thi
 
 [^6]: He mentions this in the context of the "Approximate Ratios" quality estimation method (which indeed becomes unreliable for low qualities). It's not clear to me if other methods such as the one used by ImageMagick are also affected by this.
 
-[^7]: More precisely, each value in the `sums` lists represents the sum of all "standard" quantization values for a particular quality level. Similarly, each value in the `hashes` lists represents a value of `qvalue` for a particular quality level in the "standard" tables.
+[^7]: More precisely, each value in the `sums` lists represents the sum of all "standard" quantization coefficients for a particular quality level. Similarly, each value in the `hashes` lists represents a value of `qvalue` for a particular quality level in the "standard" tables.
 

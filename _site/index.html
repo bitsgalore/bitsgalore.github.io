@@ -76,6 +76,91 @@
 
 
    <div class="post-entry">
+   <h1><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></h1>
+   <div class="date">
+    <span>29 October 2024</span>
+   </div>
+   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
+   <figure class="image">
+  <img src="/images/2024/10/bailey-1024.jpg" alt="Photograph of golden retriever dog Bailey sitting at a desk in front of a laptop, bashing her paws away at the laptop's keyboard while wearing a necktie." />
+  <figcaption><a href="https://imgur.com/a/golden-baileys-story-pictures-XGli7">Bailey AKA the "I have no idea what I'm doing" dog</a>. License unknown.</figcaption>
+</figure>
+
+<p>In my <a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">previous post</a> I addressed several problems I ran into when I tried to estimate the “last saved” quality level of JPEG images. It described some experiments based on <a href="https://imagemagick.org/">ImageMagick</a>’s quality heuristic, which led to a <a href="https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-im-modified.py">Python implementation of a modified version of the heuristic</a> that improves the behaviour for images with a quality of 50% or less.</p>
+
+<p>I still wasn’t entirely happy with this solution. This was partially because ImageMagick’s heuristic uses <em>aggregated</em> coefficients of the image’s quantization tables, which makes it potentially vulnerable to collisions. Another concern was, that the reasoning behind certain details of ImageMagick’s heuristic seems rather opaque (at least to me!).</p>
+
+<p>This post explores a different approach to JPEG quality estimation, which uses a straightforward comparison with “standard” JPEG quantization tables. It also proposes a measure that characterizes how similar an image’s quantization tables are to its closest “standard” tables. This could be useful as a measure of confidence in the quality estimate.</p>
+
+
+   <div class="buttonArea">
+   <a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic" class="button">Read more ...</a>
+  </div>
+   
+   <ul class="tag_box inline">
+     
+     
+
+
+
+
+  
+    <li>
+      <details>
+      <summary>ExifTool</summary>
+      <ul>
+      
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>ImageMagick</summary>
+      <ul>
+      
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>JPEG</summary>
+      <ul>
+      
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+
+
+
+   </ul>
+  
+   </div>
+   <hr>
+
+   <div class="post-entry">
    <h1><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></h1>
    <div class="date">
     <span>23 October 2024</span>
@@ -86,7 +171,7 @@
   <figcaption><a href="https://imgur.com/a/golden-baileys-story-pictures-XGli7">Bailey AKA the "I have no idea what I'm doing" dog</a>. License unknown.</figcaption>
 </figure>
 
-<p>In this post I explore some of the challenges I ran into while trying to estimate the quality level of JPEG images. By quality level I mean the percentage (1-100) that expresses the <a href="https://en.wikipedia.org/wiki/Lossy_compression">lossiness</a> that was applied by the encoder at the last “save” operation. Here, a value of 1 results in very aggressive compression with a lot of information loss (and thus very low quality), whereas at 100 almost no information loss occurs at all<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">1</a></sup>.</p>
+<p>In this post I explore some of the challenges I ran into while trying to estimate the quality level of JPEG images. By quality level I mean the percentage (1-100) that expresses the <a href="https://en.wikipedia.org/wiki/Lossy_compression">lossiness</a> that was applied by the encoder at the last “save” operation. Here, a value of 1 results in very aggressive compression with a lot of information loss (and thus a very low quality), whereas at 100 almost no information loss occurs at all<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">1</a></sup>.</p>
 
 <p>More specifically, I focus on problems with <a href="https://imagemagick.org/">ImageMagick</a>’s JPEG quality heuristic, which become particularly apparent when applied to low quality images. I also propose a simple tentative solution, that applies some small changes to ImageMagick’s heuristic.</p>
 
@@ -108,6 +193,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+      
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
@@ -123,6 +210,8 @@
       <summary>ImageMagick</summary>
       <ul>
       
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+      
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
@@ -137,6 +226,8 @@
       <details>
       <summary>JPEG</summary>
       <ul>
+      
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -183,6 +274,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+      
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
@@ -197,6 +290,8 @@
       <details>
       <summary>ImageMagick</summary>
       <ul>
+      
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -559,95 +654,6 @@
    </div>
    <hr>
 
-   <div class="post-entry">
-   <h1><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></h1>
-   <div class="date">
-    <span>09 March 2023</span>
-   </div>
-   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
-   <figure class="image">
-  <img src="/images/2023/03/clockwork-extraction.jpg" alt="Street scene showing crowd gathered around an open carriage in which a dentist performs a tooth extraction on a patient. Next to the patient a man is banging on a large drum." />
-  <figcaption>Clockwork picture of an itinerant dentist performing an extraction in French rural scene, wood frame, metal workings, first half 19th century. <a href="https://wellcomecollection.org/works/hwpe3cxp">Science Museum, London</a>. <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0 International (CC BY 4.0)</a> (cropped from original).</figcaption>
-</figure>
-
-<p>This blog post provides a brief introduction to extracting unformatted text from EPUB files. The occasion for this work was a request by my Digital Humanities colleagues who are involved in the <a href="https://www.surf.nl/en/news/sane-secure-data-environment-for-social-sciences-and-humanities">SANE (Secure ANalysis Environment) project</a>. The work on this project includes a use case that will use the SANE environment to analyse text from novels in EPUB format. My colleagues were looking for some advice on how to implement the text extraction component, preferably using a Python-based solution.</p>
-
-<p>So, I started by making a shortlist of potentially suitable tools. For each tool, I wrote a minimal code snippet for processing one file. Based on this I then created some simple demo scripts that show how each tool is used within a processing workflow. Next, I applied these scripts to two data sets, and used the results to obtain a first impression of the performance of each of the tools.</p>
-
-
-   <div class="buttonArea">
-   <a href="/2023/03/09/extracting-text-from-epub-files-in-python" class="button">Read more ...</a>
-  </div>
-   
-   <ul class="tag_box inline">
-     
-     
-
-
-
-
-  
-    <li>
-      <details>
-      <summary>Apache-Tika</summary>
-      <ul>
-      
-        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
-      
-        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
-      
-        <li><a href="/2021/02/24/towards-a-preservation-workflow-for-mobile-apps">Towards a preservation workflow for mobile apps</a></li>
-      
-        <li><a href="/2015/04/29/top-50-file-formats-in-the-kb-e-depot">Top 50 file formats in the KB e-Depot</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>EPUB</summary>
-      <ul>
-      
-        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
-      
-        <li><a href="/2020/04/30/iso-iec-ts-22424-standard-on-epub3-preservation">ISO/IEC TS 22424 standard on EPUB3 preservation</a></li>
-      
-        <li><a href="/2016/04/04/valid-but-not-accessible-epub-crazy-fixed-layouts">Valid, but not accessible&#58; crazy fixed EPUB layouts</a></li>
-      
-        <li><a href="/2016/03/10/the-future-of-epub-a-first-look-at-the-epub-3-1-editors-draft">The future of EPUB? A first look at the EPUB 3.1 Editor’s draft</a></li>
-      
-        <li><a href="/2015/03/13/policy-based-assessment-of-epub-with-epubcheck">Policy-based assessment of EPUB with Epubcheck</a></li>
-      
-        <li><a href="/2013/05/23/epub-archival-preservation-update">EPUB for archival preservation&#58; an update</a></li>
-      
-        <li><a href="/2012/06/18/epub-archival-preservation">EPUB for archival preservation</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>python</summary>
-      <ul>
-      
-        <li><a href="/2023/03/09/extracting-text-from-epub-files-in-python">Extracting text from EPUB files in Python</a></li>
-      
-        <li><a href="/2022/06/14/identification-of-physical-storage-media-with-python-and-the-windows-api">Identification of physical storage media and devices with Python and the Windows API</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-
-
-
-   </ul>
-  
-   </div>
-   <hr>
-
 
 <!-- Pagination links -->
 
@@ -982,6 +988,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+      
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
@@ -1143,6 +1151,8 @@
       <details>
       <summary>ImageMagick</summary>
       <ul>
+      
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -1313,6 +1323,8 @@
       <details>
       <summary>JPEG</summary>
       <ul>
+      
+        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -1860,6 +1872,21 @@
       <summary>2024</summary>
       <h3>October</h3>
       <ul>
+    
+  
+	<li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation&#58; experiments with a direct table match method</a></li>
+	
+    
+          
+        
+      
+    
+  
+    
+    
+    
+    
+  
     
   
 	<li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
