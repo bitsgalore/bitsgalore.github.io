@@ -300,7 +300,7 @@ One "goodness of fit" measure that does not have these drawbacks is the [Nash–
 Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantization tables, and *T<sub>s</sub><sup>i</sup>* is the corresponding coefficient from the (scaled) standard tables. *N* is the total number of coefficients in the image's quantization tables. Note that, unlike in the  *SSE* equation, the luminance and chrominance coefficients are lumped here for simplicity. Finally, <span style="border-top: 1px solid #000000;">*T*</span> is the mean of all coefficients *T<sup>i</sup>* in the image's quantization tables. The interpretation of *NSE* is quite straightforward:
 
 - A value of 1 indicates a perfect agreement between the image quantization tables and the corresponding standard tables.
-- For a value of 0, the standard tables are as good (or rather, bad) an approximation of the image's quantization tables as *T<sub>avg</sub>*.
+- For a value of 0, the standard tables are as good (or rather, bad) an approximation of the image's quantization tables as <span style="border-top: 1px solid #000000;">*T*</span>.
 - Negative values indicate an extremely poor agreement.
 
 As an example, the below scatterplot shows the quantization coefficients (*T*) from [one of out dbnl master images](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-master.jpg), plotted against the corresponding coefficients (*Ts*) from the best matching standard table. It also shows the line of perfect agreement (red, dashed), the quality estimate, the root mean squared error, and the Nash-Sutcliffe Efficiency:
