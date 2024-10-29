@@ -356,7 +356,7 @@ Here *Q<sub>enc</sub>* is the encoding quality, and *Q<sub>est</sub>(PIL)* and *
 
 Far more interesting is the behaviour for images that *don't* use the standard tables. The previous section already showed the results for the [dbnl master and access JPEGs](https://github.com/KBNLresearch/jpeg-quality-demo/tree/main/images/dbnl) that started this work. To test the method on a more diverse selection of images, I downloaded JPEGs from a variety of sources[^9]. I then ran them through [this test script](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-compare.py) that estimates the JPEG quality using my Python port of the original ImageMagick heuristic, the modified ImageMagick heuristic from my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic), and the direct table match method discussed here. I then identified images for which one or more of these methods came up with different results, and added a selection of them to [this dataset](https://github.com/KBNLresearch/jpeg-quality-demo/tree/main/images/misc). The following table shows the results of the script for this dataset: 
 
-|File|Q<br>(im)|Q<br>(im, mod)|Exact<br>(im, mod)|Q<br>(dtmm)|RMSE<br>(dtmm)|NSE<br>(dtmm)|
+|File|Q<br>(im)|Q<br>(im, mod)|Exact<br>(im, mod)|Q<br>(dt)|RMSE<br>(dt)|NSE<br>(dt)|
 |:--|:--|:--|:--|:--|:--|:--|
 |[psgradient.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/psgradient.jpg)|92|92|False|93|4.438|0.747|
 |[hopper_16bit_qtables.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/hopper_16bit_qtables.jpg)|na|1|False|13|0.795|1.0|
@@ -370,7 +370,7 @@ Far more interesting is the behaviour for images that *don't* use the standard t
 |[tapedeck1.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/tapedeck1.jpg)|90|90|False|93|0.753|0.992|
 |[tapedeck2.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/tapedeck2.jpg)|92|92|False|95|0.421|0.996|
 
-Here *Q(im)* is the quality estimate from the original ImageMagick heuristic, *Q(im), mod* is the quality estimate from the modified ImageMagick heuristic, *Q(dtmm)* is the quality estimate from the direct table match method. In addition *Exact(im, mod)* is the "exactness" indicator of the modified ImageMagick heuristic, and *RMSE(dtmm)* and *NSE(dtmm)* are the root mean squared error and Nash-Sutcliffe Efficiency values reported by the direct table match method, respectively.
+Here *Q(im)* is the quality estimate from the original ImageMagick heuristic, *Q(im), mod* is the quality estimate from the modified ImageMagick heuristic, *Q(dt)* is the quality estimate from the direct table match method. In addition *Exact(im, mod)* is the "exactness" indicator of the modified ImageMagick heuristic, and *RMSE(dt)* and *NSE(dt)* are the root mean squared error and Nash-Sutcliffe Efficiency values reported by the direct table match method, respectively.
 
 Below I highlight some of the more interesting results.
 
