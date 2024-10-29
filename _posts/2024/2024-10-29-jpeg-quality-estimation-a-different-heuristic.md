@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JPEG quality estimation&#58; experiments with a direct table match method
+title: JPEG quality estimation&#58; direct table match method
 headImage: "/images/2024/10/bailey-1024.jpg"
 headImageAltText: "Photograph of golden retriever dog Bailey sitting at a desk in front of a laptop, bashing her paws away at the laptop's keyboard while wearing a necktie."
 description: "This post describes a simple method for estimating JPEG compression quality. It is based on a straightforward comparison of a file's quantization tables against the quantization tables from the JPEG standard. It also proposes a measure to characterize the similarity of an image's quantization tables to these standard tables, which is useful for assessing the accuracy of the quality estimate."
@@ -450,7 +450,7 @@ This shows the direct table match method is almost 3 times slower than the Image
 
 I originally wrote the direct table match code in an attempt to better understand JPEG quality estimation, and to make a more informed assesment of how ImageMagick's heuristic works. Based on the tests described here, I think I ended up with something that might actually be quite useful, and preferrable to either the original or modified ImageMagick heuristic.
 
-By itself the method isn't in any way novel, and I expect many other, very similar implementations exist that I'm simply not aware of (particularly in the digital forensics domain). This makes it all the more surprising that these apparently haven't made it to popular image processing and analysis software like ImageMagick. The use of the Nash-Sutcliffe Efficiency as a measure of confidence in the quality estimate *may* be somewhat novel, but I wouldn't be surprised if other (and possibly better) methods for this exist.
+By itself the method isn't in any way novel, as it's basically just an implementation (I think?) of the "Approximate Quantization Tables" quality estimation method as described by Neil Krawetz. I expect many other, very similar implementations exist that I'm simply not aware of (particularly in the digital forensics domain). This makes it all the more surprising that these apparently haven't made it to popular image processing and analysis software like ImageMagick. The use of the Nash-Sutcliffe Efficiency as a measure of confidence in the quality estimate *may* be somewhat novel, but I wouldn't be surprised if other (and possibly better) methods for this exist.
 
 As always, any feedback and suggestions in response to this post are very welcome!
 
