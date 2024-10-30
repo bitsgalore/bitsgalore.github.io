@@ -33,7 +33,7 @@ It's important to have some way of verifying the approximate quality of both ver
 
 ## Estimating JPEG quality
 
-Probably the best explainer on JPEG quality and its estimation is [this tutorial on Neil Krawetz's Fotoforensics site](https://fotoforensics.com/tutorial.php?tt=estq). The information under the "Estimating Quality" tab is particularly useful. I will return to this on various occasions later in this post.
+Probably the best explainer on JPEG quality and its estimation is [this tutorial on Neal Krawetz's Fotoforensics site](https://fotoforensics.com/tutorial.php?tt=estq). The information under the "Estimating Quality" tab is particularly useful. I will return to this on various occasions later in this post.
 
 ## Estimating JPEG quality with ImageMagick
 
@@ -59,7 +59,7 @@ However, when I ran this command on some of our access scans, the results were n
 
 ## Check with Fotoforensics
 
-To verify this unexpected result I uploaded the image to Neil Krawetz's  [Fotoforensics](https://fotoforensics.com/) service. The [result is available here](https://fotoforensics.com/analysis.php?id=2e0a9f3203e35ece9a23c68c9e6dc7c908891372.353235&show=estq). Fotoforensics estimates the JPEG quality at a paltry 18%. So why does ImageMagick report a value of 92% here?
+To verify this unexpected result I uploaded the image to Neal Krawetz's  [Fotoforensics](https://fotoforensics.com/) service. The [result is available here](https://fotoforensics.com/analysis.php?id=2e0a9f3203e35ece9a23c68c9e6dc7c908891372.353235&show=estq). Fotoforensics estimates the JPEG quality at a paltry 18%. So why does ImageMagick report a value of 92% here?
 
 ## ImageMagick uses "92" as a fallback value
 
@@ -122,7 +122,7 @@ In this case, we see that `qvalue` is indeed smaller than `hashes[i]`, but `qsum
 
 ## Effect of quality threshold
 
-It's not clear why the heuristic uses the quality threshold value of 50, although [Neil Krawetz points out](https://fotoforensics.com/tutorial.php?tt=estq) that "the JPEG Standard changes algorithms at quality values below 50%"[^6]. As a test, I tried  changing the threshold to 0:
+It's not clear why the heuristic uses the quality threshold value of 50, although [Neal Krawetz points out](https://fotoforensics.com/tutorial.php?tt=estq) that "the JPEG Standard changes algorithms at quality values below 50%"[^6]. As a test, I tried  changing the threshold to 0:
 
 ```python
 if (((qvalue <= hashes[i]) and (qsum <= sums[i])) or (i >= 0)):
@@ -206,7 +206,7 @@ JPEG Quality Estimate           : <unknown>
 
 ### Approximate Ratios method
 
-This method is outlined on [Neil Krawetz’s Fotoforensics site](https://fotoforensics.com/tutorial.php?tt=estq), which also links to a [an inplementation in C](https://www.hackerfactor.com/src/jpegquality.c). A more detailed explanation can be found in Section 3.3.3 of his [Digital Image Analysis and Forensics whitepaper](https://blackhat.com/presentations/bh-dc-08/Krawetz/Whitepaper/bh-dc-08-krawetz-WP.pdf). As Krawetz explains, this method can become unreliable at quality values below 50%, so I didn't consider it suitable for my use case. 
+This method is outlined on [Neal Krawetz’s Fotoforensics site](https://fotoforensics.com/tutorial.php?tt=estq), which also links to a [an inplementation in C](https://www.hackerfactor.com/src/jpegquality.c). A more detailed explanation can be found in Section 3.3.3 of his [Digital Image Analysis and Forensics whitepaper](https://blackhat.com/presentations/bh-dc-08/Krawetz/Whitepaper/bh-dc-08-krawetz-WP.pdf). As Krawetz explains, this method can become unreliable at quality values below 50%, so I didn't consider it suitable for my use case. 
 
 ### Cogranne method
 

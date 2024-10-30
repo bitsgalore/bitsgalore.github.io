@@ -454,7 +454,7 @@ This shows the least squares matching method is almost 3 times slower than the I
 
 I originally wrote the least squares matching method code in an attempt to better understand JPEG quality estimation, and to make a more informed assesment of how ImageMagick's heuristic works. Based on the tests described here, I think I ended up with something that might actually be quite useful, and preferrable to either the original or modified ImageMagick heuristic.
 
-By itself the method isn't in any way novel, as it's basically just an implementation (I think?) of the "Approximate Quantization Tables" quality estimation method as described by Neil Krawetz. I expect many other, very similar implementations exist that I'm simply not aware of, particularly in the digital forensics domain. This makes it all the more surprising that these apparently haven't made it to popular image processing and analysis software like ImageMagick. The use of the Nash-Sutcliffe Efficiency as a measure of confidence in the quality estimate *may* be somewhat novel, but I wouldn't be surprised if other (and possibly better) methods for this exist.
+By itself the method isn't in any way novel, as it's basically just an implementation (I think?) of the "Approximate Quantization Tables" quality estimation method as described by Neal Krawetz. I expect many other, very similar implementations exist that I'm simply not aware of, particularly in the digital forensics domain. This makes it all the more surprising that these apparently haven't made it to popular image processing and analysis software like ImageMagick. The use of the Nash-Sutcliffe Efficiency as a measure of confidence in the quality estimate *may* be somewhat novel, but I wouldn't be surprised if other (and possibly better) methods for this exist.
 
 As always, any feedback and suggestions in response to this post are very welcome!
 
@@ -467,7 +467,7 @@ As always, any feedback and suggestions in response to this post are very welcom
 
 The Python implementation of the least squares matching method (and most of the other scripts as well) requires a recent version of the [Pillow Imaging Library](https://python-pillow.org/). This is because around the release of version 8.3 (I think) Pillow changed the order in which it returns the values inside JPEG quantization tables ([details here](https://github.com/python-pillow/Pillow/pull/4989)). All scripts in the repo expect the current/new behaviour, and they will give *very* wrong results when used with older Pillow versions!
 
-[^3]: From its description I think this corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neil Krawetz's FotoForensics site](https://fotoforensics.com/tutorial.php?tt=estq) (but the site doesn't provide any details about the implementation).
+[^3]: From its description I think this corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neal Krawetz's FotoForensics site](https://fotoforensics.com/tutorial.php?tt=estq) (but the site doesn't provide any details about the implementation).
 
 [^5]: I ran the test on a pretty low spec machine with an Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz with 4 cores.
 
