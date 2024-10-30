@@ -303,7 +303,7 @@ Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantizat
 - For a value of 0, the standard tables are as good (or rather, bad) an approximation of the image's quantization tables as <span style="border-top: 1px solid #000000;">*T*</span>.
 - Negative values indicate an extremely poor agreement.
 
-As an example, the below scatter plot shows the quantization coefficients (*T*) from [one of out dbnl master images](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-master.jpg), plotted against the corresponding coefficients (*Ts*) from the best matching standard table. It also shows the line of perfect agreement (green, dashed), the quality estimate, the root mean squared error, and the Nash-Sutcliffe Efficiency:
+As an example, the below scatter plot shows the quantization coefficients (*T*) from [one of out dbnl master images](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-master.jpg), plotted against the corresponding coefficients (*T<sub>s</sub>*) from the best matching standard table. It also shows the line of perfect agreement (green, dashed), the quality estimate, the root mean squared error, and the Nash-Sutcliffe Efficiency:
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/mul-master-scatter.png" alt="scatter plot of T against Ts for file mul-master.jpg, with Quality = 84%, RMSE = 1.057 and NSE = 0.997.">
