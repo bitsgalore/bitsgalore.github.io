@@ -90,7 +90,7 @@ This is the base table with coefficients that are valid for quality level 50. Th
       <mi>i</mi>
     </msubsup>
     <mo>=</mo>
-    <mo>min</mo>
+    <mo>max</mo>
     <mo>(</mo>
     <mo>&#x230A;</mo>
     <mfrac>
