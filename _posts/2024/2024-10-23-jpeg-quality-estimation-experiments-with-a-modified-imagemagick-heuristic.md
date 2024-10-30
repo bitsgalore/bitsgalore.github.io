@@ -71,7 +71,7 @@ Even if it was fixed, this still leaves the question *why* ImageMagick's quality
 
 This changed when I recently came across [this StackOverflow post](https://stackoverflow.com/a/75204019/1209004), which points to [a Python port of ImageMagick's JPEG quality heuristic](https://gist.github.com/eddy-geek/c0f01dc5401dc50a49a0a821cdc9b3e8#file-jpg_quality_pil_magick-py) by one "Edward O". It is based [on ImageMagicks original code](https://github.com/ImageMagick/ImageMagick6/blob/bf9bc7fee9f3cea9ab8557ad1573a57258eab95b/coders/jpeg.c#L925), and estimates the JPEG compression quality from the quantization tables. This immediately grabbed my attention, since my quality-checking workflow is also implemented in Python. The ability to estimate JPEG quality natively in Python would remove the need to wrap any external tools for this.
 
-A quick test showed that it produced results that were identical to ImageMagick in most cases, but like ImageMagick, it failed to come up with a quality estimate for my problematic JPEG. To find out why, I incorporated Edwards's code into [this test script](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-im-original.py).
+A quick test showed that it produced results that were identical to ImageMagick in most cases, but like ImageMagick, it failed to come up with a quality estimate for my problematic JPEG. To find out why, I incorporated Edwards's code into [this test script](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/jpegquality-im-original.py).
 
 ## How it works
 
@@ -143,7 +143,7 @@ for i in range(100):
         return i+1
 ```
 
-I also noticed that the original ImageMagick code includes a variable that indicates whether the quality estimate is "exact" or "approximate" ([here](https://github.com/ImageMagick/ImageMagick6/blob/bf9bc7fee9f3cea9ab8557ad1573a57258eab95b/coders/jpeg.c#L1030)). I initially assumed here that an "exact" match implies a perfect agreement with the standard JPEG quantization tables. This would be useful information to assess the accuracy of the quality estimate. I created [a test script with a modified version of the ImageMagick heuristic](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-im-modified.py) that incorporates the following changes to the ImageMagick heuristic:
+I also noticed that the original ImageMagick code includes a variable that indicates whether the quality estimate is "exact" or "approximate" ([here](https://github.com/ImageMagick/ImageMagick6/blob/bf9bc7fee9f3cea9ab8557ad1573a57258eab95b/coders/jpeg.c#L1030)). I initially assumed here that an "exact" match implies a perfect agreement with the standard JPEG quantization tables. This would be useful information to assess the accuracy of the quality estimate. I created [a test script with a modified version of the ImageMagick heuristic](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/jpegquality-im-modified.py) that incorporates the following changes to the ImageMagick heuristic:
 
 1. Removal of the quality thresold.
 2. Added reporting of the "exactness" flag, based on the original ImageMagick code.
@@ -216,11 +216,16 @@ A [2018 paper by Rémi Cogranne](https://arxiv.org/abs/1802.00992) describes an 
 
 All scripts and test data that were used in this analysis are available from the [jpeg-quality-demo Github repository](https://github.com/KBNLresearch/jpeg-quality-demo).
 
+## Scripts and test data
+
+- [jpeg-quality-demo Github repository](https://github.com/KBNLresearch/jpeg-quality-demo) - Github repo with all scripts and test data that were used in this analysis. 
+- [jpegquality-im-modified.py](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/jpegquality-im-modified.py) - Python implementation of modified ImageMagick heuristic.
+
 ## Revision history
 
 - 24 October 2024: re-arranged introductory section, and added an explanation on the difference between quality level and image quality.
 
-- 29 October 2024: revised earlier draft in preparation of follow-up post.
+- 30 October 2024: revised earlier draft in preparation of follow-up post.
 
 [^1]: I used [Poppler](https://poppler.freedesktop.org/)'s *pdfimages* tool to extract the images from the PDF, using the `-all` switch which ensures images are kept in their original format.
 

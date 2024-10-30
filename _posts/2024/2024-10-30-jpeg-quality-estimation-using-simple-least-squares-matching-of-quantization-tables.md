@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JPEG quality estimation using a simple least squares matching method
+title: JPEG quality estimation using simple least squares matching of quantization tables
 headImage: "/images/2024/10/bailey-1024.jpg"
 headImageAltText: "Photograph of golden retriever dog Bailey sitting at a desk in front of a laptop, bashing her paws away at the laptop's keyboard while wearing a necktie."
 description: "This post describes a simple method for estimating JPEG compression quality. It is based on a straightforward comparison of a file's quantization tables against the quantization tables from the JPEG standard using least squares matching. It also proposes a measure to characterize the similarity of an image's quantization tables to these standard tables, which is useful for assessing the accuracy of the quality estimate."
@@ -17,7 +17,7 @@ In my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experim
 
 I still wasn't entirely happy with this solution. This was partially because ImageMagick's heuristic uses *aggregated* coefficients of the image's quantization tables, which makes it potentially vulnerable to collisions. Another concern was, that the reasoning behind certain details of ImageMagick's heuristic seems rather opaque (at least to me!).
 
-This post explores a different approach to JPEG quality estimation, which is based on a straightforward comparison with "standard" JPEG quantization tables using least squares matching. It also proposes a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate.
+In this post I explore a different approach to JPEG quality estimation, which is based on a straightforward comparison with "standard" JPEG quantization tables using least squares matching. I also propose a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate. I also present some tests where I compared the results of the least squares matching method with those of the ImageMagick heuristics. 
 
 <!-- more -->
 

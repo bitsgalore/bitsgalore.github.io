@@ -76,9 +76,9 @@
 
 
    <div class="post-entry">
-   <h1><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></h1>
+   <h1><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></h1>
    <div class="date">
-    <span>29 October 2024</span>
+    <span>30 October 2024</span>
    </div>
    <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
    <figure class="image">
@@ -90,11 +90,11 @@
 
 <p>I still wasn’t entirely happy with this solution. This was partially because ImageMagick’s heuristic uses <em>aggregated</em> coefficients of the image’s quantization tables, which makes it potentially vulnerable to collisions. Another concern was, that the reasoning behind certain details of ImageMagick’s heuristic seems rather opaque (at least to me!).</p>
 
-<p>This post explores a different approach to JPEG quality estimation, which is based on a straightforward comparison with “standard” JPEG quantization tables using least squares matching. It also proposes a measure that characterizes how similar an image’s quantization tables are to its closest “standard” tables. This could be useful as a measure of confidence in the quality estimate.</p>
+<p>In this post I explore a different approach to JPEG quality estimation, which is based on a straightforward comparison with “standard” JPEG quantization tables using least squares matching. I also propose a measure that characterizes how similar an image’s quantization tables are to its closest “standard” tables. This could be useful as a measure of confidence in the quality estimate. I also present some tests where I compared the results of the least squares matching method with those of the ImageMagick heuristics.</p>
 
 
    <div class="buttonArea">
-   <a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic" class="button">Read more ...</a>
+   <a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables" class="button">Read more ...</a>
   </div>
    
    <ul class="tag_box inline">
@@ -110,7 +110,7 @@
       <summary>ExifTool</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -127,7 +127,7 @@
       <summary>ImageMagick</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -144,7 +144,7 @@
       <summary>JPEG</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -193,7 +193,7 @@
       <summary>ExifTool</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -210,7 +210,7 @@
       <summary>ImageMagick</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -227,7 +227,7 @@
       <summary>JPEG</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -274,7 +274,7 @@
       <summary>ExifTool</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -291,7 +291,7 @@
       <summary>ImageMagick</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -988,7 +988,7 @@
       <summary>ExifTool</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -1152,7 +1152,7 @@
       <summary>ImageMagick</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -1324,7 +1324,7 @@
       <summary>JPEG</summary>
       <ul>
       
-        <li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
       
@@ -1874,7 +1874,7 @@
       <ul>
     
   
-	<li><a href="/2024/10/29/jpeg-quality-estimation-a-different-heuristic">JPEG quality estimation using a simple least squares matching method</a></li>
+	<li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
 	
     
           
