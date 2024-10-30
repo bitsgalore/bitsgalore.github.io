@@ -80,7 +80,7 @@ This is the base table with coefficients that are valid for quality level 50. Th
   </mrow>
 </math>
 
-*S* is then used to calculate scaled quantization coefficients *T<sub>s</sub><sup>i</sup>* from the base coefficients *T<sub>b</sub><sup>i</sup>* using the following equation:
+*S* is then used to calculate scaled quantization coefficients *T<sup>i</sup><sub>s</sub>* from the base coefficients *T<sup>i</sup><sub>b</sub>* using the following equation:
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow>
@@ -197,7 +197,7 @@ For a given JPEG file, the quality can then be estimated by comparing its quanti
   </mrow>
 </math>
 
-Here, *T<sub>lum</sub><sup>i</sup>* and *T<sub>chrom</sub><sup>i</sup>* represent the coefficients for luminance and chrominance from the image's quantization table, and *T<sub>s,lum</sub><sup>i</sup>* and *T<sub>s, chrom</sub><sup>i</sup>* are the corresponding coefficients from the (scaled) standard tables.
+Here, *T<sup>i</sup><sub>lum</sub>* and *T<sup>i</sup><sub>chrom</sub>* represent the coefficients for luminance and chrominance from the image's quantization table, and *T<sup>i</sup><sub>s,lum</sub>* and *T<sup>i</sup><sub>s, chrom</sub>* are the corresponding coefficients from the (scaled) standard tables.
 
 Repeating this for all quality levels results in 100 *SSE* values. The quality level with the smallest *SSE* value is then our best estimate for the quality of the image. An *SSE* value of exactly 0 means the image uses the standard JPEG quantization tables. In that case we can be confident that our estimate is the exact quality level at which the image was compressed. Larger values indicate the use of non-standard quantization tables, in which case the quality estimate may be less accurate.
 
@@ -297,7 +297,7 @@ One "goodness of fit" measure that does not have these drawbacks is the [Nash–
   </mrow>
 </math>
 
-Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantization tables, and *T<sub>s</sub><sup>i</sup>* is the corresponding coefficient from the (scaled) standard tables. *N* is the total number of coefficients in the image's quantization tables. Note that, unlike in the  *SSE* equation, the luminance and chrominance coefficients are lumped here for simplicity. Finally, <span style="border-top: 1px solid #000000;">*T*</span> is the mean of all coefficients *T<sup>i</sup>* in the image's quantization tables. The interpretation of *NSE* is quite straightforward:
+Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantization tables, and *T<sup>i</sup><sub>s</sub>* is the corresponding coefficient from the (scaled) standard tables. *N* is the total number of coefficients in the image's quantization tables. Note that, unlike in the  *SSE* equation, the luminance and chrominance coefficients are lumped here for simplicity. Finally, <span style="border-top: 1px solid #000000;">*T*</span> is the mean of all coefficients *T<sup>i</sup>* in the image's quantization tables. The interpretation of *NSE* is quite straightforward:
 
 - A value of 1 indicates a perfect agreement between the image quantization tables and the corresponding standard tables.
 - For a value of 0, the standard tables are as good (or rather, bad) an approximation of the image's quantization tables as <span style="border-top: 1px solid #000000;">*T*</span>.
