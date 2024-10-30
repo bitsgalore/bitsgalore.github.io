@@ -419,6 +419,8 @@ Both ImageMagick heuristics estimate the quality of this image at 78% with an "e
 
 Even though the tests presented here are quite limited, the differences that can occur between the quality estimates by the least squares matching method and the ImageMagick heuristics are quite striking. What surprised me in particular, was that even for JPEGs that use the standard quantization tables, ImageMagick's heuristic may still provide quality estimates that are quite inaccurate. Of course, a major limitation here is the lack of reliable "ground truth" in the form of known quality settings at the time the test images were created. However, the good agreement between the quality estimates of the least squares matching method and the FotoForensics service does inspire some confidence in the methodology.
 
+Another surprise was that ImageMagick's "exactness" flag isn't actually indicative of an exact match with the standard JPEG tables. None of the test images for which it returned a "True" value actually contains standard quantization tables, whereas the two images that *do* contain standard tables resulted in a "False" value!
+
 ## Performance
 
 One potential concern about the least squares matching method might be that it is computationally not very efficient: for each image, the analysis typically involves 200 comparisons of 64-element tables. Out of interest I did a little performance test using [this collection of 700 JPEGs](https://github.com/yavuzceliker/sample-images). I analyzed these files with my scripts with the Python ports of the original and modified ImageMagick heuristics, and the least squares matching method.
