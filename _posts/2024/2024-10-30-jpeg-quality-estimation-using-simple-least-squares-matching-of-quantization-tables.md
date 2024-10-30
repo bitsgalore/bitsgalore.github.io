@@ -370,7 +370,7 @@ Far more interesting is the behaviour for images that *don't* use the standard t
 |[tapedeck1.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/tapedeck1.jpg)|90|90|False|93|0.753|0.992|
 |[tapedeck2.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/tapedeck2.jpg)|92|92|False|95|0.421|0.996|
 
-Here *Q(im)* is the quality estimate from the original ImageMagick heuristic, *Q(im), mod* is the quality estimate from the modified ImageMagick heuristic, *Q(ls)* is the quality estimate from the least squares matching method. In addition *Exact(im, mod)* is the "exactness" indicator of the modified ImageMagick heuristic, and *RMSE(lsm)* and *NSE(lsm)* are the root mean squared error and Nash-Sutcliffe Efficiency values reported by the least squares matching method, respectively.
+Here *Q(im)* is the quality estimate from the original ImageMagick heuristic, *Q(im), mod* is the quality estimate from the modified ImageMagick heuristic, *Q(lsm)* is the quality estimate from the least squares matching method. In addition *Exact(im, mod)* is the "exactness" indicator of the modified ImageMagick heuristic, and *RMSE(lsm)* and *NSE(lsm)* are the root mean squared error and Nash-Sutcliffe Efficiency values reported by the least squares matching method, respectively.
 
 Below I highlight some of the more interesting results.
 
