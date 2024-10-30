@@ -1,9 +1,9 @@
 ---
 layout: post
-title: JPEG quality estimation&#58; direct table match method
+title: JPEG quality estimation using a simple least squares matching method
 headImage: "/images/2024/10/bailey-1024.jpg"
 headImageAltText: "Photograph of golden retriever dog Bailey sitting at a desk in front of a laptop, bashing her paws away at the laptop's keyboard while wearing a necktie."
-description: "This post describes a simple method for estimating JPEG compression quality. It is based on a straightforward comparison of a file's quantization tables against the quantization tables from the JPEG standard. It also proposes a measure to characterize the similarity of an image's quantization tables to these standard tables, which is useful for assessing the accuracy of the quality estimate."
+description: "This post describes a simple method for estimating JPEG compression quality. It is based on a straightforward comparison of a file's quantization tables against the quantization tables from the JPEG standard using least squares matching. It also proposes a measure to characterize the similarity of an image's quantization tables to these standard tables, which is useful for assessing the accuracy of the quality estimate."
 tags: [JPEG, ImageMagick, ExifTool]
 comment_id: 92
 ---
@@ -17,7 +17,7 @@ In my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experim
 
 I still wasn't entirely happy with this solution. This was partially because ImageMagick's heuristic uses *aggregated* coefficients of the image's quantization tables, which makes it potentially vulnerable to collisions. Another concern was, that the reasoning behind certain details of ImageMagick's heuristic seems rather opaque (at least to me!).
 
-This post explores a different approach to JPEG quality estimation, which uses a straightforward comparison with "standard" JPEG quantization tables. It also proposes a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate.
+This post explores a different approach to JPEG quality estimation, which is based on a straightforward comparison with "standard" JPEG quantization tables using least squares matching. It also proposes a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate.
 
 <!-- more -->
 
@@ -25,7 +25,7 @@ This post explores a different approach to JPEG quality estimation, which uses a
 
 ImageMagick's JPEG quality heuristic is based on the "standard" quantization tables that are defined in Annex K of [the JPEG standard](http://www.w3.org/Graphics/JPEG/itu-t81.pdf). Its overall objective seems to be to match an image's quantization tables with the most similar "standard" quantization tables. Since the quality level of each of these "standard" tables is known, this then provides the quality estimate.
 
-ImageMagick's heuristic does this in an indirect (and to me somewhat opaque) way, possibly to avoid computational cost. This post explores a more straightforward approach, which simply compares the coefficients in an image's quantization tables against the corresponding coefficients in the "standard" tables[^3].
+ImageMagick's heuristic does this in an indirect (and to me somewhat opaque) way, possibly to avoid computational cost. This post explores a more straightforward approach, which simply compares the coefficients in an image's quantization tables against the corresponding coefficients in the "standard" tables, and then returns the quality level of the best match[^3].
 
 ## Scaling of standard tables to quality levels
 
@@ -303,13 +303,13 @@ Here *T<sup>i</sup>* represents the *i*th coefficient from the image's quantizat
 - For a value of 0, the standard tables are as good (or rather, bad) an approximation of the image's quantization tables as <span style="border-top: 1px solid #000000;">*T*</span>.
 - Negative values indicate an extremely poor agreement.
 
-As an example, the below scatter plot shows the quantization coefficients (*T*) from [one of out dbnl master images](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-master.jpg), plotted against the corresponding coefficients (*Ts*) from the best matching standard table. It also shows the line of perfect agreement (red, dashed), the quality estimate, the root mean squared error, and the Nash-Sutcliffe Efficiency:
+As an example, the below scatter plot shows the quantization coefficients (*T*) from [one of out dbnl master images](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-master.jpg), plotted against the corresponding coefficients (*Ts*) from the best matching standard table. It also shows the line of perfect agreement (green, dashed), the quality estimate, the root mean squared error, and the Nash-Sutcliffe Efficiency:
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/mul-master-scatter.png" alt="scatter plot of T against Ts for file mul-master.jpg, with Quality = 84%, RMSE = 1.057 and NSE = 0.997.">
 </figure>
 
-The plot shows that, aside from one outlier, the coefficients from the standard quantization table closely approximate the image's quantization table. This is reflected by the *NSE* value, which is close to 1. Now compare this with the plot I made for [the corresponding access image](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-access.jpg):
+The plot shows that, aside from one outlier in the chrominance table, the image's quantization coefficients are closely approximated by those in the standard quantization tables. This is reflected by the *NSE* value, which is close to 1. Now compare this with the plot I made for [the corresponding access image](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/dbnl/mul-access.jpg):
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/mul-access-scatter.png" alt="scatter plot of T against Ts for file mul-access.jpg, with Quality = 18%, RMSE = 6.244 and NSE = 0.999.">
@@ -333,9 +333,9 @@ Despite the different quality estimate and *RMSE* value, this visually looks lik
 
 Based on these examples, *NSE* appears to give a good indication of the fit between the image and standard quantization coefficients. This makes it useful as a measure to asses the confidence in the method's quality estimates.
 
-## Python implementation of direct table match method
+## Python implementation of least squares matching method
 
-I created [a test script with a Python implementation](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-tablematch.py) of the above procedure. Apart from the quality estimate, it also reports the corresponding *RMSE* and *NSE* values.
+I created [a test script with a Python implementation](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/jpegquality-lsm.py) of the method. Apart from the quality estimate, it also reports the corresponding *RMSE* and *NSE* values.
 
 ## Tests with Pillow and ImageMagick JPEGs
 
@@ -354,9 +354,9 @@ Here *Q<sub>enc</sub>* is the encoding quality, and *Q<sub>est</sub>(PIL)* and *
 
 ## Comparison of quality estimation methods
 
-Far more interesting is the behaviour for images that *don't* use the standard tables. The previous section already showed the results for the [dbnl master and access JPEGs](https://github.com/KBNLresearch/jpeg-quality-demo/tree/main/images/dbnl) that started this work. To test the method on a more diverse selection of images, I downloaded JPEGs from a variety of sources[^9]. I then ran them through [this test script](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-compare.py) that estimates the JPEG quality using my Python port of the original ImageMagick heuristic, the modified ImageMagick heuristic from my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic), and the direct table match method discussed here. I then identified images for which one or more of these methods came up with different results, and added a selection of them to [this dataset](https://github.com/KBNLresearch/jpeg-quality-demo/tree/main/images/misc). The following table shows the results of the script for this dataset: 
+Far more interesting is the behaviour for images that *don't* use the standard tables. The previous section already showed the results for the [dbnl master and access JPEGs](https://github.com/KBNLresearch/jpeg-quality-demo/tree/main/images/dbnl) that started this work. To test the method on a more diverse selection of images, I downloaded JPEGs from a variety of sources[^9]. I then ran them through [this test script](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/jpegquality-compare.py) that estimates the JPEG quality using my Python port of the original ImageMagick heuristic, the modified ImageMagick heuristic from my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic), and the least square matching method. I then identified images for which one or more of these methods came up with different results, and added a selection of them to [this dataset](https://github.com/KBNLresearch/jpeg-quality-demo/tree/main/images/misc). The following table shows the results of the script for this dataset: 
 
-|File|Q<br>(im)|Q<br>(im, mod)|Exact<br>(im, mod)|Q<br>(dt)|RMSE<br>(dt)|NSE<br>(dt)|
+|File|Q<br>(im)|Q<br>(im, mod)|Exact<br>(im, mod)|Q<br>(lsm)|RMSE<br>(lsm)|NSE<br>(lsm)|
 |:--|:--|:--|:--|:--|:--|:--|
 |[psgradient.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/psgradient.jpg)|92|92|False|93|4.438|0.747|
 |[hopper_16bit_qtables.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/hopper_16bit_qtables.jpg)|na|1|False|13|0.795|1.0|
@@ -370,13 +370,13 @@ Far more interesting is the behaviour for images that *don't* use the standard t
 |[tapedeck1.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/tapedeck1.jpg)|90|90|False|93|0.753|0.992|
 |[tapedeck2.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/tapedeck2.jpg)|92|92|False|95|0.421|0.996|
 
-Here *Q(im)* is the quality estimate from the original ImageMagick heuristic, *Q(im), mod* is the quality estimate from the modified ImageMagick heuristic, *Q(dt)* is the quality estimate from the direct table match method. In addition *Exact(im, mod)* is the "exactness" indicator of the modified ImageMagick heuristic, and *RMSE(dt)* and *NSE(dt)* are the root mean squared error and Nash-Sutcliffe Efficiency values reported by the direct table match method, respectively.
+Here *Q(im)* is the quality estimate from the original ImageMagick heuristic, *Q(im), mod* is the quality estimate from the modified ImageMagick heuristic, *Q(ls)* is the quality estimate from the least squares matching method. In addition *Exact(im, mod)* is the "exactness" indicator of the modified ImageMagick heuristic, and *RMSE(lsm)* and *NSE(lsm)* are the root mean squared error and Nash-Sutcliffe Efficiency values reported by the least squares matching method, respectively.
 
 Below I highlight some of the more interesting results.
 
 ### [jpeg444.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/jpeg444.jpg)
 
-For this image, both the original and modified ImageMagick heuristics estimate the quality at 60%, with no "exact" match. By contrast, the direct table match method came up with a quality of 75%, with *RMSE* and *NSE* indicating a perfect match with the standard JPEG quantization tables. This is comfirmed by plotting the coefficients from the quantization tables against the standard coefficients:
+For this image, both the original and modified ImageMagick heuristics estimate the quality at 60%, with no "exact" match. By contrast, the least squares matching method came up with a quality of 75%, with *RMSE* and *NSE* indicating a perfect match with the standard JPEG quantization tables. This is comfirmed by plotting the coefficients from the quantization tables against the standard coefficients:
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/jpeg444-scatter.png" alt="scatter plot of T against Ts for file jpeg444.jpg, with Quality = 75%, RMSE = 0.0 and NSE = 1.0.">
@@ -387,7 +387,7 @@ I double-checked the result by uploading the image to FotoForensics, which [also
 
 ### [image-98.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/image-98.jpg)
 
-Here, the quality is estimated at 63% by both the original and modified ImageMagick heuristics, with an "exact" match. However, the direct table match method results in a much higher (81%) quality, but the relatively low *NSE* value of 0.732 indicates a poor fit to the standard JPEG tables. This is confirmed by the scatter plot of *T* vs *T<sub>s</sub>* :
+Here, the quality is estimated at 63% by both the original and modified ImageMagick heuristics, with an "exact" match. However, the least squares matching method results in a much higher (81%) quality, but the relatively low *NSE* value of 0.732 indicates a poor fit to the standard JPEG tables. This is confirmed by the scatter plot of *T* against *T<sub>s</sub>* :
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/image-98-scatter.png" alt="scatter plot of T against Ts for file image-98.jpg, with Quality = 81%, RMSE = 25.509 and NSE = 0.732.">
@@ -397,19 +397,19 @@ The [FotoForensics result](https://fotoforensics.com/analysis.php?id=3f271d3383e
 
 ### [hopper_16bit_qtables.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/hopper_16bit_qtables.jpg)
 
-This image is interesting for a number of reasons. ImageMagick's original heuristic fails to come up with a quality estimate, while the modified ImageMagick heuristic returns a 1% estimate. Meanwhile, the direct table match estimates the quality at 13%. Here's the corresponding scatter plot:
+This image is interesting for a number of reasons. ImageMagick's original heuristic fails to come up with a quality estimate, while the modified ImageMagick heuristic returns a 1% estimate. Meanwhile, the least squares matching method estimates the quality at 13%. Here's the corresponding scatter plot:
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/hopper_16bit_qtables-scatter.png" alt="scatter plot of T against Ts for file hopper_16bit_qtables., with Quality = 13%, RMSE = 0.795 and NSE = 1.0.">
 </figure>
 
-The coefficients in the JPEG quantization tables are usually stored as 8-bit unsigned integers, which means the highest possible value is 255. This particular image uses 16-bit values instead, which we can see from the range of *T* values in the plot, which goes all the way up to 380! ImageMagick's heuristic is unable to deal with this[^10], which results (for the modified version) in an unrealistically low value. The direct table match method explicitly checks for coefficients outside the 8-bit range, and adjusts its calculations accordingly. Its quality estimate corresponds to [the assessment by FotoForensics](https://fotoforensics.com/analysis.php?id=079bf03e3187859bf2bdf0b28c341d3b75ad8442.2044).
+The coefficients in the JPEG quantization tables are usually stored as 8-bit unsigned integers, which means the highest possible value is 255. This particular image uses 16-bit values instead, which we can see from the range of *T* values in the plot, which goes all the way up to 380! ImageMagick's heuristic is unable to deal with this[^10], which results (for the modified version) in an unrealistically low value. The least squares matching method explicitly checks for coefficients outside the 8-bit range, and adjusts its calculations accordingly. Its quality estimate corresponds to [the assessment by FotoForensics](https://fotoforensics.com/analysis.php?id=079bf03e3187859bf2bdf0b28c341d3b75ad8442.2044).
 
 One detail that caught my attention is the non-zero *RMSE* value, which at first sight seems at odds with the reported *NSE* value of 1.0. On closer inspection, it turned out that *NSE* is actually marginally smaller than 1 here, but this is obscured by rounding the reported values at 3 decimals[^11].
 
 ### [sample-jpg-files-sample-4.jpg](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/images/misc/sample-jpg-files-sample-4.jpg)
 
-Both ImageMagick heuristics estimate the quality of this image at 78% with an "exact" match, whereas the direct table match method gives a much higher estimate of 89% (with quite a poor fit with the standard tables). The corresponding [FotoForensics estimate](https://fotoforensics.com/analysis.php?id=9271e2a81a4105d7bc326c76bac043c6265e4d8e.63379) is marginally different from this at 88%, but still very close. For completeness here's its scatter plot (again):
+Both ImageMagick heuristics estimate the quality of this image at 78% with an "exact" match, whereas the least squares matching method gives a much higher estimate of 89% (with quite a poor fit with the standard tables). The corresponding [FotoForensics estimate](https://fotoforensics.com/analysis.php?id=9271e2a81a4105d7bc326c76bac043c6265e4d8e.63379) is marginally different from this at 88%, but still very close. For completeness here's its scatter plot (again):
 
 <figure class="image">
   <img src="{{ BASE_PATH }}/images/2024/10/sample-jpg-files-sample-4-scatter.png" alt="scatter plot of T against Ts for file sample-jpg-files-sample-4.jpg, with Quality = 89%, RMSE = 12.294 and NSE = 0.734.">
@@ -417,11 +417,11 @@ Both ImageMagick heuristics estimate the quality of this image at 78% with an "e
 
 ## Conclusions from this comparison
 
-Even though the tests presented here are quite limited, the differences that can occur between the quality estimates by the direct table method and the ImageMagick heuristics are quite striking. What surprised me in particular, was that even for JPEGs that use the standard quantization tables, ImageMagick's heuristic may still provide quality estimates that are quite inaccurate. Of course, a major limitation here is the lack of reliable "ground truth" in the form of known quality settings at the time the test images were created. However, the good agreement between the quality estimates of the direct table match method and the FotoForensics service does inspire some confidence in the methodology.
+Even though the tests presented here are quite limited, the differences that can occur between the quality estimates by the least squares matching method and the ImageMagick heuristics are quite striking. What surprised me in particular, was that even for JPEGs that use the standard quantization tables, ImageMagick's heuristic may still provide quality estimates that are quite inaccurate. Of course, a major limitation here is the lack of reliable "ground truth" in the form of known quality settings at the time the test images were created. However, the good agreement between the quality estimates of the least squares matching method and the FotoForensics service does inspire some confidence in the methodology.
 
 ## Performance
 
-One potential concern about the direct table match method might be that it is computationally not very efficient: for each image, the analysis typically involves 200 comparisons of 64-element tables. Out of interest I did a little performance test using [this collection of 700 JPEGs](https://github.com/yavuzceliker/sample-images). I analyzed these files with my scripts with the Python ports of the original and modified ImageMagick heuristics, and the direct table match method.
+One potential concern about the least squares matching method might be that it is computationally not very efficient: for each image, the analysis typically involves 200 comparisons of 64-element tables. Out of interest I did a little performance test using [this collection of 700 JPEGs](https://github.com/yavuzceliker/sample-images). I analyzed these files with my scripts with the Python ports of the original and modified ImageMagick heuristics, and the least squares matching method.
 
 For each script run, I first ran this command to empty the cache memory:
 
@@ -432,7 +432,7 @@ sudo sysctl vm.drop_caches=3
 I then ran each script like this:
 
 ```
-(time python3 ./jpeg-quality-demo/test-jpegquality-tablematch.py ./sample-images/images/*.jpg > sample-images.txt) 2> time-tablematch.txt
+(time python3 ./jpeg-quality-demo/jpegquality-lsm.py ./sample-images/images/*.jpg > sample-images.txt) 2> time-lsm.txt
 ```
 
 The "time" command results in 3 performance metrics, The most important of which are:
@@ -444,15 +444,15 @@ Below table shows these metrics for the three scripts[^5]:
 
 |Method|time (real)|time (user)|
 |:--|:--|:--|
-|im_original|0m7,624s|0m3,321s|
-|im_modified|0m7,215s|0m2,968s|
-|tablematch|0m13,134s|0m8,673s|
+|im original|0m7,624s|0m3,321s|
+|im modified|0m7,215s|0m2,968s|
+|lsm|0m13,134s|0m8,673s|
 
-This shows the direct table match method is almost 3 times slower than the ImageMagick heuristics in terms of "user" time, and about 2 times slower in terms of "real" time. This translates to an average processing time of 0.01 to 0.02 s per file. Therefore, the reduced performance shouldn't be any problem in practical terms.
+This shows the least squares matching method is almost 3 times slower than the ImageMagick heuristics in terms of "user" time, and about 2 times slower in terms of "real" time. This translates to an average processing time of 0.01 to 0.02 s per file. Therefore, the reduced performance shouldn't be any problem in practical terms.
 
 ## Final thoughts
 
-I originally wrote the direct table match code in an attempt to better understand JPEG quality estimation, and to make a more informed assesment of how ImageMagick's heuristic works. Based on the tests described here, I think I ended up with something that might actually be quite useful, and preferrable to either the original or modified ImageMagick heuristic.
+I originally wrote the least squares matching method code in an attempt to better understand JPEG quality estimation, and to make a more informed assesment of how ImageMagick's heuristic works. Based on the tests described here, I think I ended up with something that might actually be quite useful, and preferrable to either the original or modified ImageMagick heuristic.
 
 By itself the method isn't in any way novel, as it's basically just an implementation (I think?) of the "Approximate Quantization Tables" quality estimation method as described by Neil Krawetz. I expect many other, very similar implementations exist that I'm simply not aware of, particularly in the digital forensics domain. This makes it all the more surprising that these apparently haven't made it to popular image processing and analysis software like ImageMagick. The use of the Nash-Sutcliffe Efficiency as a measure of confidence in the quality estimate *may* be somewhat novel, but I wouldn't be surprised if other (and possibly better) methods for this exist.
 
@@ -461,11 +461,11 @@ As always, any feedback and suggestions in response to this post are very welcom
 ## Scripts and test data
 
 - [jpeg-quality-demo Github repository](https://github.com/KBNLresearch/jpeg-quality-demo) - Github repo with all scripts and test data that were used in this analysis. 
-- [test-jpegquality-tablematch.py](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-tablematch.py) - Python implementation of the direct table match method.
+- [jpegquality-lsm.py](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/jpegquality-lsm.py) - Python implementation of the least squares matching method.
 
 ### Important note on Python Pillow version
 
-The Python implementation of the direct table match method (and most of the other scripts as well) requires a recent version of the [Pillow Imaging Library](https://python-pillow.org/). This is because around the release of version 8.3 (I think) Pillow changed the order in which it returns the values inside JPEG quantization tables ([details here](https://github.com/python-pillow/Pillow/pull/4989)). All scripts in the repo expect the current/new behaviour, and they will give *very* wrong results when used with older Pillow versions!
+The Python implementation of the least squares matching method (and most of the other scripts as well) requires a recent version of the [Pillow Imaging Library](https://python-pillow.org/). This is because around the release of version 8.3 (I think) Pillow changed the order in which it returns the values inside JPEG quantization tables ([details here](https://github.com/python-pillow/Pillow/pull/4989)). All scripts in the repo expect the current/new behaviour, and they will give *very* wrong results when used with older Pillow versions!
 
 [^3]: From its description I think this corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neil Krawetz's FotoForensics site](https://fotoforensics.com/tutorial.php?tt=estq) (but the site doesn't provide any details about the implementation).
 
@@ -479,4 +479,4 @@ The Python implementation of the direct table match method (and most of the othe
 
 [^11]: In this case the numerator of the *NSE* equation (the *SSE* value) was 81, and the denominator (the variance of the quantization coefficients) 7743557. This results in *NSE* = 1 - (81/7743557) = 0.99998954, which is reported as 1.0 when rounded to 3 decimals. Meanwhile *RMSE* = &#8730;(81/128) = 0.795.
 
-[^12]: See also [this post on StackOverflow](https://stackoverflow.com/a/29216609/1209004).]
+[^12]: See also [this post on StackOverflow](https://stackoverflow.com/a/29216609/1209004).
