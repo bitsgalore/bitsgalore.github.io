@@ -226,7 +226,7 @@ For images that *don't* use the standard quantization tables, it would be useful
 
 Here, *tables* is the number of quantization tables (which is either 1 or 2). The interpretation of these *RMSE* values is still complicated by the fact that the quantization coefficients are significantly larger at lower quality levels. In practice this has the effect that the *RMSE* values are generally much larger at low quality levels relative to higher quality levels, even for images with a similar overall "fit" to a standard quantization table.
 
-One "goodness of fit" measure that does not have these drawbacks is the [Nash–Sutcliffe efficiency coefficient (*NSE*)](https://en.wikipedia.org/wiki/Nash%E2%80%93Sutcliffe_model_efficiency_coefficient). It is mostly used in the field of hydrology to characterize how well the output of hydrological simulation models agrees with observations. Here, we will use it to characterize how well the coefficients in the standard table agree with those in the image's quantization table. Rewritten for our quantization coefficients, *NSE* is given by: 
+One "goodness of fit" measure that does not have this drawback is the [Nash–Sutcliffe efficiency coefficient (*NSE*)](https://en.wikipedia.org/wiki/Nash%E2%80%93Sutcliffe_model_efficiency_coefficient). It is mostly used in the field of hydrology to characterize how well the output of hydrological simulation models agrees with observations. Here, we will use it to characterize how well the coefficients in the standard table agree with those in the image's quantization table. Rewritten for our quantization coefficients, *NSE* is given by: 
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow>
