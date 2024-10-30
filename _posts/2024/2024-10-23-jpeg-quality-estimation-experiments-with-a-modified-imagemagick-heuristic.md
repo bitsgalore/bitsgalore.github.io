@@ -175,7 +175,7 @@ Another thing that bothered me, is that the reasoning behind certain aspects of 
 
 ## Further down the JPEG rabbit hole
 
-When I wrote the first draft of this post, I hoped it would provoke some response from people who are better versed than me in the inner workings of JPEG compression. As happens so often with these things, only a few days after publishing it I came across [this 2008 paper](https://www.sciencedirect.com/science/article/pii/S1742287608000285) which explains how quantization tables in JPEG work. This inspired me to do some more in-depth testing, and ultimately this resulted in an alternative, more straightforward quality estimation method. This will be the subject of a follow-up blog post, which will be out shortly!
+When I wrote the first draft of this post, I hoped it would provoke some response from people who are better versed than me in the inner workings of JPEG compression. As happens so often with these things, only a few days after publishing it I came across [this 2008 paper](https://www.sciencedirect.com/science/article/pii/S1742287608000285) which explains how quantization tables in JPEG work. This inspired me to do some more in-depth testing, and ultimately this resulted in an alternative, more straightforward quality estimation method. This is the subject of a [follow-up blog post]({{ BASE_PATH }}/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables), which is out now!
 
 ## Acknowledgment
 
@@ -211,10 +211,6 @@ This method is outlined on [Neil Krawetz’s Fotoforensics site](https://fotofor
 ### Cogranne method
 
 A [2018 paper by Rémi Cogranne](https://arxiv.org/abs/1802.00992) describes an alternative method for estimating JPEG quality. It claims to overcome some of the limitations of established methods, such as the ImageMagick heuristic. However, as it is only valid for a quality factor greater than 49, this also isn't ideally suited to my use case.
-
-## Scripts and test data
-
-All scripts and test data that were used in this analysis are available from the [jpeg-quality-demo Github repository](https://github.com/KBNLresearch/jpeg-quality-demo).
 
 ## Scripts and test data
 

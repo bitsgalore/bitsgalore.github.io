@@ -1,8 +1,8 @@
 ---
 layout: post
 title: JPEG quality estimation using simple least squares matching of quantization tables
-headImage: "/images/2024/10/bailey-1024.jpg"
-headImageAltText: "Photograph of golden retriever dog Bailey sitting at a desk in front of a laptop, bashing her paws away at the laptop's keyboard while wearing a necktie."
+headImage: "/images/2024/10/quality-sign.jpg"
+headImageAltText: "Photograph of faded sign on building front showing the word 'Quality'."
 description: "This post describes a simple method for estimating JPEG compression quality. It is based on a straightforward comparison of a file's quantization tables against the quantization tables from the JPEG standard using least squares matching. It also proposes a measure to characterize the similarity of an image's quantization tables to these standard tables, which is useful for assessing the accuracy of the quality estimate."
 tags: [JPEG, ImageMagick, ExifTool]
 comment_id: 92
@@ -10,7 +10,7 @@ comment_id: 92
 
 <figure class="image">
   <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
-  <figcaption><a href="https://imgur.com/a/golden-baileys-story-pictures-XGli7">Bailey AKA the "I have no idea what I'm doing" dog</a>. License unknown.</figcaption>
+  <figcaption>Adapted from <a href="https://www.flickr.com/photos/120143184@N05/47939868992/">Quality Coal</a> by <a href = "https://www.flickr.com/photos/120143184@N05/">Greenville Daily Photo</a>. Used under <a href = "https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0. license</a>.</figcaption>
 </figure>
 
 In my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic) I addressed several problems I ran into when I tried to estimate the "last saved" quality level of JPEG images. It described some experiments based on [ImageMagick](https://imagemagick.org/)'s quality heuristic, which led to a [Python implementation of a modified version of the heuristic](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/test-jpegquality-im-modified.py) that improves the behaviour for images with a quality of 50% or less.
