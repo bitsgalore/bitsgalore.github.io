@@ -39,7 +39,7 @@ To understand how this works, it's first important to know that Annex K in the [
 |18|22|37|56|68|109|103|77|
 |24|35|55|64|81|104|113|92|
 |49|64|78|87|103|121|120|101|
-|72|92|95|98|112|100|103|99]
+|72|92|95|98|112|100|103|99|
 
 This is the base table with coefficients that are valid for quality level 50. The tables for all other quality levels can be derived from this base table using Equations 1 and 2 from [this paper by Kornblum (2008)](https://www.sciencedirect.com/science/article/pii/S1742287608000285)[^12]. First, for each quality level *Q* we can calculate a corresponding scaling factor *S*:
 
