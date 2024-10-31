@@ -17,7 +17,7 @@ In my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experim
 
 I still wasn't entirely happy with this solution. This was partially because ImageMagick's heuristic uses *aggregated* coefficients of the image's quantization tables, which makes it potentially vulnerable to collisions. Another concern was, that the reasoning behind certain details of ImageMagick's heuristic seems rather opaque (at least to me!).
 
-In this post I explore a different approach to JPEG quality estimation, which is based on a straightforward comparison with "standard" JPEG quantization tables using least squares matching. I also propose a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate. I also present some tests where I compared the results of the least squares matching method with those of the ImageMagick heuristics. 
+In this post I explore a different approach to JPEG quality estimation, which is based on a straightforward comparison with "standard" JPEG quantization tables using least squares matching. I also propose a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate. Finally I present some tests where I compared the results of the least squares matching method with those of the ImageMagick heuristics. 
 
 <!-- more -->
 
