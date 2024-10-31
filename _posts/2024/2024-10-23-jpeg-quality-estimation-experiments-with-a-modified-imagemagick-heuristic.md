@@ -198,7 +198,7 @@ Results in:
 JPEG Quality Estimate           : 50
 ```
 
-A peek at the [source code](https://github.com/exiftool/exiftool/blob/4981552ec9bf94a0b5a64a06919b5e4f797c208e/lib/Image/ExifTool/JPEGDigest.pm#L2447) shows it uses a ported version of ImageMagick's heuristic, so it alrgely has the same limitations. As an example, running it on my problematic JPEG results in:
+A peek at the [source code](https://github.com/exiftool/exiftool/blob/4981552ec9bf94a0b5a64a06919b5e4f797c208e/lib/Image/ExifTool/JPEGDigest.pm#L2447) shows it uses a ported version of ImageMagick's heuristic, so it largely has the same limitations. As an example, running it on my problematic JPEG results in:
 
 ```
 JPEG Quality Estimate           : <unknown>
