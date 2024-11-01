@@ -439,7 +439,7 @@ Another, probably more useful view on the results appears if we plot the quality
   <img src="{{ BASE_PATH }}/images/2024/10/deltaq-nse.png" alt="scatter plot of prediction errors (absolute differences between estimated and average encoding), versus Nash-Sutcliffe Efficiency.">
 </figure>
 
-This shows a strong association between *NSE* values in the upper range with small prediction errors. At lower *NSE* values, the range of prediction errors becomes progresively wider. Thus, this demonstrates how *NSE* can be useful as a measure of confidence in the quality estimate.
+This shows a strong association between *NSE* values in the upper range with small prediction errors. At lower *NSE* values, the range of prediction errors becomes progressively wider. Thus, this demonstrates how *NSE* can be useful as a measure of confidence in the quality estimate.
 
 ## Performance
 
