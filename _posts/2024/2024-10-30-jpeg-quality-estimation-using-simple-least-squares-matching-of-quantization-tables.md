@@ -17,7 +17,7 @@ In my [previous post]({{ BASE_PATH }}/2024/10/23/jpeg-quality-estimation-experim
 
 I still wasn't entirely happy with this solution. This was partially because ImageMagick's heuristic uses *aggregated* coefficients of the image's quantization tables, which makes it potentially vulnerable to collisions. Another concern was, that the reasoning behind certain details of ImageMagick's heuristic seems rather opaque (at least to me!).
 
-In this post I explore a different approach to JPEG quality estimation, which is based on a straightforward comparison with "standard" JPEG quantization tables using least squares matching. I also propose a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate. Finally I present some tests where I compare the results of the least squares matching method with those of the ImageMagick heuristics. 
+In this post I explore a different approach to JPEG quality estimation, which is based on a straightforward comparison with "standard" JPEG quantization tables using least squares matching. I also propose a measure that characterizes how similar an image's quantization tables are to its closest "standard" tables. This could be useful as a measure of confidence in the quality estimate. I present some tests where I compare the results of the least squares matching method with those of the ImageMagick heuristics. I also discuss the results of a simple sensitivity analysis.
 
 <!-- more -->
 
@@ -421,6 +421,26 @@ Even though the tests presented here are quite limited, the differences that can
 
 Another surprise was that ImageMagick's "exactness" flag isn't actually indicative of an exact match with the standard JPEG tables. None of the test images for which it returned a "True" value actually contains standard quantization tables, whereas the two images that *do* contain standard tables resulted in a "False" value!
 
+## Sensitivity analysis
+
+To get a better impression of how the method behaves with non-standard quantization tables, I did a simple sensitivity analysis using the cjpeg utility that is part of [libjpeg](https://en.wikipedia.org/wiki/Libjpeg). This tool supports compression with separate quality levels for the luminance and chrominance tables. I used this to [compress one source image to all possible quality level combinations](https://github.com/KBNLresearch/jpeg-quality-demo/blob/main/generate-testimages-cjpeg.sh). This resulted in 10,000 images, which I then ran through the least squares matching method.
+
+The plot below shows the distribution of estimated quality values *Q<sub>lsm</sub>* against *Q<sub>av</sub>*, which are the corresponding averages of encoding qualities *Q<sub>lum</sub>* and *Q<sub>chrom</sub>*[^15]:
+
+<figure class="image">
+  <img src="{{ BASE_PATH }}/images/2024/10/qav-qlsm.png" alt="scatter plot of average encoding quality versus estimated encoding quality.">
+</figure>
+
+At low average encoding qualities, the bandwidth of corresponding estimates by the least squares matching method is very wide, but this narrows considerably towards higher quality levels.
+
+Another, probably more useful view on the results appears if we plot the quality estimation errors, here expressed as absolute differences between *Q<sub>av</sub>* and *Q<sub>lsm</sub>*, against the Nash-Sutcliffe Efficiency coefficients:
+
+<figure class="image">
+  <img src="{{ BASE_PATH }}/images/2024/10/deltaq-nse.png" alt="scatter plot of prediction errors (absolute differences between estimated and average encoding), versus Nash-Sutcliffe Efficiency.">
+</figure>
+
+This shows a strong association between *NSE* values in the upper range with small prediction errors. At lower *NSE* values, the range of prediction errors becomes progresively wider. Thus, this demonstrates how *NSE* can be useful as a measure of confidence in the quality estimate.
+
 ## Performance
 
 One potential concern about the least squares matching method might be that it is computationally not very efficient: for each image, the analysis typically involves 200 comparisons of 64-element tables. Out of interest I did a little performance test using [this collection of 700 JPEGs](https://github.com/yavuzceliker/sample-images). I analyzed these files with my scripts with the Python ports of the original and modified ImageMagick heuristics, and the least squares matching method.
@@ -473,7 +493,7 @@ The Python implementation of the least squares matching method (and most of the 
 
 ## Revision history
 
-- 1 November 2024: added paragraph on significance of JPEG quality scale.
+- 1 November 2024: added paragraph on significance of JPEG quality scale; added sensitivity analysis.
 
 [^3]: This corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neal Krawetz's FotoForensics site](https://fotoforensics.com/tutorial.php?tt=estq) (but the site doesn't provide any details about the implementation).
 
@@ -492,3 +512,5 @@ The Python implementation of the least squares matching method (and most of the 
 [^13]: See e.g. [the JPEG FAQ](http://www.faqs.org/faqs/jpeg-faq/part1/section-5.html) for an explanation.
 
 [^14]: In response to this post, Krawetz [let me know](https://noc.social/@hackerfactor/113397249743521959) that FotoForensics uses a different algorithm that isn't based on least squares.
+
+[^15]: The actual significance of *Q<sub>av</sub>* is somewhat questionable, especially for extreme high/low combinations of *Q<sub>lum</sub>* and *Q<sub>chrom</sub>*.
