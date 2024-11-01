@@ -491,4 +491,4 @@ The Python implementation of the least squares matching method (and most of the 
 
 [^13]: See e.g. [the JPEG FAQ](http://www.faqs.org/faqs/jpeg-faq/part1/section-5.html) for an explanation.
 
-[^14]: In response to this post, Krawetz [let me know](https://noc.social/@hackerfactor/113397249743521959) FotoForensics uses a different algorithm that isn't based on least squares.
+[^14]: In response to this post, Krawetz [let me know](https://noc.social/@hackerfactor/113397249743521959) that FotoForensics uses a different algorithm that isn't based on least squares.
