@@ -456,7 +456,7 @@ This shows the least squares matching method is almost 3 times slower than the I
 
 I originally wrote the least squares matching method code in an attempt to better understand JPEG quality estimation, and to make a more informed assesment of how ImageMagick's heuristic works. Based on the tests described here, I think I ended up with something that might actually be quite useful, and preferrable to either the original or modified ImageMagick heuristic.
 
-By itself the method isn't in any way novel, as it's basically just an implementation (I think?) of the "Approximate Quantization Tables" quality estimation method as described by Neal Krawetz. I expect many other, very similar implementations exist that I'm simply not aware of, particularly in the digital forensics domain. This makes it all the more surprising that these apparently haven't made it to popular image processing and analysis software like ImageMagick. The use of the Nash-Sutcliffe Efficiency as a measure of confidence in the quality estimate *may* be somewhat novel, but I wouldn't be surprised if other (and possibly better) methods for this exist.
+By itself the method isn't in any way novel, as it's basically just another implementation of the "Approximate Quantization Tables" quality estimation method as described by Neal Krawetz[^14]. I expect many other, very similar implementations exist that I'm simply not aware of, particularly in the digital forensics domain. This makes it all the more surprising that these apparently haven't made it to popular image processing and analysis software like ImageMagick. The use of the Nash-Sutcliffe Efficiency as a measure of confidence in the quality estimate *may* be somewhat novel, but I wouldn't be surprised if other (and possibly better) methods for this exist.
 
 Finally, it's important to be aware that the characterization of JPEG quality using the 1 - 100 scale that follows from the "standard" quantization tables is by itself pretty arbitrary[^13]. Essentially, the corresponding "quality" values are just pointers to sets of quantization tables that only have ordinal significance (i.e. higher values mean better quality), but not much more. Due to its wide use, and the lack of any better alternative, it's still a useful benchmark. This is also why I think it's important to provide some information on the similarity of an image's quantization tables to the "standard" ones, as this helps assessing the confidence in the quality estimate.
 
@@ -475,7 +475,7 @@ The Python implementation of the least squares matching method (and most of the 
 
 - 1 November 2024: added paragraph on significance of JPEG quality scale.
 
-[^3]: From its description I think this corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neal Krawetz's FotoForensics site](https://fotoforensics.com/tutorial.php?tt=estq) (but the site doesn't provide any details about the implementation).
+[^3]: This corresponds to the "Approximate Quantization Tables" method that is mentioned on (and used by) [Neal Krawetz's FotoForensics site](https://fotoforensics.com/tutorial.php?tt=estq) (but the site doesn't provide any details about the implementation).
 
 [^5]: I ran the test on a pretty low spec machine with an Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz with 4 cores.
 
@@ -490,3 +490,5 @@ The Python implementation of the least squares matching method (and most of the 
 [^12]: See also [this post on StackOverflow](https://stackoverflow.com/a/29216609/1209004).
 
 [^13]: See e.g. [the JPEG FAQ](http://www.faqs.org/faqs/jpeg-faq/part1/section-5.html) for an explanation.
+
+[^14]: In response to this post, Krawetz [let me know](https://noc.social/@hackerfactor/113397249743521959) FotoForensics uses a different algorithm that isn't based on least squares.
