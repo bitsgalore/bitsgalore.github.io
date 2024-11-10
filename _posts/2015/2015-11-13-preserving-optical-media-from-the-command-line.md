@@ -532,7 +532,7 @@ One thing to watch out for is that in most cases ISO images from an enhanced CD 
 
 ### November 2024
 
-- Added references to The Working Archivist's Guide to Enthusiast CD-ROM Archiving Tools, Rdumper and Aaru.
+- Added references to The Working Archivist's Guide to Enthusiast CD-ROM Archiving Tools, Redumper and Aaru.
 
 [^1]: If you don't do this you will get the error message *ERROR: Unable to open SCSI device /dev/sr0: Device or resource busy*.
 
