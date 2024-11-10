@@ -18,6 +18,10 @@ In addition there's a final section that covers my attempts at imaging a multise
 
 <!-- more -->
 
+## 2024 update on imaging and ripping tools
+
+The information in this post largely reflects the tool landscape at the time I originally wrote this in 2015. Since then, several new tools have emerged. For a more up to date (2024) discussion of imaging and ripping tools, my go-to reference would be Misty De Meo's [The Working Archivist's Guide to Enthusiast CD-ROM Archiving Tools](https://www.mistys-internet.website/blog/blog/2024/09/13/the-working-archivists-guide-to-enthusiast-cd-rom-archiving-tools/). It recommends the [redumper](https://github.com/superg/redumper) tool as the first choice for archivists interested in a commandline tool. [Aaru](https://github.com/aaru-dps/Aaru) is another recent imaging tool. I haven't personally done any elaborate testing with either of these tools, but if I get round to this I may include them in a future update.
+
 ## Find the device path of the CD drive (Linux)
 
 The majority of the tools covered by this blog post need the device path of the CD drive as a command-line argument. Under Linux you can usually find this by inspecting the output of the following command (run this while a CD or DVD is inserted in your drive):
@@ -516,14 +520,19 @@ One thing to watch out for is that in most cases ISO images from an enhanced CD 
 
 * The [User Manual of *ddrescue*](https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html#Optical-media) gives some useful additional examples of how this tool can be used to recover data from a faulty CD-ROM.  
 
-## Update June 2019
+* [The Working Archivist's Guide to Enthusiast CD-ROM Archiving Tools](https://www.mistys-internet.website/blog/blog/2024/09/13/the-working-archivists-guide-to-enthusiast-cd-rom-archiving-tools/) provides an up to date (2024) overview of the imaging and ripping tools landscape.
 
-This blog post was updated June 2019. The main changes are:
+## Revision history
+
+### June 2019
 
 - Revised section on checksum verification, and added explanation that in practice this is not very useful.
-- Added references to *Isolyzer*
+- Added references to *Isolyzer*.
 - The section on mixed-mode and multisession discs confusingly mixed up both types of carriers. I have clarified the distinction between both types of carriers, the instructions for imaging them are now in separate sections.
 
+### November 2024
+
+- Added references to The Working Archivist's Guide to Enthusiast CD-ROM Archiving Tools, Rdumper and Aaru.
 
 [^1]: If you don't do this you will get the error message *ERROR: Unable to open SCSI device /dev/sr0: Device or resource busy*.
 
