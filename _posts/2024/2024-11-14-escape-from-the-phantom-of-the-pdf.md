@@ -312,5 +312,8 @@ PyMUPDF correctly decodes the octal escape sequences.
 
 All the above tools and libraries were able to decode the octal escape sequences without any problems. So JHOVE's behaviour really seems to be the exception here, rather than the rule. Octal escape sequences are both allowed by the standard, and widely supported by PDF processing tools. Concluding, I would argue that they don't pose a significant (if at all) preservation risk.
 
+## Acknowledgments
+
+Thanks are due to Peter Wyatt (PDF Association) for his helpful comments in [this Github thread](https://github.com/openpreserve/jhove/issues/927).
 
 [^1]: Actually they refer to this as a "dual encoding", but this term is confusing because the octal escape sequences aren't really an "encoding" at all, but rather a part of the lexical definition of PDF literal string objects. See [this follow-ip comment by Peter Wyatt](https://github.com/openpreserve/jhove/issues/927#issuecomment-2466229030).
