@@ -316,4 +316,4 @@ All the above tools and libraries were able to decode the octal escape sequences
 
 Thanks are due to Peter Wyatt (PDF Association) for his helpful comments in [this Github thread](https://github.com/openpreserve/jhove/issues/927).
 
-[^1]: Actually they refer to this as a "dual encoding", but this term is confusing because the octal escape sequences aren't really an "encoding" at all, but rather a part of the lexical definition of PDF literal string objects. See [this follow-ip comment by Peter Wyatt](https://github.com/openpreserve/jhove/issues/927#issuecomment-2466229030).
+[^1]: Actually they refer to this as a "dual encoding", but this term is confusing because the octal escape sequences aren't really an "encoding" at all, but rather a part of the lexical definition of PDF literal string objects. See [this follow-up comment by Peter Wyatt](https://github.com/openpreserve/jhove/issues/927#issuecomment-2466229030).
