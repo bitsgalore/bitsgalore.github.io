@@ -13,7 +13,7 @@ comment_id: 93
   <figcaption><a href="https://wellcomecollection.org/works/sfqkzeu2">A man in armour is confronted by a ghost and a skeleton. </a>Aquatint. Wellcome Collection, Public Domain.</figcaption>
 </figure>
 
-In a [recent blog post]((https://digitalpreservation.fi/en/2024-phantom-pdf-file)), colleagues at the National Digital Preservation Services in Finland addressed an issue with PDF files that contain strings with octal escape sequences. These are not parsed correctly by [JHOVE](https://jhove.openpreservation.org/), and the resulting parse errors ultimately lead to (seemingly unrelated) validation errors. The authors argue that octal escape sequences present a preservation risk, as they may confuse other software besides JHOVE. Since this claim is not backed up by any evidence, here I put this to the test using 8 different PDF processing tools and libraries. 
+In a [recent blog post](https://digitalpreservation.fi/en/2024-phantom-pdf-file), colleagues at the National Digital Preservation Services in Finland addressed an issue with PDF files that contain strings with octal escape sequences. These are not parsed correctly by [JHOVE](https://jhove.openpreservation.org/), and the resulting parse errors ultimately lead to (seemingly unrelated) validation errors. The authors argue that octal escape sequences present a preservation risk, as they may confuse other software besides JHOVE. Since this claim is not backed up by any evidence, here I put this to the test using 8 different PDF processing tools and libraries. 
 
 <!-- more -->
 
