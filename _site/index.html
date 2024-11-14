@@ -76,6 +76,205 @@
 
 
    <div class="post-entry">
+   <h1><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></h1>
+   <div class="date">
+    <span>14 November 2024</span>
+   </div>
+   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
+   <figure class="image">
+  <img src="/images/2024/11/ghost.jpg" alt="Aquatint showing a graveyard scene in front of a church. At the center is a man in armour with a distressed expression on his face. To his left is a skeleton, and to his right a ghost." />
+  <figcaption><a href="https://wellcomecollection.org/works/sfqkzeu2">A man in armour is confronted by a ghost and a skeleton. </a>Aquatint. Wellcome Collection, Public Domain.</figcaption>
+</figure>
+
+<p>In a <a href="(https://digitalpreservation.fi/en/2024-phantom-pdf-file)">recent blog post</a>, colleagues at the National Digital Preservation Services in Finland addressed an issue with PDF files that contain strings with octal escape sequences. These are not parsed correctly by <a href="https://jhove.openpreservation.org/">JHOVE</a>, and the resulting parse errors ultimately lead to (seemingly unrelated) validation errors. The authors argue that octal escape sequences present a preservation risk, as they may confuse other software besides JHOVE. Since this claim is not backed up by any evidence, here I put this to the test using 8 different PDF processing tools and libraries.</p>
+
+
+   <div class="buttonArea">
+   <a href="/2024/11/14/escape-from-the-phantom-of-the-pdf" class="button">Read more ...</a>
+  </div>
+   
+   <ul class="tag_box inline">
+     
+     
+
+
+
+
+  
+    <li>
+      <details>
+      <summary>Apache-tika</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>ExifTool</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+        <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
+      
+        <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>format-validation</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>JHOVE</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
+      
+        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2017/01/04/breaking-waves-and-some-flacs">Breaking WAVEs (and some FLACs too)</a></li>
+      
+        <li><a href="/2014/01/31/why-cant-we-have-digital-preservation-tools-just-work">Why can't we have digital preservation tools that just work?</a></li>
+      
+        <li><a href="/2011/09/01/simple-jp2-file-structure-checker">A simple JP2 file structure checker</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>PDF</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
+      
+        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
+      
+        <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression">Policy-based assessment with VeraPDF - a first impression</a></li>
+      
+        <li><a href="/2016/12/09/pdfa-as-a-preferred-sustainable-format-for-spreadsheets">PDF/A as a preferred, sustainable format for spreadsheets?</a></li>
+      
+        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
+      
+        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
+      
+        <li><a href="/2014/08/27/when-not-migrate-pdf-pdfa">When (not) to migrate a PDF to PDF/A</a></li>
+      
+        <li><a href="/2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus">Identification of PDF preservation risks&#58; analysis of Govdocs selected corpus</a></li>
+      
+        <li><a href="/2013/07/25/identification-pdf-preservation-risks-sequel">Identification of PDF preservation risks with Apache Preflight&#58; the sequel</a></li>
+      
+        <li><a href="/2013/01/09/what-do-we-mean-embedded-files-pdf">What do we mean by "embedded" files in PDF?</a></li>
+      
+        <li><a href="/2012/12/19/identification-pdf-preservation-risks-apache-preflight-first-impression">Identification of PDF preservation risks with Apache Preflight&#58; a first impression</a></li>
+      
+        <li><a href="/2012/07/26/pdf-inventory-long-term-preservation-risks">PDF – Inventory of long-term preservation risks</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>preservation-risks</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
+      
+        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
+      
+        <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2020/04/30/iso-iec-ts-22424-standard-on-epub3-preservation">ISO/IEC TS 22424 standard on EPUB3 preservation</a></li>
+      
+        <li><a href="/2020/03/11/does-microsoft-onedrive-export-large-ZIP-files-that-are-corrupt">Does Microsoft OneDrive export large ZIP files that are corrupt?</a></li>
+      
+        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
+      
+        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
+      
+        <li><a href="/2013/10/08/measuring-bigfoot">Measuring Bigfoot</a></li>
+      
+        <li><a href="/2013/09/30/assessing-file-format-risks-searching-bigfoot">Assessing file format risks&#58; searching for Bigfoot?</a></li>
+      
+        <li><a href="/2012/07/26/pdf-inventory-long-term-preservation-risks">PDF – Inventory of long-term preservation risks</a></li>
+      
+        <li><a href="/2012/06/18/epub-archival-preservation">EPUB for archival preservation</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
+      <summary>VeraPDF</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
+      
+        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
+      
+        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
+      
+        <li><a href="/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression">Policy-based assessment with VeraPDF - a first impression</a></li>
+      
+        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
+      
+        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+
+
+
+   </ul>
+  
+   </div>
+   <hr>
+
+   <div class="post-entry">
    <h1><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></h1>
    <div class="date">
     <span>30 October 2024</span>
@@ -109,6 +308,8 @@
       <details>
       <summary>ExifTool</summary>
       <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
@@ -193,6 +394,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
         <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
@@ -274,6 +477,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
         <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
@@ -308,6 +513,8 @@
       <summary>JHOVE</summary>
       <ul>
       
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
@@ -330,6 +537,8 @@
       <details>
       <summary>preservation-risks</summary>
       <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -411,6 +620,8 @@
       <summary>format-validation</summary>
       <ul>
       
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
       </ul>
@@ -421,6 +632,8 @@
       <details>
       <summary>JHOVE</summary>
       <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -444,6 +657,8 @@
       <details>
       <summary>PDF</summary>
       <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
@@ -482,153 +697,7 @@
       <summary>VeraPDF</summary>
       <ul>
       
-        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
-      
-        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
-      
-        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
-      
-        <li><a href="/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression">Policy-based assessment with VeraPDF - a first impression</a></li>
-      
-        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
-      
-        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-
-
-
-   </ul>
-  
-   </div>
-   <hr>
-
-   <div class="post-entry">
-   <h1><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></h1>
-   <div class="date">
-    <span>25 May 2023</span>
-   </div>
-   <!-- This creates excerpt based on user-defined separator (which needs to be inserted in each post! -->
-   <figure class="image">
-  <img src="/images/2023/05/Rock_em_Sock_em_Robots_Game.jpg" alt="Photo of a red toy robot and a similar looking blue toy robot in a boxing ring. Both robots face each other in a threatening stance." />
-  <figcaption><a href="https://commons.wikimedia.org/wiki/File:Rock_%27em_Sock_%27em_Robots_Game.jpg">"Rock 'em Sock 'em Robots Game"</a> by  Lorie Shaull, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>, via Wikimedia Commons.</figcaption>
-</figure>
-
-<p>The PDF format has a number of features that don’t sit well with the aims of long-term preservation and accessibility. This includes encryption and password protection, external dependencies (e.g. fonts that are not embedded in a document), and reliance on external software. In this post I’ll review to what extent such features can be detected using <a href="https://verapdf.org/">VeraPDF</a> and <a href="https://jhove.openpreservation.org/">JHOVE</a>. It further builds on earlier work I did on this subject between 2012 and 2017.</p>
-
-
-   <div class="buttonArea">
-   <a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove" class="button">Read more ...</a>
-  </div>
-   
-   <ul class="tag_box inline">
-     
-     
-
-
-
-
-  
-    <li>
-      <details>
-      <summary>JHOVE</summary>
-      <ul>
-      
-        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
-      
-        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
-      
-        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
-      
-        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
-      
-        <li><a href="/2017/01/04/breaking-waves-and-some-flacs">Breaking WAVEs (and some FLACs too)</a></li>
-      
-        <li><a href="/2014/01/31/why-cant-we-have-digital-preservation-tools-just-work">Why can't we have digital preservation tools that just work?</a></li>
-      
-        <li><a href="/2011/09/01/simple-jp2-file-structure-checker">A simple JP2 file structure checker</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>PDF</summary>
-      <ul>
-      
-        <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
-      
-        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
-      
-        <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
-      
-        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
-      
-        <li><a href="/2017/06/01/policy-based-assessment-with-verapdf-a-first-impression">Policy-based assessment with VeraPDF - a first impression</a></li>
-      
-        <li><a href="/2016/12/09/pdfa-as-a-preferred-sustainable-format-for-spreadsheets">PDF/A as a preferred, sustainable format for spreadsheets?</a></li>
-      
-        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
-      
-        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
-      
-        <li><a href="/2014/08/27/when-not-migrate-pdf-pdfa">When (not) to migrate a PDF to PDF/A</a></li>
-      
-        <li><a href="/2014/01/27/identification-pdf-preservation-risks-analysis-govdocs-selected-corpus">Identification of PDF preservation risks&#58; analysis of Govdocs selected corpus</a></li>
-      
-        <li><a href="/2013/07/25/identification-pdf-preservation-risks-sequel">Identification of PDF preservation risks with Apache Preflight&#58; the sequel</a></li>
-      
-        <li><a href="/2013/01/09/what-do-we-mean-embedded-files-pdf">What do we mean by "embedded" files in PDF?</a></li>
-      
-        <li><a href="/2012/12/19/identification-pdf-preservation-risks-apache-preflight-first-impression">Identification of PDF preservation risks with Apache Preflight&#58; a first impression</a></li>
-      
-        <li><a href="/2012/07/26/pdf-inventory-long-term-preservation-risks">PDF – Inventory of long-term preservation risks</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>preservation-risks</summary>
-      <ul>
-      
-        <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
-      
-        <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
-      
-        <li><a href="/2021/09/24/on-the-significant-properties-of-spreadsheets">On The Significant Properties of Spreadsheets</a></li>
-      
-        <li><a href="/2021/09/06/pdf-processing-and-analysis-with-open-source-tools">PDF processing and analysis with open-source tools</a></li>
-      
-        <li><a href="/2020/04/30/iso-iec-ts-22424-standard-on-epub3-preservation">ISO/IEC TS 22424 standard on EPUB3 preservation</a></li>
-      
-        <li><a href="/2020/03/11/does-microsoft-onedrive-export-large-ZIP-files-that-are-corrupt">Does Microsoft OneDrive export large ZIP files that are corrupt?</a></li>
-      
-        <li><a href="/2015/07/08/why-pdfa-validation-matters-part-2">Why PDF/A validation matters, even if you don't have PDF/A - Part 2</a></li>
-      
-        <li><a href="/2015/07/07/why-pdfa-validation-matters-even-if-you-dont-have-pdfa">Why PDF/A validation matters, even if you don't have PDF/A</a></li>
-      
-        <li><a href="/2013/10/08/measuring-bigfoot">Measuring Bigfoot</a></li>
-      
-        <li><a href="/2013/09/30/assessing-file-format-risks-searching-bigfoot">Assessing file format risks&#58; searching for Bigfoot?</a></li>
-      
-        <li><a href="/2012/07/26/pdf-inventory-long-term-preservation-risks">PDF – Inventory of long-term preservation risks</a></li>
-      
-        <li><a href="/2012/06/18/epub-archival-preservation">EPUB for archival preservation</a></li>
-      
-      </ul>
-      </details>
-    </li>
-  
-    <li>
-      <details>
-      <summary>VeraPDF</summary>
-      <ul>
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
@@ -825,6 +894,17 @@
   
     <li>
       <details>
+      <summary>Apache-tika</summary>
+      <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
+      </ul>
+      </details>
+    </li>
+  
+    <li>
+      <details>
       <summary>APK</summary>
       <ul>
       
@@ -988,6 +1068,8 @@
       <summary>ExifTool</summary>
       <ul>
       
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
         <li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
       
         <li><a href="/2024/10/23/jpeg-quality-estimation-experiments-with-a-modified-imagemagick-heuristic">JPEG quality estimation&#58; experiments with a modified ImageMagick heuristic</a></li>
@@ -1079,6 +1161,8 @@
       <details>
       <summary>format-validation</summary>
       <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
@@ -1250,6 +1334,8 @@
       <details>
       <summary>JHOVE</summary>
       <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -1489,6 +1575,8 @@
       <summary>PDF</summary>
       <ul>
       
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
         <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
@@ -1525,6 +1613,8 @@
       <details>
       <summary>preservation-risks</summary>
       <ul>
+      
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
       
         <li><a href="/2024/03/11/multi-image-tiffs-subfiles-and-image-file-directories">Multi-image TIFFs, subfiles and image file directories</a></li>
       
@@ -1734,6 +1824,8 @@
       <summary>VeraPDF</summary>
       <ul>
       
+        <li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+      
         <li><a href="/2023/06/29/verapdf-parse-status-as-a-proxy-for-rendering">VeraPDF parse status as a proxy for PDF rendering&#58; experiments with the Synthetic PDF Testset</a></li>
       
         <li><a href="/2023/05/25/identification-of-pdf-preservation-risks-with-verapdf-and-jhove">Identification of PDF preservation risks with VeraPDF and JHOVE</a></li>
@@ -1870,8 +1962,27 @@
     
       <details open>
       <summary>2024</summary>
-      <h3>October</h3>
+      <h3>November</h3>
       <ul>
+    
+  
+	<li><a href="/2024/11/14/escape-from-the-phantom-of-the-pdf">Escape from the phantom of the PDF</a></li>
+	
+    
+          
+        
+          </ul>
+          <h3>October</h3>
+          <ul>
+        
+      
+    
+  
+    
+    
+    
+    
+  
     
   
 	<li><a href="/2024/10/30/jpeg-quality-estimation-using-simple-least-squares-matching-of-quantization-tables">JPEG quality estimation using simple least squares matching of quantization tables</a></li>
