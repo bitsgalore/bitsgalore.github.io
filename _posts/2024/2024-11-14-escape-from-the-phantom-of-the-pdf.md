@@ -31,7 +31,7 @@ A few weeks ago I came across [The Phantom of a PDF File](https://digitalpreserv
 endobj
 ```
 
-JHOVE cannot handle octal escape sequences properly, which leads to a parse error that ultimately results in JHOVE reporting a validation error that is completely unrelated to the "Producer" field. In their original post, the authors claimed that this is not allowed by the PDF specification. They also advised to restrict the values in PDF metadata fields to plain ASCII, or otherwise UTF-16BE. Finally they argue that the presence of octal escape sequences[^1] "raises the risk of causing problems in the future", and that "JHOVE probably is not the only software that will get confused" by this.
+JHOVE cannot handle octal escape sequences properly, which leads to a parse error that ultimately results in JHOVE reporting a validation error that is completely unrelated to the "Producer" field. In their original post, the authors claimed that the way the octal escape sequences are used in this file is not allowed by the PDF specification. They also advised against the use of octal escape sequences, and to restrict the values in PDF metadata fields to plain ASCII, or otherwise UTF-16BE. Finally they argue that the presence of octal escape sequences[^1] "raises the risk of causing problems in the future", and that "JHOVE probably is not the only software that will get confused" by this.
 
 ## Is JHOVE the only software that gets confused by octal escape sequences?
 
