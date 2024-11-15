@@ -43,7 +43,7 @@ The [original file](https://digitalpreservation.fi/en/2024-phantom-pdf-file) con
 
 Next, I ran the modified file through 8 different PDF tools and libraries, and inspected the result to see how the "Producer" field is handled. Below are the commands and results.
 
-## ExifTool
+## [ExifTool](https://exiftool.org/)
 
 Command:
 
