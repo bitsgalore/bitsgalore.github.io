@@ -76,6 +76,8 @@ It's worth pointing out that Pdfquad's feature extraction is currently limited t
 - The [getImageDictProperties](https://github.com/KBNLresearch/pdfquad/blob/7f33e7820e61a07ffb1f5c2b6c3e6e9084a57c82/pdfquad/properties.py#L232) function extracts all characteristics at the image dictionary level.
 - The [getImageStreamProperties](https://github.com/KBNLresearch/pdfquad/blob/7f33e7820e61a07ffb1f5c2b6c3e6e9084a57c82/pdfquad/properties.py#L253) function extracts all characteristics at the image stream level, using Pillow.
 
+The feature extraction code also keeps track of any exceptions that may occur during parsing. These usually indicate a problem with the PDF, and the DBNL Schematron includes rules that verify their absence. 
+
 ## Profiles and schemas
 
 Pdfquad needs to understand the structure of a digitisation batch, and how the PDFs inside it must be evaluated. As an example, let's assume we have the following batch structure:
