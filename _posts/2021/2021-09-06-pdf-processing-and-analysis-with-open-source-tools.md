@@ -113,6 +113,22 @@ jhove -m PDF-hul -i whatever.pdf
 
 Check out the [documentation](https://jhove.openpreservation.org/modules/pdf/) for more information about JHOVE's PDF module, and its limitations.
 
+### Validate with Arlington PDF Model Checker
+
+The [Arlington PDF Model Checker](https://openpreservation.org/news/arlington-pdf-model-checker-released/) checks a PDF against the [Arlington PDF Model](https://github.com/pdf-association/arlington-pdf-model). The Arlington Model is a machine-readable representation of all object types that are defined by [ISO 32000-2:2020](https://www.pdfa-inc.org/product/iso-32000-2-pdf-2-0-bundle-sponsored-access/) (PDF 2.0) and all earlier PDF versions. This does not offer full PDF validation[^8], but the coverage of PDF objects is vastly more comprehensive than JHOVE (or any other tool I'm aware of)[^9]. The software is based on VeraPDF (which is discussed further on), and Java installers can be downloaded from [VeraPDF's releases section](https://software.verapdf.org/releases/arlington).
+
+After installation, run the software like this: 
+
+```bash
+arlington-pdf-model-checker whatever.pdf > whatever.xml
+```
+
+By default, the Arlington PDF Model checker tries to automatically establish the PDF version, and then checks the file accordingly. Use the `-f` (alias: `--flavour`) option to force a specific version. As an example, the following command will result in validation against PDF 1.4:
+
+```bash
+arlington-pdf-model-checker -f arlington1.4 whatever.pdf > whatever.xml
+```
+
 ### Check integrity with QPDF 
 
 The `--check` option of QPDF (see above) performs checks on a PDF's overall file structure. QPDF does not provide full-fledged validation, and the [documentation](http://qpdf.sourceforge.net/files/qpdf-manual.html) states that:
@@ -803,7 +819,8 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - 10 October 2022: added update on and link to Hacker News topic on this post.
 - 28 November 2022: added reference to Micky Lindlar's blog post on trouble-shooting PDF validation errors.
 - 16 February 2023: added section on reducing PDF file size with ImageMagick's *convert* tool.
-- 26 September 2024: corrected mutool stream content extraction example. 
+- 26 September 2024: corrected mutool stream content extraction example.
+- 18 December 2024: added section on Arlington PDF Model.
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
@@ -818,3 +835,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 [^6]: Of course this also works for metadata extraction, and both text and metadata extraction can be combined in one single command. As an example, the following command will extract both text and metadata, including any embedded documents: `java -jar ~/tika/tika-app-2.1.0.jar -J --text -i ./myPDFs/ -o ./tika-out/`
 
 [^7]: The Debian package of the "original" PDFtk software was [removed from the Ubuntu repositories](https://www.joho.se/2020/10/01/pdftk-and-php-pdftk-on-ubuntu-18-04-without-using-snap/) around 2018 due to "dependency issues".
+
+[^8]: See the "Limitations" section in [the Arlington Model readme](https://github.com/pdf-association/arlington-pdf-model). Personally, I'd be really excited to see some future software tool that combines the Arlington Model logic with additional checks for aspects that are not covered by it, such as file structure and cross-reference tables. This could really be the ultimate PDF validator, that would make several other tools in this section obsolete.
+
+[^9]: Because of of this near-complete coverage of PDF objects, it's also likely to report more problems for any given file than other tools. Since PDF readers are generally quite forgiving of common deviations of the specifification, many of these problems won't affect rendering. There's not much to do about this, as a validator by defininition needs to be strict.
