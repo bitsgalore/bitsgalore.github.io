@@ -1,12 +1,15 @@
 ---
 layout: post
 title: PDF processing and analysis with open-source tools
-tags: [PDF, VeraPDF, JHOVE, Apache-Tika, ExifTool, ImageMagick, preservation-risks]
+headImage: "/images/2021/09/plumber-tools.jpg"
+headImageAltText: "Photo of assortment of old plumbing tools."
+description: "This post is an attempt to bring together my go-to open-source PDF analysis and processing tools and commands for a variety of common tasks."
+tags: [PDF, VeraPDF, JHOVE, Apache-Tika, ExifTool, ImageMagick, Arlington-Model, preservation-risks]
 comment_id: 76
 ---
 
 <figure class="image">
-  <img src="{{ BASE_PATH }}/images/2021/09/plumber-tools.jpg" alt="Plumbers Tool Box">
+  <img src="{{ BASE_PATH }}{{ page.headImage }}" alt="{{ page.headImageAltText }}">
   <figcaption><a href="https://www.flickr.com/photos/130648318@N06/42662053232">Plumbers Tool Box</a> by <a href="https://www.flickr.com/photos/130648318@N06/">pszz</a> on Flickr. Used under <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/">CC BY-NC-SA 2.0</a>.</figcaption>
 </figure>
 
@@ -820,7 +823,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - 28 November 2022: added reference to Micky Lindlar's blog post on trouble-shooting PDF validation errors.
 - 16 February 2023: added section on reducing PDF file size with ImageMagick's *convert* tool.
 - 26 September 2024: corrected mutool stream content extraction example.
-- 18 December 2024: added section on Arlington PDF Model.
+- 18 December 2024: added section on Arlington PDF Model Checker.
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
