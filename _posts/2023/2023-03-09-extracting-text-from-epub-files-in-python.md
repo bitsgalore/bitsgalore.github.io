@@ -30,6 +30,8 @@ I evaluated the following tools:
 
 3. [**EbookLib**](https://github.com/aerkalov/ebooklib). This is a Python library for reading and writing E-books in various formats, including EPUB (both EPUB 2 en EPUB 3). EbookLib is also the E-book library that is used by Textract.
 
+4. [**PyMuPDF**](https://github.com/pymupdf/PyMuPDF). This is a Python binding for [MuPDF](https://mupdf.com/). MuPDF is primarily a PDF library, but it also supports EPUB.
+
 The following table shows the versions of these tools that I used in my tests:
 
 |Software|Version|
@@ -37,6 +39,7 @@ The following table shows the versions of these tools that I used in my tests:
 |Tika-python|2.6.0|
 |Textract|1.6.5|
 |EbookLib|0.18|
+|PyMuPDF|1.24.11|
 
 ## Test environment and data
 
@@ -161,7 +164,7 @@ fileOut = "berk011veel01_01.txt"
 content = textract.process(fileIn, encoding='utf-8').decode()
 
 with open(fileOut, 'w', encoding='utf-8') as fout:
-        fout.write(content)
+    fout.write(content)
 ```
 
 For the very first EPUB file (from the DBNL collection) this resulted in an empty output file. Results were similar for most other DBNL EPUBs, and Textract only managed to extract a handful of words at most. Results were considerably better for the "Standard Ebooks" files, with output that was similar to Tika-python in most cases. I [reported](https://github.com/deanmalmgren/textract/issues/455) this issue with the developers.
@@ -191,14 +194,75 @@ for item in book.get_items():
         content += f.text
 
 with open(fileOut, 'w', encoding='utf-8') as fout:
-        fout.write(content)
+    fout.write(content)
 ```
 
 Compared to Tika-python and Textract, the EbookLib script is a bit more involved, as EbookLib doesn't provide any high-level text extraction functions. Instead, the user must iterate over all document items, extract the (X)HTML, and then convert that to unformatted text. At first glance, tests with the DBNL and Standard Ebooks EPUBs didn't result in any issues, and the results were similar to Tika-python.
 
+## PyMuPDF
+
+For PyMuPDF, I created the following minimal code snippet:
+
+```python
+#! /usr/bin/env python3
+import pymupdf
+
+fileIn = "berk011veel01_01.epub"
+fileOut = "berk011veel01_01.txt"
+
+with pymupdf.open(fileIn) as doc:
+    content = ""
+    noChapters = doc.chapter_count
+    # Iterate over chapters
+    for i in range(noChapters):
+        chapter_page_count = doc.chapter_page_count(i)
+        chapter_text = ""
+        # Iterate over pages in chapter
+        for j in range(chapter_page_count):
+            page = doc[(i, j)]
+            chapter_text += page.get_text()
+        content += chapter_text
+        # Add linebreak to mark end of chapter
+        content += "\n"
+
+with open(fileOut, 'w', encoding='utf-8') as fout:
+    fout.write(content)
+```
+
+There are a couple of things to note here.
+
+### Chapters and pages
+
+First, like EbookLib, we need to explicitly iterate over all chapters in the EPUB. Second, PyMuPDF's document model is built on *pages*, which probably reflects its origins as a PDF library. However, the EPUB format doesn't really have any notion of "pages" at all. Nevertheless, since PyMuPDF's text extraction function only works at the page level, we still need to iterate over the "pages" of each chapter, even though it's not entirely clear to me how PyMuPDF defines them. Since by default the chapter texts are simply concatenated, I explicitly added a linebreak to more clearly delineate the end of each chapter.
+
+### Wrapping and linebreaks
+
+Unlike the other tools tested here, PyMuPDF wraps the extracted text to a fixed page width, and inserts linebreaks at the wrapping boundaries. As an example, look at the following sentence in the source XHTML, which is encoded as one single line:
+
+``` html
+<div class="plat">Het was wonderbaar. Pierre ademde diep, en de lucht was zo dun en zo ijl, dat zijn hoofd er duizelig van werd.</div>
+```
+
+In the corresponding PyMuPDF output, the text is split across two separate lines:
+
+```
+Het was wonderbaar. Pierre ademde diep, en de lucht was zo dun
+en zo ijl, dat zijn hoofd er duizelig van werd.
+```
+
+Whether this is actually a problem will probably depend on the use case, but it's good to be aware that this happens.
+
+Finally, for the EPUBs in the KB’s DBNL dataset, PyMuPDF reported multiple instances of the following error:
+
+```
+MuPDF error: syntax error: css syntax error: unexpected token (OEBPS/template.css:1) (   >@<font-face {font-family: "sc...)
+```
+
+The error is related to a style sheet, and doesn't appear to affect text extraction.
+
 ## Demonstration scripts
 
-Based on the above minimal code snippets, I created [three simple demonstration scripts](https://github.com/KBNLresearch/textExtractDemo) for Python-tika, Textract and Ebooklib. Each of these scripts extracts the text of each EPUB file in a user-defined input directory. The extracted text is then written to a user-defined output directory. Each script also writes a file with word counts for the extraction results, which is useful for a rough comparison of the different tools.
+Based on the above minimal code snippets, I created [four simple demonstration scripts](https://github.com/KBNLresearch/textExtractDemo) for Python-tika, Textract, Ebooklib and PyMuPDF. Each of these scripts extracts the text of each EPUB file in a user-defined input directory. The extracted text is then written to a user-defined output directory. Each script also writes a file with word counts for the extraction results, which is useful for a rough comparison of the different tools.
 
 I ran each script twice, using the DBNL and Standard Ebooks data sets as input, respectively.
 
@@ -206,54 +270,56 @@ I ran each script twice, using the DBNL and Standard Ebooks data sets as input, 
 
 The table below shows the resulting word counts for the books in the DBNL data set:
 
-|File name|Words (Tika)|Words (Textract)|Words (EbookLib)|
-|:--|:--|:--|:--|
-|eern001lief01_01.epub|25450|1|25446|
-|spro002mure01_01.epub|50553|0|50549|
-|berk011veel01_01.epub|67978|0|67974|
-|sche034drie01_01.epub|203853|3|203352|
-|jous010supe01_01.epub|202495|0|202491|
-|dele035wegv01_01.epub|76536|0|76530|
-|verv017eerl01_01.epub|33844|0|33840|
-|dhae007euro01_01.epub|394455|2|394400|
-|gomm002uurw01_01.epub|43754|0|43731|
-|gang009lalb01_01.epub|28453|4|28381|
-|geel005bloe01_01.epub|76316|0|76312|
-|hart008droo02_01.epub|77283|0|77279|
-|eede003vand04_01.epub|120481|6|120310|
-|meij031tuss02_01.epub|145678|4|145665|
-|maas013blau01_01.epub|55099|0|55093|
+|File name|Words (Tika)|Words (Textract)|Words (EbookLib)|Words (PyMuPDF)|
+|:--|:--|:--|:--|:--|
+|eern001lief01_01.epub|25450|1|25446|25451|
+|spro002mure01_01.epub|50553|0|50549|50554|
+|berk011veel01_01.epub|67978|0|67974|67978|
+|sche034drie01_01.epub|203853|3|203352|203864|
+|jous010supe01_01.epub|202495|0|202491|202494|
+|dele035wegv01_01.epub|76536|0|76530|76530|
+|verv017eerl01_01.epub|33844|0|33840|33855|
+|dhae007euro01_01.epub|394455|2|394400|394879|
+|gomm002uurw01_01.epub|43754|0|43731|43748|
+|gang009lalb01_01.epub|28453|4|28381|28390|
+|geel005bloe01_01.epub|76316|0|76312|76313|
+|hart008droo02_01.epub|77283|0|77279|77282|
+|eede003vand04_01.epub|120481|6|120310|120553|
+|meij031tuss02_01.epub|145678|4|145665|145692|
+|maas013blau01_01.epub|55099|0|55093|55108|
 
-Note the extreme (near zero) word counts for Textract. The results for Tika and EbookLib are roughly the same.
+Note the extreme (near zero) word counts for Textract. The results for Tika, EbookLib and PyMuPDF are roughly the same.
 
 Running the scripts on the Standard Ebooks EPUBs gave the following result: 
 
-|File name|Words (Tika)|Words (Textract)|Words (EbookLib)|
-|:--|:--|:--|:--|
-|william-shakespeare_king-lear.epub|28442|18621|28430|
-|david-garnett_lady-into-fox.epub|25240|25223|25228|
-|joseph-conrad_heart-of-darkness.epub|38717|38698|38705|
-|anthony-trollope_the-dukes-children.epub|223014|222995|223002|
-|agatha-christie_the-mysterious-affair-at-styles.epub|57401|57229|57271|
-|edgar-allan-poe_the-narrative-of-arthur-gordon-pym-of-nantucket.epub|71931|71837|71863|
-|p-g-wodehouse_short-fiction.epub|212224|212182|212212|
-|robert-louis-stevenson_the-strange-case-of-dr-jekyll-and-mr-hyde.epub|26370|26345|26358|
-|h-g-wells_the-time-machine.epub|33044|33024|33032|
-|thorstein-veblen_the-theory-of-the-leisure-class.epub|106537|106515|106525|
+|File name|Words (Tika)|Words (Textract)|Words (EbookLib)|Words (PyMuPDF)|
+|:--|:--|:--|:--|:--|
+|william-shakespeare_king-lear.epub|28442|18621|28430|28357|
+|david-garnett_lady-into-fox.epub|25240|25223|25228|25208|
+|joseph-conrad_heart-of-darkness.epub|38717|38698|38705|38735|
+|anthony-trollope_the-dukes-children.epub|223014|222995|223002|222712|
+|agatha-christie_the-mysterious-affair-at-styles.epub|57401|57229|57271|57227|
+|edgar-allan-poe_the-narrative-of-arthur-gordon-pym-of-nantucket.epub|71931|71837|71863|71844|
+|p-g-wodehouse_short-fiction.epub|212224|212182|212212|212186|
+|robert-louis-stevenson_the-strange-case-of-dr-jekyll-and-mr-hyde.epub|26370|26345|26358|26291|
+|h-g-wells_the-time-machine.epub|33044|33024|33032|33018|
+|thorstein-veblen_the-theory-of-the-leisure-class.epub|106537|106515|106525|106512|
 
-In this case, all three tools resulted in similar word counts. The exception here is the "King Lear" EPUB, which for Textract gave a word count that was about 10 thousand lower than for the other tools. I haven't looked in detail where this difference is coming from exactly, but it confirms that in its current state, Textract isn't a suitable tool for our purposes.
+In this case, all four tools resulted in similar word counts. The exception here is the "King Lear" EPUB, which for Textract gave a word count that was about 10 thousand lower than for the other tools. I haven't looked in detail where this difference is coming from exactly, but it confirms that in its current state, Textract isn't a suitable tool for our purposes.
 
 ## Table of Contents
 
-Depending on the structure of the source EPUB, the extraction result may or may not contain a table of contents. In [EPUB 2](https://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm), the table of contents is implemented as an XML-formatted "Navigation Control File" (NCX). The NCX was replaced by the ["Navigation Document"](https://www.w3.org/publishing/epub3/epub-overview.html#sec-nav-nav-doc) (which is an XHTML file) in EPUB 3. Neither Tika nor EbookLib extract NCX resources, but both do extract Navigation Documents. Consequently, in most cases the extraction result only includes a table of contents for EPUB 3 files. Textract extracts neither the NCX nor the Navigation Document.
+Depending on the structure of the source EPUB, the extraction result may or may not contain a table of contents. In [EPUB 2](https://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm), the table of contents is implemented as an XML-formatted "Navigation Control File" (NCX). The NCX was replaced by the ["Navigation Document"](https://www.w3.org/publishing/epub3/epub-overview.html#sec-nav-nav-doc) (which is an XHTML file) in EPUB 3. Neither Tika nor EbookLib extract NCX resources, but both do extract Navigation Documents. Consequently, in most cases the extraction result only includes a table of contents for EPUB 3 files. Both Textract and PyMuPDF extract neither the NCX nor the Navigation Document.
 
 ## Conclusions
 
-Based on these tests, both Tika-python and EbookLib look like potentially suitable Python-based tools for extracting unformatted text from EPUB files. Out of these, Tika-python provides the most straightforward interface. Tika also supports a wide range of other file formats, so any code based on Tika's text extraction can be easily extended to other formats later.
+Based on these tests, Tika-python, EbookLib and PyMuPDF all look like potentially suitable Python-based tools for extracting unformatted text from EPUB files. Out of these, Tika-python provides the most straightforward interface. Tika also supports a wide range of other file formats, so any code based on Tika's text extraction can be easily extended to other formats later.
 
 The inclusion of tags and alt-text descriptions for images in Tika's output may be a problem though. As an example, imagine a researcher who uses Tika-python to analyse the emergence of certain words or phrases through time using EPUB versions of 19th century books. Any alt-text descriptions in such materials would most likely be contemporary, and as such they would "pollute" the original "signal" (19th century text) with modern language. So, prospective users of Tika-python should carefully review whether this behaviour is acceptable for their use case. The inclusion of optical character recognition output from embedded images in the extraction result can also result in some unexpected surprises, so it's important that users are aware of Tika's default behaviour in this regard.
 
 EbookLib doesn't have these drawbacks, but the absence of a high-level text extraction interface does require some more work on the user's side. Also, since EbookLib only supports a limited number of Ebook formats, extending any code based on it to other file formats will be less straightforward.
+
+Although PyMuPDF generally looks useful for EPUB text extraction, its built-in text wrapping with the addition of linebreaks might be unwanted for some use cases. PyMuPDF's page-based document model also makes this library somewhat more involved to use, compared against the other tested tools.
 
 In its current form, Textract is not suitable for our use case.
 
@@ -266,6 +332,10 @@ It's important to highlight the limitations of this analysis. First, it is based
 EPUB text extraction demo:
 
 <https://github.com/KBNLresearch/textExtractDemo>
+
+## Revision history
+
+- 21 January 2025: added PyMuPDF analysis.
 
 [^1]: For convenience I actually used the EPUBCheck Python wrapper: <https://github.com/titusz/epubcheck/>.
 
