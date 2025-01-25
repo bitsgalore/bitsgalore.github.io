@@ -872,7 +872,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - 16 February 2023: added section on reducing PDF file size with ImageMagick's *convert* tool.
 - 26 September 2024: corrected mutool stream content extraction example.
 - 18 December 2024: added section on Arlington PDF Model Checker.
-- 25 January 2025: added section on incremental updates and document versions
+- 25 January 2025: added section on incremental updates and document versions.
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
