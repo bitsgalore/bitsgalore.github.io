@@ -30,6 +30,7 @@ Over the years, I've been using a variety of open-source software tools for solv
 - File size reduction of PDF with hi-res graphics
 - Inspection of low-level PDF structure
 - View, search and extract low-level PDF objects
+- Incremental updates and document versions: get information about the number of incremental updates, and restore previous versions
 
 <!-- more -->
 
@@ -793,6 +794,53 @@ Result:
 25 0 obj <</BitsPerComponent 8/ColorSpace/DeviceRGB/Filter/DCTDecode/Height 676/Length 141081/Subtype/Image/Type/XObject/Width 1014>> stream
 ```
 
+## Incremental updates and document versions
+
+The [*pdfresurrect*](https://github.com/enferex/pdfresurrect) tool[^10] allows you to inspect a PDF for incremental updates, and restore previous versions of the document.
+
+### Show the number of incremental updates/versions
+
+To show the number of incremental updates, use:
+
+```bash
+pdfresurrect -q whatever.pdf
+```
+
+Result:
+
+```
+whatever.pdf: 8
+```
+
+So, in this case the PDF contains 8 versions, which means that after its initial creation it was updated 7 times.
+
+### Restore all versions 
+
+To restore all versions of a PDF, use:
+
+```bash
+pdfresurrect -w whatever.pdf
+```
+
+This creates a directory "whatever-versions" with all versions of the file, as well as a text file with a summary of the changes between the versions:
+
+```
+./whatever-versions/
+├── whatever-version-1.pdf
+├── whatever-version-2.pdf
+├── whatever-version-3.pdf
+├── whatever-version-4.pdf
+├── whatever-version-5.pdf
+├── whatever-version-6.pdf
+├── whatever-version-7.pdf
+├── whatever-version-8.pdf
+└── whatever-versions.summary
+```
+
+### Remove information from previous versions
+
+*Pdfresurrect* also allows you to remove ("scrub") the information from previous versions altogether, using the `-s` switch. However, the [documentation](https://github.com/enferex/pdfresurrect) warns that this functionality is experimental, and that it "should not be trusted for any serious security uses". It also mentions that "currently this feature will likely not render a working pdf". I did a quick test on a PDF with 8 document versions. For the resulting "scrubbed" PDF, running *pdfresurrect* with the `-q` switch still resulted in 8 reported versions, and running it with the `-w` switch resulted in 8 restored versions (which oddly were not identical to the versions retored from the original file). In its current state I wouldn't recommend using this feature.
+
 ## Final remarks
 
 I intend to make this post a "living" document, and will add more PDF "recipes" over time. Feel free to leave a comment in case you spot any errors or omissions!
@@ -824,6 +872,7 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 - 16 February 2023: added section on reducing PDF file size with ImageMagick's *convert* tool.
 - 26 September 2024: corrected mutool stream content extraction example.
 - 18 December 2024: added section on Arlington PDF Model Checker.
+- 25 January 2025: added section on incremental updates and document versions
 
 [^1]: Command line: `pdfinfo whatever.pdf`
 
@@ -842,3 +891,5 @@ Someone created a [Hacker News topic on this post](https://news.ycombinator.com/
 [^8]: See the "Limitations" section in [the Arlington Model readme](https://github.com/pdf-association/arlington-pdf-model). Personally, I'd be really excited to see some future software tool that combines the Arlington Model logic with additional checks for aspects that are not covered by it, such as file structure and cross-reference tables. This could really be the ultimate PDF validator, that would make several other tools in this section obsolete.
 
 [^9]: Because of of this near-complete coverage of PDF objects, it's also likely to report more problems for any given file than other tools. Since PDF readers are generally quite forgiving of common deviations of the specifification, many of these problems won't affect rendering. There's not much to do about this, as a validator by defininition needs to be strict.
+
+[^10]: On Debian-based systems you can install it using `sudo apt install pdfresurrect`.
