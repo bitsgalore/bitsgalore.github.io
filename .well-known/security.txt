@@ -1,5 +1,0 @@
-Contact: mailto:security@bitsgalore.org
-Expires: 2025-02-10T23:00:00.000Z
-Acknowledgments: https://www.bitsgalore.org/hackers-hall-of-fame.html
-Preferred-Languages: en,nl
-
